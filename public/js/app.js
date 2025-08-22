@@ -25,8 +25,9 @@ import { SimpleTabSync } from './utils/SimpleTabSync.js';
 
 /**
  * Application initialization
+ * Called by AppInitializer after browser compatibility check
  */
-async function initApp() {
+export async function initApp() {
   try {
     console.log('🚀 Initializing Daily AI...');
     
