@@ -654,3 +654,22 @@ Build the application in the following logical order.
   - Test scroll-to-top button functionality with device-appropriate sizing
   - Test Today button navigation and auto-scroll on all devices
   - Validate smart duration suggestions work across all screen sizes
+
+---
+
+## 🚀 Getting Started
+
+**Quick Setup:**
+1. **Firebase Setup**: See `docs/specs/FIREBASE_SETUP_GUIDE.md`
+2. **Development**: See `docs/specs/SIMPLE_DEV_ENVIRONMENT_SPEC.md`
+
+**Deploy to Firebase:**
+```bash
+firebase deploy
+```
+
+**Local Development:**
+- Open `public/index.html` in browser
+- Or use Firebase emulators: `firebase serve`
+
+**Repository:** Auto-deployed via GitHub Actions on push to main branch.

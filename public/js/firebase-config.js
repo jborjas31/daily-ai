@@ -1,5 +1,5 @@
-// Simple Firebase Configuration
-// Your actual Firebase config
+// Firebase Configuration
+// Note: These credentials are safe for client-side use and meant to be public
 const firebaseConfig = {
   apiKey: "AIzaSyCQR37uq-MVrMhzhA5RN3GlZQ5boc3oAsU",
   authDomain: "daily-ai-3b51f.firebaseapp.com",
