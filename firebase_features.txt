@@ -1,0 +1,10 @@
+App Hosting: Enable web app deployments with App Hosting
+ ◯ Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
+ ◯ Storage: Configure a security rules file for Cloud Storage
+◯ Emulators: Set up local emulators for Firebase products
+ ◯ Remote Config: Configure a template file for Remote Config
+ ◯ Extensions: Set up an empty Extensions manifest
+ ◯ Realtime Database: Configure a security rules file for Realtime Database and (optionally) provision default instance
+Data Connect: Set up a Firebase Data Connect service❯◯ Firestore: Configure security rules and indexes files for Firestore
+ ◯ Genkit: Setup a new Genkit project with Firebase
+ ◯ Functions: Configure a Cloud Functions directory and its files

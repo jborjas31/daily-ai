@@ -1,0 +1,48 @@
+/* Daily AI - Component Styles */
+
+/* Component styles will be implemented here during development */
+/* See docs/DESIGN_SYSTEM.md for complete specifications */
+
+/* Buttons */
+.btn {
+  /* Button styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+.btn-primary {
+  /* Primary button styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+.btn-secondary {
+  /* Secondary button styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+.fab {
+  /* Floating Action Button styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+/* Form Elements */
+.input {
+  /* Input styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+.label {
+  /* Label styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+/* Cards and Containers */
+.card {
+  /* Card styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+.container {
+  /* Container styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+/* Modals */
+.modal-overlay {
+  /* Modal overlay styles from DESIGN_SYSTEM.md will be implemented here */
+}
+
+.modal {
+  /* Modal styles from DESIGN_SYSTEM.md will be implemented here */
+}

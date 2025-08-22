@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily AI - Offline</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #FAFAF9 0%, #F5F5F4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1C1917;
+        }
+        .offline-container {
+            text-align: center;
+            max-width: 400px;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        .offline-icon {
+            width: 80px;
+            height: 80px;
+            background: #3B82F6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0 0 16px;
+            color: #1C1917;
+        }
+        p {
+            color: #57534E;
+            margin: 0 0 24px;
+            line-height: 1.6;
+        }
+        .btn {
+            background: #3B82F6;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #1E40AF;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L13.09 8.26L22 9L13.09 15.74L12 22L10.91 15.74L2 9L10.91 8.26L12 2Z" fill="white"/>
+            </svg>
+        </div>
+        <h1>You're Offline</h1>
+        <p>Daily AI needs an internet connection to sync your latest tasks. Your cached data is still available.</p>
+        <a href="/" class="btn">Try Again</a>
+    </div>
+    
+    <script>
+        // Automatically retry when online
+        window.addEventListener('online', () => {
+            window.location.href = '/';
+        });
+    </script>
+</body>
+</html>
