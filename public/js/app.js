@@ -21,6 +21,7 @@ import { dataUtils } from './data.js';
 // Import error handling utilities
 import { SimpleValidation } from './utils/SimpleValidation.js';
 import { SimpleNetworkChecker } from './utils/SimpleNetworkChecker.js';
+import { SimpleTabSync } from './utils/SimpleTabSync.js';
 
 /**
  * Application initialization
@@ -32,6 +33,10 @@ async function initApp() {
     // Setup network monitoring
     SimpleNetworkChecker.setupNetworkMonitoring();
     console.log('✅ Network monitoring initialized');
+    
+    // Initialize tab synchronization
+    window.tabSync = new SimpleTabSync();
+    console.log('✅ Tab synchronization initialized');
     
     // Initialize Firebase first
     await initFirebase();

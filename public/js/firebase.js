@@ -1,6 +1,7 @@
 // Simple Firebase Integration
 import { firebaseConfig } from './firebase-config.js';
 import { SimpleErrorHandler } from './utils/SimpleErrorHandler.js';
+import { SimpleTabSync } from './utils/SimpleTabSync.js';
 
 // Import Firebase (using CDN for simplicity)
 let app, auth, db;
@@ -111,6 +112,102 @@ async function safeSetDocument(docPath, data, loadingMessage = 'Saving...') {
   );
 }
 
+// Enhanced functions with tab synchronization
+async function createTaskWithSync(taskData) {
+  try {
+    // Save to Firebase
+    const result = await safeSaveData(`users/${taskData.userId}/tasks`, taskData, 'Saving task...');
+    
+    if (result.success) {
+      // Notify other tabs
+      if (window.tabSync) {
+        window.tabSync.notifyTaskChanged();
+        window.tabSync.notifyUserAction('task-created', { 
+          taskName: taskData.taskName 
+        });
+      }
+      
+      SimpleErrorHandler.showSuccess('Task created!');
+      return result;
+    }
+    
+    return result;
+  } catch (error) {
+    console.error('Error creating task with sync:', error);
+    SimpleErrorHandler.handleFirebaseError(error);
+    return { success: false, error };
+  }
+}
+
+// Enhanced task completion with tab sync
+async function completeTaskWithSync(userId, taskId) {
+  try {
+    const result = await safeUpdateData(
+      `users/${userId}/task_instances/${taskId}`, 
+      { 
+        status: 'completed', 
+        completedAt: Date.now(),
+        lastModified: Date.now()
+      }, 
+      'Completing task...'
+    );
+    
+    if (result.success) {
+      if (window.tabSync) {
+        window.tabSync.notifyTaskChanged();
+        window.tabSync.notifyUserAction('task-completed', { taskId });
+      }
+      return result;
+    }
+    
+    return result;
+  } catch (error) {
+    console.error('Error completing task with sync:', error);
+    SimpleErrorHandler.handleFirebaseError(error);
+    return { success: false, error };
+  }
+}
+
+// Enhanced settings update with tab sync
+async function updateSettingsWithSync(userId, newSettings) {
+  try {
+    const settingsData = {
+      ...newSettings,
+      lastModified: Date.now()
+    };
+    
+    const result = await safeSetDocument(`users/${userId}`, settingsData, 'Saving settings...');
+    
+    if (result.success) {
+      if (window.tabSync) {
+        window.tabSync.notifySettingsChanged();
+      }
+      
+      SimpleErrorHandler.showSuccess('Settings updated!');
+      return result;
+    }
+    
+    return result;
+  } catch (error) {
+    console.error('Error updating settings with sync:', error);
+    SimpleErrorHandler.handleFirebaseError(error);
+    return { success: false, error };
+  }
+}
+
+// Enhanced task loading with user scope
+async function loadUserTasks(userId) {
+  return await safeFirebaseOperation(
+    () => db.collection(`users/${userId}/tasks`).where('isActive', '==', true).get(),
+    'Loading tasks...'
+  );
+}
+
+// Enhanced settings loading
+async function loadUserSettings(userId) {
+  return await safeGetDocument(`users/${userId}`, 'Loading settings...');
+}
+
 export { 
   initFirebase, 
   onAuthStateChanged, 
@@ -123,6 +220,11 @@ export {
   safeLoadData,
   safeGetDocument,
   safeSetDocument,
+  createTaskWithSync,
+  completeTaskWithSync,
+  updateSettingsWithSync,
+  loadUserTasks,
+  loadUserSettings,
   SimpleErrorHandler,
   auth,
   db 
