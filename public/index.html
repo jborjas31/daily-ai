@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/css/timeline.css">
     <link rel="stylesheet" href="/css/components.css">
     <link rel="stylesheet" href="/css/modern-features.css">
+    <link rel="stylesheet" href="/css/responsive-navigation.css">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
@@ -49,26 +50,206 @@
         
         <!-- Main App -->
         <div id="main-app" class="main-app" style="display: none;">
-            <!-- Header -->
-            <header id="app-header" class="app-header">
-                <!-- Header content will be rendered here -->
+            <!-- Responsive Header -->
+            <header id="app-header" class="app-header" role="banner">
+                <!-- Mobile Header (320-767px) -->
+                <div class="mobile-header tablet-up-hidden">
+                    <div class="mobile-header-content">
+                        <h1 class="app-title">Daily AI</h1>
+                        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                            <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+                                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Collapsible Menu -->
+                    <nav id="mobile-nav-menu" class="mobile-nav-menu" role="navigation" aria-label="Main navigation" style="display: none;">
+                        <ul class="mobile-nav-list">
+                            <li>
+                                <button id="mobile-today-btn" class="mobile-nav-item active" data-view="today" aria-current="page">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Today</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button id="mobile-library-btn" class="mobile-nav-item" data-view="library">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Task Library</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button id="mobile-settings-btn" class="mobile-nav-item" data-view="settings">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Settings</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Desktop Header (768px+) -->
+                <div class="desktop-header mobile-only-hidden">
+                    <div class="desktop-header-content">
+                        <div class="desktop-header-left">
+                            <h1 class="app-title">Daily AI</h1>
+                            <div class="current-view-info">
+                                <span id="current-date" class="current-date"></span>
+                                <span id="live-clock" class="live-clock"></span>
+                            </div>
+                        </div>
+                        
+                        <nav class="desktop-nav" role="navigation" aria-label="Main navigation">
+                            <ul class="desktop-nav-list">
+                                <li>
+                                    <button id="desktop-today-btn" class="desktop-nav-item active" data-view="today" aria-current="page">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                                            <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                                            <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                        <span>Today</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button id="desktop-library-btn" class="desktop-nav-item" data-view="library">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"/>
+                                            <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2"/>
+                                            <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+                                            <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                        <span>Task Library</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button id="desktop-settings-btn" class="desktop-nav-item" data-view="settings">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                        <span>Settings</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                        
+                        <div class="desktop-header-right">
+                            <button id="desktop-add-task-btn" class="desktop-add-task-btn" aria-label="Add Task">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Add Task</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </header>
             
-            <!-- Navigation -->
-            <nav id="app-navigation" class="app-navigation">
-                <!-- Navigation will be rendered here -->
-            </nav>
-            
-            <!-- Main Content -->
-            <main id="app-main" class="app-main">
-                <!-- Views will be rendered here -->
-                <div id="today-view" class="view"></div>
-                <div id="task-library-view" class="view" style="display: none;"></div>
-                <div id="settings-view" class="view" style="display: none;"></div>
+            <!-- Main Content Area -->
+            <main id="app-main" class="app-main" role="main">
+                <!-- Views Container -->
+                <div id="views-container" class="views-container">
+                    <!-- Today View -->
+                    <section id="today-view" class="view active" role="tabpanel" aria-labelledby="today-tab">
+                        <div class="view-header">
+                            <h2 class="view-title mobile-only">Today</h2>
+                            <div class="view-actions mobile-only">
+                                <!-- Mobile-specific actions -->
+                            </div>
+                        </div>
+                        <div class="view-content">
+                            <!-- Today view content will be rendered here -->
+                        </div>
+                    </section>
+                    
+                    <!-- Task Library View -->
+                    <section id="task-library-view" class="view" role="tabpanel" aria-labelledby="library-tab" style="display: none;">
+                        <div class="view-header">
+                            <h2 class="view-title">Task Library</h2>
+                            <div class="view-actions">
+                                <div class="search-container">
+                                    <input type="search" id="task-search" class="search-input" placeholder="Search tasks..." aria-label="Search tasks">
+                                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                                        <path d="21 21l-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-content">
+                            <!-- Task library content will be rendered here -->
+                        </div>
+                    </section>
+                    
+                    <!-- Settings View -->
+                    <section id="settings-view" class="view" role="tabpanel" aria-labelledby="settings-tab" style="display: none;">
+                        <div class="view-header">
+                            <h2 class="view-title">Settings</h2>
+                        </div>
+                        <div class="view-content">
+                            <!-- Settings content will be rendered here -->
+                        </div>
+                    </section>
+                </div>
             </main>
             
+            <!-- Mobile Bottom Navigation (320-767px) -->
+            <nav id="mobile-bottom-nav" class="mobile-bottom-nav tablet-up-hidden" role="navigation" aria-label="Bottom navigation">
+                <ul class="mobile-bottom-nav-list">
+                    <li>
+                        <button id="bottom-today-btn" class="mobile-bottom-nav-item active" data-view="today" aria-current="page">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            <span class="bottom-nav-label">Today</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="bottom-library-btn" class="mobile-bottom-nav-item" data-view="library">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                                <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="1.5"/>
+                                <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            <span class="bottom-nav-label">Library</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="bottom-settings-btn" class="mobile-bottom-nav-item" data-view="settings">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            <span class="bottom-nav-label">Settings</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            
             <!-- Floating Action Button (Mobile) -->
-            <button id="fab" class="fab" aria-label="Add Task">
+            <button id="fab" class="fab tablet-up-hidden" aria-label="Add Task">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>

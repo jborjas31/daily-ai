@@ -22,6 +22,7 @@ import { dataUtils } from './data.js';
 import { SimpleValidation } from './utils/SimpleValidation.js';
 import { SimpleNetworkChecker } from './utils/SimpleNetworkChecker.js';
 import { SimpleTabSync } from './utils/SimpleTabSync.js';
+import { ResponsiveNavigation } from './utils/ResponsiveNavigation.js';
 
 /**
  * Application initialization
@@ -305,54 +306,36 @@ function setupAppHeader() {
  * Set up app navigation
  */
 function setupAppNavigation() {
-  const navigation = document.getElementById('app-navigation');
-  const currentView = state.getCurrentView();
+  // Initialize responsive navigation system
+  window.responsiveNavigation = new ResponsiveNavigation();
+  console.log('✅ Responsive navigation system initialized');
   
-  navigation.innerHTML = `
-    <nav style="
-      display: flex;
-      background: white;
-      border-bottom: 1px solid #E5E7EB;
-      padding: 0 2rem;
-    ">
-      <button id="nav-today" class="nav-btn ${currentView === 'today' ? 'active' : ''}" data-view="today">
-        Today
-      </button>
-      <button id="nav-library" class="nav-btn ${currentView === 'library' ? 'active' : ''}" data-view="library">
-        Task Library
-      </button>
-      <button id="nav-settings" class="nav-btn ${currentView === 'settings' ? 'active' : ''}" data-view="settings">
-        Settings
-      </button>
-    </nav>
+  // Setup event listeners for view changes and add task actions
+  document.addEventListener('viewChange', (e) => {
+    const { newView, previousView } = e.detail;
+    console.log(`📄 View changed from ${previousView} to ${newView}`);
     
-    <style>
-      .nav-btn {
-        padding: 1rem 1.5rem;
-        border: none;
-        background: none;
-        color: #6B7280;
-        cursor: pointer;
-        border-bottom: 3px solid transparent;
-        font-weight: 500;
-        transition: all 0.2s;
-      }
-      .nav-btn:hover {
-        color: #3B82F6;
-      }
-      .nav-btn.active {
-        color: #3B82F6;
-        border-bottom-color: #3B82F6;
-      }
-    </style>
-  `;
+    // Update application state
+    state.setCurrentView(newView);
+    
+    // Handle view-specific initialization
+    switch (newView) {
+      case 'today':
+        showTodayView();
+        break;
+      case 'library':
+        showTaskLibraryView();
+        break;
+      case 'settings':
+        showSettingsView();
+        break;
+    }
+  });
   
-  // Add navigation event listeners
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const view = e.target.dataset.view;
-      switchToView(view);
-    });
+  document.addEventListener('addTask', (e) => {
+    const { source, currentView } = e.detail;
+    console.log(`➕ Add task triggered from ${source} while in ${currentView} view`);
+    handleAddTaskAction();
   });
 }
 
@@ -744,6 +727,19 @@ function setupAuthEventListeners() {
 /**
  * Show critical error message (used for app initialization failures)
  */
+/**
+ * Handle add task action from navigation
+ */
+function handleAddTaskAction() {
+  console.log('🚀 Opening task creation modal...');
+  
+  // For now, show a simple alert - this will be replaced with actual modal in later phases
+  alert('Add Task feature coming soon! This will open the task creation modal.');
+  
+  // TODO: In Phase 4, this will open the unified task editor modal
+  // Example: openTaskEditorModal({ mode: 'create' });
+}
+
 function showErrorMessage(message) {
   // For critical errors, show using SimpleErrorHandler and offer reload
   SimpleErrorHandler.showError(message);
