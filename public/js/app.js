@@ -5,12 +5,22 @@
  * and starts the Daily AI task management application.
  */
 
-// Import Firebase module
-import { initFirebase, onAuthStateChanged, signInWithEmail, createUserWithEmail } from './firebase.js';
+// Import Firebase module with error handling
+import { 
+  initFirebase, 
+  onAuthStateChanged, 
+  safeSignIn, 
+  safeCreateUser,
+  SimpleErrorHandler 
+} from './firebase.js';
 
 // Import data and state management
 import { state, stateListeners, stateActions } from './state.js';
 import { dataUtils } from './data.js';
+
+// Import error handling utilities
+import { SimpleValidation } from './utils/SimpleValidation.js';
+import { SimpleNetworkChecker } from './utils/SimpleNetworkChecker.js';
 
 /**
  * Application initialization
@@ -18,6 +28,10 @@ import { dataUtils } from './data.js';
 async function initApp() {
   try {
     console.log('🚀 Initializing Daily AI...');
+    
+    // Setup network monitoring
+    SimpleNetworkChecker.setupNetworkMonitoring();
+    console.log('✅ Network monitoring initialized');
     
     // Initialize Firebase first
     await initFirebase();
@@ -34,7 +48,9 @@ async function initApp() {
         state.setUser(user);
         
         try {
-          // Initialize user data and load settings
+          // Initialize user data and load settings with error handling
+          SimpleErrorHandler.showLoading('Loading your data...');
+          
           await stateActions.initializeUser();
           await stateActions.loadTaskTemplates();
           
@@ -43,10 +59,12 @@ async function initApp() {
           await stateActions.loadTaskInstancesForDate(today);
           await stateActions.loadDailyScheduleForDate(today);
           
+          SimpleErrorHandler.hideLoading();
           showMainApp();
         } catch (error) {
+          SimpleErrorHandler.hideLoading();
           console.error('❌ Error initializing user data:', error);
-          showErrorMessage('Failed to load user data. Please try refreshing the page.');
+          SimpleErrorHandler.showError('Failed to load user data. Please try refreshing the page.', error);
         }
       } else {
         console.log('🔒 User not authenticated, showing login');
@@ -60,7 +78,7 @@ async function initApp() {
   } catch (error) {
     console.error('❌ Failed to initialize Daily AI:', error);
     document.getElementById('loading-screen').style.display = 'none';
-    showErrorMessage(error.message);
+    SimpleErrorHandler.showError('Failed to initialize the application. Please refresh the page and try again.', error);
   }
 }
 
@@ -620,20 +638,45 @@ function setupAuthEventListeners() {
   // Handle form submission (login)
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    
+    // Clear previous validation errors
+    SimpleValidation.clearValidationError(emailInput);
+    SimpleValidation.clearValidationError(passwordInput);
+    errorDiv.style.display = 'none';
+    
+    // Validate email
+    const emailValidation = SimpleValidation.validateEmail(email);
+    if (!emailValidation.valid) {
+      SimpleValidation.showValidationError(emailInput, emailValidation.message);
+      return;
+    }
+    
+    // Validate password
+    const passwordValidation = SimpleValidation.validatePassword(password);
+    if (!passwordValidation.valid) {
+      SimpleValidation.showValidationError(passwordInput, passwordValidation.message);
+      return;
+    }
+    
+    // Check network connection
+    if (!SimpleNetworkChecker.checkConnectionBeforeAction()) {
+      return;
+    }
     
     try {
       loginBtn.textContent = 'Signing in...';
       loginBtn.disabled = true;
-      errorDiv.style.display = 'none';
       
-      await signInWithEmail(email, password);
-      console.log('✅ Login successful');
+      const result = await safeSignIn(email, password);
       
-    } catch (error) {
-      console.error('❌ Login failed:', error);
-      showAuthError(getAuthErrorMessage(error.code));
+      if (!result.success) {
+        // Error already handled by safeSignIn
+        console.log('Login failed');
+      }
       
     } finally {
       loginBtn.textContent = 'Sign In';
@@ -643,30 +686,45 @@ function setupAuthEventListeners() {
   
   // Handle signup button
   signupBtn.addEventListener('click', async () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const email = emailInput.value;
+    const password = passwordInput.value;
     
-    if (!email || !password) {
-      showAuthError('Please enter both email and password');
+    // Clear previous validation errors
+    SimpleValidation.clearValidationError(emailInput);
+    SimpleValidation.clearValidationError(passwordInput);
+    errorDiv.style.display = 'none';
+    
+    // Validate email
+    const emailValidation = SimpleValidation.validateEmail(email);
+    if (!emailValidation.valid) {
+      SimpleValidation.showValidationError(emailInput, emailValidation.message);
       return;
     }
     
-    if (password.length < 6) {
-      showAuthError('Password must be at least 6 characters long');
+    // Validate password
+    const passwordValidation = SimpleValidation.validatePassword(password);
+    if (!passwordValidation.valid) {
+      SimpleValidation.showValidationError(passwordInput, passwordValidation.message);
+      return;
+    }
+    
+    // Check network connection
+    if (!SimpleNetworkChecker.checkConnectionBeforeAction()) {
       return;
     }
     
     try {
       signupBtn.textContent = 'Creating account...';
       signupBtn.disabled = true;
-      errorDiv.style.display = 'none';
       
-      await createUserWithEmail(email, password);
-      console.log('✅ Signup successful');
+      const result = await safeCreateUser(email, password);
       
-    } catch (error) {
-      console.error('❌ Signup failed:', error);
-      showAuthError(getAuthErrorMessage(error.code));
+      if (!result.success) {
+        // Error already handled by safeCreateUser
+        console.log('Signup failed');
+      }
       
     } finally {
       signupBtn.textContent = 'Create Account';
@@ -675,60 +733,41 @@ function setupAuthEventListeners() {
   });
 }
 
-/**
- * Show authentication error message
- */
-function showAuthError(message) {
-  const errorDiv = document.getElementById('auth-error');
-  errorDiv.textContent = message;
-  errorDiv.style.display = 'block';
-}
+// Note: Authentication error messages are now handled by SimpleErrorHandler.getFriendlyMessage()
 
 /**
- * Get user-friendly error message
- */
-function getAuthErrorMessage(errorCode) {
-  switch (errorCode) {
-    case 'auth/user-not-found':
-      return 'No account found with this email. Try creating a new account.';
-    case 'auth/wrong-password':
-      return 'Incorrect password. Please try again.';
-    case 'auth/email-already-in-use':
-      return 'An account with this email already exists. Try signing in instead.';
-    case 'auth/weak-password':
-      return 'Password is too weak. Please choose a stronger password.';
-    case 'auth/invalid-email':
-      return 'Please enter a valid email address.';
-    default:
-      return 'Authentication failed. Please try again.';
-  }
-}
-
-/**
- * Show error message
+ * Show critical error message (used for app initialization failures)
  */
 function showErrorMessage(message) {
-  document.getElementById('auth-container').style.display = 'none';
-  document.getElementById('main-app').style.display = 'block';
+  // For critical errors, show using SimpleErrorHandler and offer reload
+  SimpleErrorHandler.showError(message);
   
-  const mainContent = document.getElementById('app-main');
-  mainContent.innerHTML = `
-    <div style="text-align: center; padding: 2rem;">
-      <h2 style="color: #EF4444; margin-bottom: 1rem;">Error</h2>
-      <p style="color: #57534E;">${message}</p>
-      <button onclick="location.reload()" style="
-        margin-top: 1rem;
-        padding: 0.75rem 1.5rem;
-        background: #3B82F6;
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-      ">
-        Try Again
-      </button>
-    </div>
-  `;
+  // Also show in UI if possible
+  try {
+    document.getElementById('auth-container').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    
+    const mainContent = document.getElementById('app-main');
+    mainContent.innerHTML = `
+      <div style="text-align: center; padding: 2rem;">
+        <h2 style="color: #EF4444; margin-bottom: 1rem;">Application Error</h2>
+        <p style="color: #57534E;">${message}</p>
+        <button onclick="location.reload()" style="
+          margin-top: 1rem;
+          padding: 0.75rem 1.5rem;
+          background: #3B82F6;
+          color: white;
+          border: none;
+          border-radius: 0.5rem;
+          cursor: pointer;
+        ">
+          Reload Application
+        </button>
+      </div>
+    `;
+  } catch (error) {
+    console.error('Failed to show error UI:', error);
+  }
 }
 
 // Initialize app when DOM is loaded
