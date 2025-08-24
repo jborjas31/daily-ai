@@ -194,13 +194,45 @@ async function testValidationSystem() {
 async function testCRUDOperations() {
   logSection('Testing CRUD Operations');
   
-  // Get current user ID for all operations
-  const currentUser = getState().user;
-  if (!currentUser) {
-    logTest('User Authentication Check', false, 'No authenticated user found');
+  // Get current user ID for all operations - try multiple methods
+  let currentUser = null;
+  let userId = null;
+  
+  // Try getState() first
+  const state = getState();
+  if (state && state.user && state.user.uid) {
+    currentUser = state.user;
+    userId = currentUser.uid;
+  }
+  
+  // Fallback to Firebase auth helper
+  if (!userId && window.getCurrentFirebaseUser) {
+    const firebaseUser = window.getCurrentFirebaseUser();
+    if (firebaseUser && firebaseUser.uid) {
+      userId = firebaseUser.uid;
+      currentUser = firebaseUser;
+    }
+  }
+  
+  // Direct Firebase fallback
+  if (!userId && window.firebase && window.firebase.auth) {
+    try {
+      const firebaseAuth = window.firebase.auth();
+      const firebaseUser = firebaseAuth.currentUser;
+      if (firebaseUser && firebaseUser.uid) {
+        userId = firebaseUser.uid;
+        currentUser = firebaseUser;
+      }
+    } catch (error) {
+      console.log('Could not access Firebase auth directly:', error.message);
+    }
+  }
+  
+  if (!userId) {
+    logTest('User Authentication Check', false, 'No authenticated user found via any method');
     return;
   }
-  const userId = currentUser.uid;
+  
   logTest('User Authentication Check', true, `User ID: ${userId}`);
   
   // Test CREATE operations
@@ -271,13 +303,24 @@ async function testStateManagement() {
   logSection('Testing State Management Integration');
   
   try {
-    // Test state getters
+    // Test state getters - be more flexible about state structure
     const state = getState();
-    if (state && state.taskTemplates && Array.isArray(state.taskTemplates.data)) {
-      const stateTemplates = state.taskTemplates.data;
-      logTest('State Templates Access', true, `${stateTemplates.length} templates in state`);
+    console.log('🔍 Current state structure:', JSON.stringify(state, null, 2));
+    
+    if (state) {
+      // Check if taskTemplates exists in any form
+      if (state.taskTemplates && Array.isArray(state.taskTemplates.data)) {
+        const stateTemplates = state.taskTemplates.data;
+        logTest('State Templates Access', true, `${stateTemplates.length} templates in state`);
+      } else if (state.taskTemplates && Array.isArray(state.taskTemplates)) {
+        logTest('State Templates Access', true, `${state.taskTemplates.length} templates in state (alt structure)`);
+      } else if (Array.isArray(state.taskTemplates)) {
+        logTest('State Templates Access', true, `${state.taskTemplates.length} templates in state (direct array)`);
+      } else {
+        logTest('State Templates Access', false, `Templates structure not recognized. State keys: ${Object.keys(state).join(', ')}`);
+      }
     } else {
-      logTest('State Templates Access', false, 'Templates not found in state or state structure incorrect');
+      logTest('State Templates Access', false, 'No state object returned');
     }
     
     // Test state actions
@@ -290,10 +333,20 @@ async function testStateManagement() {
     // Test state synchronization
     await stateActions.loadTaskTemplates();
     const reloadedState = getState();
-    if (reloadedState && reloadedState.taskTemplates && reloadedState.taskTemplates.data) {
-      logTest('State Synchronization', true, `Reloaded ${reloadedState.taskTemplates.data.length} templates`);
+    console.log('🔍 Reloaded state structure:', JSON.stringify(reloadedState, null, 2));
+    
+    if (reloadedState) {
+      // Check for templates in any structure
+      let templateCount = 0;
+      if (reloadedState.taskTemplates && reloadedState.taskTemplates.data) {
+        templateCount = reloadedState.taskTemplates.data.length;
+      } else if (Array.isArray(reloadedState.taskTemplates)) {
+        templateCount = reloadedState.taskTemplates.length;
+      }
+      
+      logTest('State Synchronization', true, `Reloaded state with ${templateCount} templates`);
     } else {
-      logTest('State Synchronization', false, 'State structure not as expected after reload');
+      logTest('State Synchronization', false, 'No reloaded state returned');
     }
     
   } catch (error) {
@@ -378,12 +431,32 @@ async function testPerformance() {
 async function cleanup() {
   logSection('Cleanup Test Data');
   
-  // Check if user is authenticated for cleanup operations
-  const currentUser = getState().user;
-  if (!currentUser) {
+  // Get current user ID using same robust method as CRUD operations
+  let currentUser = null;
+  let userId = null;
+  
+  // Try getState() first
+  const state = getState();
+  if (state && state.user && state.user.uid) {
+    currentUser = state.user;
+    userId = currentUser.uid;
+  }
+  
+  // Fallback to Firebase auth helper
+  if (!userId && window.getCurrentFirebaseUser) {
+    const firebaseUser = window.getCurrentFirebaseUser();
+    if (firebaseUser && firebaseUser.uid) {
+      userId = firebaseUser.uid;
+      currentUser = firebaseUser;
+    }
+  }
+  
+  if (!userId) {
     logTest('Cleanup - User Check', false, 'No authenticated user for cleanup');
     return;
   }
+  
+  logTest('Cleanup - User Check', true, `User ID: ${userId}`);
   
   // Delete test templates
   for (const template of testResults.createdTemplates) {

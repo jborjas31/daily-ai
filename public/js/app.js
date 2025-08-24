@@ -327,5 +327,13 @@ window.taskTemplateManager = taskTemplateManager;
 window.getState = () => state;
 window.stateActions = stateActions;
 
+// Expose Firebase auth helper for testing
+window.getCurrentFirebaseUser = () => {
+  if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth()) {
+    return firebase.auth().currentUser;
+  }
+  return null;
+};
+
 console.log('✅ Daily AI application module loaded');
 console.log('🧪 Testing objects exposed globally for console access');
