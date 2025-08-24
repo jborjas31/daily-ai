@@ -64,7 +64,11 @@ export async function initApp() {
     
     // Set up authentication state observer
     onAuthStateChanged(async (user) => {
-      document.getElementById('loading-screen').style.display = 'none';
+      // Safely hide loading screen if it exists
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+      }
       
       if (user) {
         console.log('✅ User authenticated:', user.email);
