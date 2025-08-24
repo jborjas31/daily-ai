@@ -11,6 +11,7 @@ import { taskValidation } from './utils/TaskValidation.js';
  */
 function getCurrentUserId() {
   const user = auth.currentUser;
+  console.log('🔍 getCurrentUserId - auth.currentUser:', user ? user.uid : 'null');
   if (!user) {
     throw new Error('No authenticated user');
   }
@@ -93,6 +94,7 @@ export const taskTemplates = {
   async getAll(userId = null, options = {}) {
     try {
       const uid = userId || getCurrentUserId();
+      console.log('🔍 taskTemplates.getAll - Using userId:', uid);
       const {
         includeInactive = false,
         limit = null,
@@ -141,7 +143,9 @@ export const taskTemplates = {
         query = query.limit(limit);
       }
       
+      console.log('🔍 About to execute Firestore query...');
       const snapshot = await query.get();
+      console.log('🔍 Query executed successfully, processing results...');
       
       const tasks = [];
       snapshot.forEach(doc => {
@@ -152,6 +156,7 @@ export const taskTemplates = {
       return tasks;
     } catch (error) {
       console.error('❌ Error getting task templates:', error);
+      console.error('❌ Error details:', error.message, error.code);
       throw error;
     }
   },
