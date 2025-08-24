@@ -314,7 +314,7 @@ window.toggleTaskCompletion = async (taskId) => {
   }
 };
 
-// Initialize app when DOM is loaded
-document.addEventListener('DOMContentLoaded', initApp);
+// Note: App initialization now handled by AppInitializer.js
+// document.addEventListener('DOMContentLoaded', initApp);
 
 console.log('✅ Daily AI application module loaded');
