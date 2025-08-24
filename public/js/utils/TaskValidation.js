@@ -742,7 +742,6 @@ export class TaskValidationSystem {
 // Create singleton instance for easy access
 export const taskValidation = new TaskValidationSystem();
 
-// Export individual validators for advanced use cases
-export { TaskTemplateValidator, TaskInstanceValidator };
+// Individual validators already exported with their class definitions above
 
 console.log('✅ Task Validation System initialized');
