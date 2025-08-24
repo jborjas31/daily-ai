@@ -194,11 +194,20 @@ async function testValidationSystem() {
 async function testCRUDOperations() {
   logSection('Testing CRUD Operations');
   
+  // Get current user ID for all operations
+  const currentUser = getState().user;
+  if (!currentUser) {
+    logTest('User Authentication Check', false, 'No authenticated user found');
+    return;
+  }
+  const userId = currentUser.uid;
+  logTest('User Authentication Check', true, `User ID: ${userId}`);
+  
   // Test CREATE operations
   for (let i = 0; i < testTemplates.length; i++) {
     const template = testTemplates[i];
     try {
-      const created = await taskTemplateManager.create(template);
+      const created = await taskTemplateManager.create(userId, template);
       if (created && created.id) {
         testResults.createdTemplates.push(created);
         logTest(`CREATE Template ${i + 1} (${template.taskName})`, true, `ID: ${created.id}`);
@@ -226,7 +235,7 @@ async function testCRUDOperations() {
   
   // Test GET ALL operation
   try {
-    const allTemplates = await taskTemplateManager.getAll();
+    const allTemplates = await taskTemplateManager.getAll(userId);
     if (Array.isArray(allTemplates) && allTemplates.length >= testResults.createdTemplates.length) {
       logTest('GET ALL Templates', true, `Retrieved ${allTemplates.length} templates`);
     } else {
@@ -263,11 +272,12 @@ async function testStateManagement() {
   
   try {
     // Test state getters
-    const stateTemplates = getState().taskTemplates.data;
-    if (Array.isArray(stateTemplates)) {
+    const state = getState();
+    if (state && state.taskTemplates && Array.isArray(state.taskTemplates.data)) {
+      const stateTemplates = state.taskTemplates.data;
       logTest('State Templates Access', true, `${stateTemplates.length} templates in state`);
     } else {
-      logTest('State Templates Access', false, 'Templates not found in state');
+      logTest('State Templates Access', false, 'Templates not found in state or state structure incorrect');
     }
     
     // Test state actions
@@ -279,8 +289,12 @@ async function testStateManagement() {
     
     // Test state synchronization
     await stateActions.loadTaskTemplates();
-    const reloadedState = getState().taskTemplates.data;
-    logTest('State Synchronization', true, `Reloaded ${reloadedState.length} templates`);
+    const reloadedState = getState();
+    if (reloadedState && reloadedState.taskTemplates && reloadedState.taskTemplates.data) {
+      logTest('State Synchronization', true, `Reloaded ${reloadedState.taskTemplates.data.length} templates`);
+    } else {
+      logTest('State Synchronization', false, 'State structure not as expected after reload');
+    }
     
   } catch (error) {
     logTest('State Management', false, `Exception: ${error.message}`);
@@ -363,6 +377,13 @@ async function testPerformance() {
 
 async function cleanup() {
   logSection('Cleanup Test Data');
+  
+  // Check if user is authenticated for cleanup operations
+  const currentUser = getState().user;
+  if (!currentUser) {
+    logTest('Cleanup - User Check', false, 'No authenticated user for cleanup');
+    return;
+  }
   
   // Delete test templates
   for (const template of testResults.createdTemplates) {
