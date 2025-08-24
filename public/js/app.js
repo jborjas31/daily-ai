@@ -321,4 +321,11 @@ window.toggleTaskCompletion = async (taskId) => {
 // Note: App initialization now handled by AppInitializer.js
 // document.addEventListener('DOMContentLoaded', initApp);
 
+// Expose objects globally for testing purposes
+// This allows the comprehensive test script to access required modules
+window.taskTemplateManager = taskTemplateManager;
+window.getState = () => state;
+window.stateActions = stateActions;
+
 console.log('✅ Daily AI application module loaded');
+console.log('🧪 Testing objects exposed globally for console access');
