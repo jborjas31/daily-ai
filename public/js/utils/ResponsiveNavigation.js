@@ -1,9 +1,18 @@
+import { SafeInterval, SafeTimeout, SafeEventListener, ComponentManager } from './MemoryLeakPrevention.js';
+
 // Responsive Navigation Management
 class ResponsiveNavigation {
   constructor() {
     this.currentView = 'today';
     this.mobileMenuOpen = false;
     this.clockInterval = null;
+    
+    // Memory leak prevention tracking
+    this.eventListeners = [];
+    this.timeouts = [];
+    
+    // Register with memory manager
+    ComponentManager.register(this);
     
     this.init();
   }
@@ -29,25 +38,41 @@ class ResponsiveNavigation {
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
     
     if (menuToggle && mobileNavMenu) {
-      menuToggle.addEventListener('click', () => {
-        this.toggleMobileMenu();
-      });
+      const toggleListener = SafeEventListener.add(
+        menuToggle,
+        'click',
+        () => this.toggleMobileMenu(),
+        { description: 'Mobile menu toggle button' }
+      );
+      this.eventListeners.push(toggleListener);
       
       // Close mobile menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (this.mobileMenuOpen && 
-            !menuToggle.contains(e.target) && 
-            !mobileNavMenu.contains(e.target)) {
-          this.closeMobileMenu();
-        }
-      });
+      const clickOutsideListener = SafeEventListener.add(
+        document,
+        'click',
+        (e) => {
+          if (this.mobileMenuOpen && 
+              !menuToggle.contains(e.target) && 
+              !mobileNavMenu.contains(e.target)) {
+            this.closeMobileMenu();
+          }
+        },
+        { description: 'Mobile menu click outside' }
+      );
+      this.eventListeners.push(clickOutsideListener);
       
       // Close mobile menu on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && this.mobileMenuOpen) {
-          this.closeMobileMenu();
-        }
-      });
+      const escapeListener = SafeEventListener.add(
+        document,
+        'keydown',
+        (e) => {
+          if (e.key === 'Escape' && this.mobileMenuOpen) {
+            this.closeMobileMenu();
+          }
+        },
+        { description: 'Mobile menu escape key' }
+      );
+      this.eventListeners.push(escapeListener);
     }
   }
   
@@ -90,9 +115,10 @@ class ResponsiveNavigation {
     if (mobileNavMenu) {
       mobileNavMenu.style.animation = 'slideUp 0.3s ease-out forwards';
       
-      setTimeout(() => {
+      const hideTimeout = SafeTimeout.set(() => {
         mobileNavMenu.style.display = 'none';
-      }, 300);
+      }, 300, 'Hide mobile menu animation');
+      this.timeouts.push(hideTimeout);
       
       // Update toggle button
       if (menuToggle) {
@@ -128,10 +154,16 @@ class ResponsiveNavigation {
     navButtons.forEach(({ id, view }) => {
       const button = document.getElementById(id);
       if (button) {
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          this.switchToView(view);
-        });
+        const listener = SafeEventListener.add(
+          button,
+          'click',
+          (e) => {
+            e.preventDefault();
+            this.switchToView(view);
+          },
+          { description: `Navigation button ${id}` }
+        );
+        this.eventListeners.push(listener);
       }
     });
     
@@ -140,9 +172,13 @@ class ResponsiveNavigation {
     addTaskButtons.forEach(id => {
       const button = document.getElementById(id);
       if (button) {
-        button.addEventListener('click', () => {
-          this.handleAddTask();
-        });
+        const listener = SafeEventListener.add(
+          button,
+          'click',
+          () => this.handleAddTask(),
+          { description: `Add task button ${id}` }
+        );
+        this.eventListeners.push(listener);
       }
     });
   }
@@ -238,9 +274,9 @@ class ResponsiveNavigation {
     this.updateLiveClock();
     
     // Update clock every 30 seconds (as per specs)
-    this.clockInterval = setInterval(() => {
+    this.clockInterval = SafeInterval.set(() => {
       this.updateLiveClock();
-    }, 30000);
+    }, 30000, 'Navigation live clock updates');
     
     console.log('🕐 Live clock started (updates every 30 seconds)');
   }
@@ -275,14 +311,23 @@ class ResponsiveNavigation {
     // Add responsive visibility classes based on screen size
     this.updateResponsiveVisibility();
     
-    // Update on window resize
+    // Update on window resize with debouncing
     let resizeTimeout;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        this.updateResponsiveVisibility();
-      }, 100);
-    });
+    const resizeListener = SafeEventListener.add(
+      window,
+      'resize',
+      () => {
+        if (resizeTimeout) {
+          SafeTimeout.clear(resizeTimeout);
+        }
+        resizeTimeout = SafeTimeout.set(() => {
+          this.updateResponsiveVisibility();
+        }, 100, 'Responsive visibility update debounce');
+        this.timeouts.push(resizeTimeout);
+      },
+      { description: 'Window resize for responsive navigation' }
+    );
+    this.eventListeners.push(resizeListener);
   }
   
   updateResponsiveVisibility() {
@@ -338,19 +383,38 @@ class ResponsiveNavigation {
   // Cleanup method
   cleanup() {
     if (this.clockInterval) {
-      clearInterval(this.clockInterval);
+      SafeInterval.clear(this.clockInterval);
       this.clockInterval = null;
     }
     
+    // Clear all tracked event listeners
+    this.eventListeners.forEach(listenerId => {
+      SafeEventListener.remove(listenerId);
+    });
+    this.eventListeners = [];
+    
+    // Clear all tracked timeouts
+    this.timeouts.forEach(timeoutId => {
+      SafeTimeout.clear(timeoutId);
+    });
+    this.timeouts = [];
+    
     console.log('🧭 Navigation cleanup completed');
+  }
+  
+  // Destroy method for ComponentManager compatibility
+  destroy() {
+    this.cleanup();
+    
+    // Unregister from memory manager
+    ComponentManager.unregister(this);
+    
+    console.log('🧭 Navigation component destroyed');
   }
 }
 
-// Auto-cleanup on page unload
-window.addEventListener('beforeunload', () => {
-  if (window.responsiveNavigation) {
-    window.responsiveNavigation.cleanup();
-  }
-});
+// Auto-cleanup on page unload (handled by MemoryLeakPrevention system)
+// The global memory manager will automatically clean up all components
+// No need for manual beforeunload listener here
 
 export { ResponsiveNavigation };

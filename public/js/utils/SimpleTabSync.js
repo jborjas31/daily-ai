@@ -1,9 +1,17 @@
+import { SafeEventListener, ComponentManager } from './MemoryLeakPrevention.js';
+
 // Simple Tab Synchronization
 class SimpleTabSync {
   constructor() {
     this.channel = new BroadcastChannel('daily-ai-sync');
     this.tabId = this.generateTabId();
     this.isActive = true;
+    
+    // Memory leak prevention tracking
+    this.eventListeners = [];
+    
+    // Register with memory manager
+    ComponentManager.register(this);
     
     this.setupChannelListener();
     this.setupVisibilityListener();
@@ -16,38 +24,50 @@ class SimpleTabSync {
   }
   
   setupChannelListener() {
-    this.channel.addEventListener('message', (event) => {
-      const { type, data, fromTab } = event.data;
-      
-      // Don't process messages from this same tab
-      if (fromTab === this.tabId) return;
-      
-      console.log(`Tab ${this.tabId} received:`, type, 'from', fromTab);
-      
-      // Handle different message types
-      switch (type) {
-        case 'data-changed':
-          this.handleDataChanged(data);
-          break;
-        case 'refresh-needed':
-          this.handleRefreshNeeded();
-          break;
-        case 'user-action':
-          this.handleUserAction(data);
-          break;
-      }
-    });
+    const channelListener = SafeEventListener.add(
+      this.channel,
+      'message',
+      (event) => {
+        const { type, data, fromTab } = event.data;
+        
+        // Don't process messages from this same tab
+        if (fromTab === this.tabId) return;
+        
+        console.log(`Tab ${this.tabId} received:`, type, 'from', fromTab);
+        
+        // Handle different message types
+        switch (type) {
+          case 'data-changed':
+            this.handleDataChanged(data);
+            break;
+          case 'refresh-needed':
+            this.handleRefreshNeeded();
+            break;
+          case 'user-action':
+            this.handleUserAction(data);
+            break;
+        }
+      },
+      { description: `Tab sync channel listener for ${this.tabId}` }
+    );
+    this.eventListeners.push(channelListener);
   }
   
   setupVisibilityListener() {
-    document.addEventListener('visibilitychange', () => {
-      this.isActive = !document.hidden;
-      
-      if (this.isActive) {
-        console.log(`Tab ${this.tabId} became active - refreshing data`);
-        this.requestDataRefresh();
-      }
-    });
+    const visibilityListener = SafeEventListener.add(
+      document,
+      'visibilitychange',
+      () => {
+        this.isActive = !document.hidden;
+        
+        if (this.isActive) {
+          console.log(`Tab ${this.tabId} became active - refreshing data`);
+          this.requestDataRefresh();
+        }
+      },
+      { description: `Tab sync visibility listener for ${this.tabId}` }
+    );
+    this.eventListeners.push(visibilityListener);
   }
   
   // Send message to other tabs
@@ -171,17 +191,29 @@ class SimpleTabSync {
   
   // Cleanup when tab closes
   cleanup() {
+    // Clear all tracked event listeners
+    this.eventListeners.forEach(listenerId => {
+      SafeEventListener.remove(listenerId);
+    });
+    this.eventListeners = [];
+    
     if (this.channel) {
       this.channel.close();
     }
   }
+  
+  // Destroy method for ComponentManager compatibility
+  destroy() {
+    this.cleanup();
+    
+    // Unregister from memory manager
+    ComponentManager.unregister(this);
+    
+    console.log(`Tab ${this.tabId} destroyed`);
+  }
 }
 
-// Auto-cleanup on page unload
-window.addEventListener('beforeunload', () => {
-  if (window.tabSync) {
-    window.tabSync.cleanup();
-  }
-});
+// Auto-cleanup handled by MemoryLeakPrevention system
+// ComponentManager will automatically clean up all registered components
 
 export { SimpleTabSync };

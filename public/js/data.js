@@ -4,6 +4,7 @@
  */
 
 import { auth, db } from './firebase.js';
+import { taskValidation } from './utils/TaskValidation.js';
 
 /**
  * Get current user ID
@@ -85,27 +86,69 @@ export const userSettings = {
 
 /**
  * Task Template Operations
+ * Enhanced CRUD operations with batch operations, search, filtering, and offline support
  */
 export const taskTemplates = {
-  // Get all active task templates for user
-  async getAll() {
+  // Get all task templates for user with advanced filtering
+  async getAll(userId = null, options = {}) {
     try {
-      const userId = getCurrentUserId();
-      const snapshot = await db
+      const uid = userId || getCurrentUserId();
+      const {
+        includeInactive = false,
+        limit = null,
+        orderBy = 'priority',
+        orderDirection = 'desc',
+        filters = {}
+      } = options;
+      
+      let query = db
         .collection('users')
-        .doc(userId)
-        .collection('tasks')
-        .where('isActive', '==', true)
-        .orderBy('priority', 'desc')
-        .orderBy('taskName')
-        .get();
+        .doc(uid)
+        .collection('tasks');
+      
+      // Apply active filter unless includeInactive is true
+      if (!includeInactive) {
+        query = query.where('isActive', '==', true);
+      }
+      
+      // Apply additional filters
+      if (filters.timeWindow) {
+        query = query.where('timeWindow', '==', filters.timeWindow);
+      }
+      
+      if (filters.isMandatory !== undefined) {
+        query = query.where('isMandatory', '==', filters.isMandatory);
+      }
+      
+      if (filters.schedulingType) {
+        query = query.where('schedulingType', '==', filters.schedulingType);
+      }
+      
+      if (filters.priority) {
+        query = query.where('priority', '==', filters.priority);
+      }
+      
+      // Apply ordering
+      query = query.orderBy(orderBy, orderDirection);
+      
+      // Add secondary sort by taskName for consistency
+      if (orderBy !== 'taskName') {
+        query = query.orderBy('taskName');
+      }
+      
+      // Apply limit if specified
+      if (limit) {
+        query = query.limit(limit);
+      }
+      
+      const snapshot = await query.get();
       
       const tasks = [];
       snapshot.forEach(doc => {
         tasks.push({ id: doc.id, ...doc.data() });
       });
       
-      console.log(`✅ Retrieved ${tasks.length} task templates`);
+      console.log(`✅ Retrieved ${tasks.length} task templates${includeInactive ? ' (including inactive)' : ''}`);
       return tasks;
     } catch (error) {
       console.error('❌ Error getting task templates:', error);
@@ -113,21 +156,21 @@ export const taskTemplates = {
     }
   },
 
-  // Get single task template
-  async get(taskId) {
+  // Get single task template by ID
+  async get(templateId) {
     try {
       const userId = getCurrentUserId();
       const doc = await db
         .collection('users')
         .doc(userId)
         .collection('tasks')
-        .doc(taskId)
+        .doc(templateId)
         .get();
       
       if (doc.exists) {
         return { id: doc.id, ...doc.data() };
       } else {
-        throw new Error('Task template not found');
+        throw new Error(`Task template not found: ${templateId}`);
       }
     } catch (error) {
       console.error('❌ Error getting task template:', error);
@@ -135,43 +178,105 @@ export const taskTemplates = {
     }
   },
 
-  // Create new task template
-  async create(taskData) {
+  // Search task templates by name or description
+  async search(userId = null, searchQuery, options = {}) {
     try {
-      const userId = getCurrentUserId();
+      const uid = userId || getCurrentUserId();
       
-      // Set default values
+      // Get all templates first (Firestore doesn't support text search natively)
+      const allTemplates = await this.getAll(uid, options);
+      
+      // Filter by search query
+      const query = searchQuery.toLowerCase().trim();
+      const filteredTemplates = allTemplates.filter(template => 
+        template.taskName.toLowerCase().includes(query) ||
+        (template.description && template.description.toLowerCase().includes(query))
+      );
+      
+      console.log(`✅ Found ${filteredTemplates.length} templates matching "${searchQuery}"`);
+      return filteredTemplates;
+    } catch (error) {
+      console.error('❌ Error searching task templates:', error);
+      throw error;
+    }
+  },
+
+  // Get templates by specific criteria with pagination
+  async getByFilters(userId = null, filters = {}, pagination = {}) {
+    try {
+      const uid = userId || getCurrentUserId();
+      const { limit = 50, startAfter = null } = pagination;
+      
+      let query = db
+        .collection('users')
+        .doc(uid)
+        .collection('tasks');
+      
+      // Apply filters
+      Object.entries(filters).forEach(([field, value]) => {
+        if (value !== null && value !== undefined) {
+          query = query.where(field, '==', value);
+        }
+      });
+      
+      // Add ordering for pagination
+      query = query.orderBy('createdAt', 'desc');
+      
+      // Add pagination
+      if (startAfter) {
+        query = query.startAfter(startAfter);
+      }
+      
+      query = query.limit(limit);
+      
+      const snapshot = await query.get();
+      
+      const templates = [];
+      let lastDoc = null;
+      
+      snapshot.forEach(doc => {
+        templates.push({ id: doc.id, ...doc.data() });
+        lastDoc = doc;
+      });
+      
+      return {
+        templates,
+        hasMore: snapshot.size === limit,
+        lastDoc,
+        total: snapshot.size
+      };
+    } catch (error) {
+      console.error('❌ Error getting filtered templates:', error);
+      throw error;
+    }
+  },
+
+  // Create new task template
+  async create(userId, templateData) {
+    try {
+      const uid = userId || getCurrentUserId();
+      
+      // Remove any existing ID and metadata
+      const cleanData = { ...templateData };
+      delete cleanData.id;
+      delete cleanData.createdAt;
+      delete cleanData.updatedAt;
+      
       const task = {
-        taskName: taskData.taskName || '',
-        description: taskData.description || '',
-        isMandatory: taskData.isMandatory || false,
-        priority: taskData.priority || 3,
-        isActive: true,
-        durationMinutes: taskData.durationMinutes || 30,
-        minDurationMinutes: taskData.minDurationMinutes || taskData.durationMinutes || 15,
-        schedulingType: taskData.schedulingType || 'flexible',
-        defaultTime: taskData.defaultTime || null,
-        timeWindow: taskData.timeWindow || 'anytime',
-        dependsOn: taskData.dependsOn || null,
-        recurrenceRule: taskData.recurrenceRule || {
-          frequency: 'none',
-          interval: 1,
-          endDate: null,
-          endAfterOccurrences: null,
-          daysOfWeek: []
-        },
+        ...cleanData,
         createdAt: new Date().toISOString(),
-        lastUpdated: new Date().toISOString()
+        updatedAt: new Date().toISOString()
       };
       
       const docRef = await db
         .collection('users')
-        .doc(userId)
+        .doc(uid)
         .collection('tasks')
         .add(task);
       
+      const createdTemplate = { id: docRef.id, ...task };
       console.log('✅ Task template created:', docRef.id);
-      return { id: docRef.id, ...task };
+      return createdTemplate;
     } catch (error) {
       console.error('❌ Error creating task template:', error);
       throw error;
@@ -179,24 +284,31 @@ export const taskTemplates = {
   },
 
   // Update task template
-  async update(taskId, updates) {
+  async update(templateId, updates) {
     try {
       const userId = getCurrentUserId();
       
+      // Remove ID from updates and add timestamp
+      const cleanUpdates = { ...updates };
+      delete cleanUpdates.id;
+      
       const updateData = {
-        ...updates,
-        lastUpdated: new Date().toISOString()
+        ...cleanUpdates,
+        updatedAt: new Date().toISOString()
       };
       
       await db
         .collection('users')
         .doc(userId)
         .collection('tasks')
-        .doc(taskId)
+        .doc(templateId)
         .update(updateData);
       
-      console.log('✅ Task template updated:', taskId);
-      return { id: taskId, ...updateData };
+      // Get the updated template to return
+      const updatedTemplate = await this.get(templateId);
+      
+      console.log('✅ Task template updated:', templateId);
+      return updatedTemplate;
     } catch (error) {
       console.error('❌ Error updating task template:', error);
       throw error;
@@ -204,7 +316,7 @@ export const taskTemplates = {
   },
 
   // Soft delete task template
-  async delete(taskId) {
+  async delete(templateId) {
     try {
       const userId = getCurrentUserId();
       
@@ -212,16 +324,244 @@ export const taskTemplates = {
         .collection('users')
         .doc(userId)
         .collection('tasks')
-        .doc(taskId)
+        .doc(templateId)
         .update({
           isActive: false,
           deletedAt: new Date().toISOString(),
-          lastUpdated: new Date().toISOString()
+          updatedAt: new Date().toISOString()
         });
       
-      console.log('✅ Task template soft deleted:', taskId);
+      console.log('✅ Task template soft deleted:', templateId);
     } catch (error) {
       console.error('❌ Error deleting task template:', error);
+      throw error;
+    }
+  },
+
+  // Permanently delete task template
+  async permanentDelete(templateId) {
+    try {
+      const userId = getCurrentUserId();
+      
+      await db
+        .collection('users')
+        .doc(userId)
+        .collection('tasks')
+        .doc(templateId)
+        .delete();
+      
+      console.log('✅ Task template permanently deleted:', templateId);
+    } catch (error) {
+      console.error('❌ Error permanently deleting task template:', error);
+      throw error;
+    }
+  },
+
+  // Batch operations for multiple templates
+  async batchUpdate(templateIds, updates) {
+    try {
+      const userId = getCurrentUserId();
+      const batch = db.batch();
+      
+      const updateData = {
+        ...updates,
+        updatedAt: new Date().toISOString()
+      };
+      
+      templateIds.forEach(templateId => {
+        const templateRef = db
+          .collection('users')
+          .doc(userId)
+          .collection('tasks')
+          .doc(templateId);
+        
+        batch.update(templateRef, updateData);
+      });
+      
+      await batch.commit();
+      
+      console.log(`✅ Batch updated ${templateIds.length} templates`);
+      return { updatedCount: templateIds.length, updates: updateData };
+    } catch (error) {
+      console.error('❌ Error in batch update:', error);
+      throw error;
+    }
+  },
+
+  // Batch activate templates
+  async batchActivate(templateIds) {
+    try {
+      return await this.batchUpdate(templateIds, { 
+        isActive: true, 
+        deletedAt: null 
+      });
+    } catch (error) {
+      console.error('❌ Error in batch activate:', error);
+      throw error;
+    }
+  },
+
+  // Batch deactivate templates
+  async batchDeactivate(templateIds) {
+    try {
+      return await this.batchUpdate(templateIds, { 
+        isActive: false, 
+        deactivatedAt: new Date().toISOString() 
+      });
+    } catch (error) {
+      console.error('❌ Error in batch deactivate:', error);
+      throw error;
+    }
+  },
+
+  // Batch create templates
+  async batchCreate(userId, templatesData) {
+    try {
+      const uid = userId || getCurrentUserId();
+      const batch = db.batch();
+      const createdTemplates = [];
+      
+      templatesData.forEach(templateData => {
+        const templateRef = db
+          .collection('users')
+          .doc(uid)
+          .collection('tasks')
+          .doc(); // Auto-generate ID
+        
+        const cleanData = { ...templateData };
+        delete cleanData.id;
+        
+        const task = {
+          ...cleanData,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        
+        batch.set(templateRef, task);
+        createdTemplates.push({ id: templateRef.id, ...task });
+      });
+      
+      await batch.commit();
+      
+      console.log(`✅ Batch created ${createdTemplates.length} templates`);
+      return createdTemplates;
+    } catch (error) {
+      console.error('❌ Error in batch create:', error);
+      throw error;
+    }
+  },
+
+  // Get template statistics
+  async getStats(userId = null) {
+    try {
+      const uid = userId || getCurrentUserId();
+      
+      const [activeTemplates, allTemplates] = await Promise.all([
+        this.getAll(uid, { includeInactive: false }),
+        this.getAll(uid, { includeInactive: true })
+      ]);
+      
+      const stats = {
+        total: allTemplates.length,
+        active: activeTemplates.length,
+        inactive: allTemplates.length - activeTemplates.length,
+        byTimeWindow: {},
+        byPriority: {},
+        mandatory: activeTemplates.filter(t => t.isMandatory).length,
+        flexible: activeTemplates.filter(t => t.schedulingType === 'flexible').length,
+        fixed: activeTemplates.filter(t => t.schedulingType === 'fixed').length
+      };
+      
+      // Calculate distribution by time window
+      activeTemplates.forEach(template => {
+        const timeWindow = template.timeWindow || 'anytime';
+        stats.byTimeWindow[timeWindow] = (stats.byTimeWindow[timeWindow] || 0) + 1;
+      });
+      
+      // Calculate distribution by priority
+      activeTemplates.forEach(template => {
+        const priority = template.priority || 3;
+        stats.byPriority[priority] = (stats.byPriority[priority] || 0) + 1;
+      });
+      
+      console.log('✅ Template statistics calculated');
+      return stats;
+    } catch (error) {
+      console.error('❌ Error getting template statistics:', error);
+      throw error;
+    }
+  },
+
+  // Export templates for backup/migration
+  async exportTemplates(userId = null, includeInactive = false) {
+    try {
+      const uid = userId || getCurrentUserId();
+      const templates = await this.getAll(uid, { includeInactive });
+      
+      const exportData = {
+        exportedAt: new Date().toISOString(),
+        userId: uid,
+        templateCount: templates.length,
+        includeInactive,
+        templates
+      };
+      
+      console.log(`✅ Exported ${templates.length} templates`);
+      return exportData;
+    } catch (error) {
+      console.error('❌ Error exporting templates:', error);
+      throw error;
+    }
+  },
+
+  // Import templates from backup
+  async importTemplates(userId, importData, options = {}) {
+    try {
+      const uid = userId || getCurrentUserId();
+      const { overwriteExisting = false, skipDuplicates = true } = options;
+      
+      if (!importData.templates || !Array.isArray(importData.templates)) {
+        throw new Error('Invalid import data: templates array is required');
+      }
+      
+      let importedCount = 0;
+      let skippedCount = 0;
+      
+      // Get existing templates for duplicate checking
+      const existingTemplates = skipDuplicates 
+        ? await this.getAll(uid, { includeInactive: true })
+        : [];
+      
+      const existingNames = new Set(existingTemplates.map(t => t.taskName));
+      
+      const templatesToImport = [];
+      
+      for (const template of importData.templates) {
+        const templateName = template.taskName;
+        
+        if (skipDuplicates && existingNames.has(templateName)) {
+          skippedCount++;
+          continue;
+        }
+        
+        // Clean up template data
+        const cleanTemplate = { ...template };
+        delete cleanTemplate.id;
+        delete cleanTemplate.createdAt;
+        delete cleanTemplate.updatedAt;
+        
+        templatesToImport.push(cleanTemplate);
+        importedCount++;
+      }
+      
+      if (templatesToImport.length > 0) {
+        await this.batchCreate(uid, templatesToImport);
+      }
+      
+      console.log(`✅ Import completed: ${importedCount} imported, ${skippedCount} skipped`);
+      return { importedCount, skippedCount, total: importData.templates.length };
+    } catch (error) {
+      console.error('❌ Error importing templates:', error);
       throw error;
     }
   }
@@ -390,22 +730,154 @@ export const dataUtils = {
     return this.formatDate();
   },
 
-  // Validate task data before saving
-  validateTask(taskData) {
-    const errors = [];
+  // Get current timestamp in ISO format
+  getCurrentTimestamp() {
+    return new Date().toISOString();
+  },
+
+  // Add days to date and return formatted string
+  addDaysToDate(date, days) {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + days);
+    return this.formatDate(newDate);
+  },
+
+  // Get date range (start, end) as array of date strings
+  getDateRange(startDate, endDate) {
+    const dates = [];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
     
-    if (!taskData.taskName || taskData.taskName.trim() === '') {
-      errors.push('Task name is required.');
+    while (start <= end) {
+      dates.push(this.formatDate(start));
+      start.setDate(start.getDate() + 1);
     }
     
-    if (taskData.durationMinutes < 1 || taskData.durationMinutes > 480) {
-      errors.push('Duration must be between 1 and 480 minutes.');
+    return dates;
+  },
+
+  // Validate task template data using comprehensive validation system
+  validateTask(taskData, existingTemplates = []) {
+    const validationResult = taskValidation.validateTemplate(taskData, existingTemplates);
+    return validationResult.getErrorMessages();
+  },
+
+  // Quick validation for UI feedback
+  quickValidateTask(taskData) {
+    const validationResult = taskValidation.quickValidateTemplate(taskData);
+    return validationResult.getErrorMessages();
+  },
+
+  // Validate task instance data
+  validateTaskInstance(instanceData, templateData = null) {
+    const validationResult = taskValidation.validateInstance(instanceData, templateData);
+    return validationResult.getErrorMessages();
+  },
+
+
+  // Sanitize user input (remove HTML tags, trim whitespace)
+  sanitizeInput(input) {
+    if (typeof input !== 'string') return input;
+    
+    return input
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .trim(); // Remove leading/trailing whitespace
+  },
+
+  // Deep clean object data (sanitize strings, remove empty values)
+  cleanObjectData(obj, options = {}) {
+    const { removeEmpty = true, sanitizeStrings = true } = options;
+    const cleaned = {};
+
+    for (const [key, value] of Object.entries(obj)) {
+      if (value === null || value === undefined) {
+        if (!removeEmpty) cleaned[key] = value;
+        continue;
+      }
+
+      if (typeof value === 'string') {
+        const cleanedString = sanitizeStrings ? this.sanitizeInput(value) : value;
+        if (!removeEmpty || cleanedString.length > 0) {
+          cleaned[key] = cleanedString;
+        }
+      } else if (Array.isArray(value)) {
+        if (!removeEmpty || value.length > 0) {
+          cleaned[key] = value;
+        }
+      } else if (typeof value === 'object') {
+        const cleanedObject = this.cleanObjectData(value, options);
+        if (!removeEmpty || Object.keys(cleanedObject).length > 0) {
+          cleaned[key] = cleanedObject;
+        }
+      } else {
+        cleaned[key] = value;
+      }
+    }
+
+    return cleaned;
+  },
+
+  // Check if operation should be retried (for offline support)
+  shouldRetryOperation(error, attempt = 1, maxAttempts = 3) {
+    if (attempt >= maxAttempts) return false;
+
+    // Retry on network errors or temporary Firebase issues
+    const retryableErrors = [
+      'network-request-failed',
+      'temporarily-unavailable', 
+      'deadline-exceeded',
+      'unavailable'
+    ];
+
+    const errorCode = error.code || error.message;
+    return retryableErrors.some(code => errorCode.includes(code));
+  },
+
+  // Execute operation with retry logic
+  async withRetry(operation, maxAttempts = 3, delayMs = 1000) {
+    let lastError = null;
+    
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        return await operation();
+      } catch (error) {
+        lastError = error;
+        
+        if (!this.shouldRetryOperation(error, attempt, maxAttempts)) {
+          throw error;
+        }
+        
+        // Wait before retrying with exponential backoff
+        const delay = delayMs * Math.pow(2, attempt - 1);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        
+        console.warn(`Retrying operation (attempt ${attempt + 1}/${maxAttempts}) after ${delay}ms delay`);
+      }
     }
     
-    if (taskData.priority < 1 || taskData.priority > 5) {
-      errors.push('Priority must be between 1 and 5.');
+    throw lastError;
+  },
+
+  // Convert Firestore timestamp to ISO string
+  timestampToISO(timestamp) {
+    if (!timestamp) return null;
+    return timestamp.toDate ? timestamp.toDate().toISOString() : timestamp;
+  },
+
+  // Check if running in offline mode
+  isOffline() {
+    return !navigator.onLine;
+  },
+
+  // Generate a simple hash for data integrity checking
+  simpleHash(data) {
+    const str = JSON.stringify(data);
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
     }
-    
-    return errors;
+    return hash.toString(36);
   }
 };

@@ -1,0 +1,18 @@
+state.js:360 ✅ State management initialized
+app.js:30 🚀 Initializing Daily AI...
+app.js:34 ✅ Network monitoring initialized
+(index):1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+/icons/icon-192.png:1  Failed to load resource: the server responded with a status of 404 ()
+(index):1 Error while trying to use the following icon from the Manifest: https://daily-ai-3b51f.web.app/icons/icon-192.png (Download error or resource isn't a valid image)
+(index):90 SW registration failed: TypeError: Failed to register a ServiceWorker for scope ('https://daily-ai-3b51f.web.app/') with script ('https://daily-ai-3b51f.web.app/sw.js'): A bad HTTP response code (404) was received when fetching the script.
+firebase.js:18 ✅ Firebase initialized
+app.js:38 ✅ Firebase initialized
+app.js:70 🔒 User not authenticated, showing login
+(index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" required style=​"
+                width:​ 100%;​
+                padding:​ 0.75rem;​
+                border:​ 2px solid #E5E7EB;​
+                border-radius:​ 0.5rem;​
+                font-size:​ 1rem;​
+                transition:​ border-color 0.2s;​
+              " placeholder=​"Enter your password">​

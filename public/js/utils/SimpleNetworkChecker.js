@@ -1,19 +1,42 @@
+import { SafeEventListener } from './MemoryLeakPrevention.js';
+
 // Simple network connection checking
 class SimpleNetworkChecker {
+  static eventListeners = [];
+  
   static isOnline() {
     return navigator.onLine;
   }
   
   static setupNetworkMonitoring() {
-    window.addEventListener('online', () => {
-      alert('✅ Internet connection restored');
-      console.log('Back online');
-    });
+    const onlineListener = SafeEventListener.add(
+      window,
+      'online',
+      () => {
+        alert('✅ Internet connection restored');
+        console.log('Back online');
+      },
+      { description: 'Network checker online listener' }
+    );
+    this.eventListeners.push(onlineListener);
     
-    window.addEventListener('offline', () => {
-      alert('⚠️ Internet connection lost. Changes will be saved locally.');
-      console.log('Gone offline');
+    const offlineListener = SafeEventListener.add(
+      window,
+      'offline',
+      () => {
+        alert('⚠️ Internet connection lost. Changes will be saved locally.');
+        console.log('Gone offline');
+      },
+      { description: 'Network checker offline listener' }
+    );
+    this.eventListeners.push(offlineListener);
+  }
+  
+  static cleanup() {
+    this.eventListeners.forEach(listenerId => {
+      SafeEventListener.remove(listenerId);
     });
+    this.eventListeners = [];
   }
   
   static checkConnectionBeforeAction(action) {
