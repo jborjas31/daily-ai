@@ -430,9 +430,8 @@ export const taskTemplateManager = new TaskTemplateManager();
 
 /**
  * Task Instance Manager - Singleton Instance
- * Replaces the old stub implementation with full TaskInstanceManager class
+ * Will be instantiated after class definition to avoid initialization errors
  */
-export const taskInstanceManager = new TaskInstanceManager();
 
 /**
  * Intelligent Scheduling Engine - "Secret Sauce"
@@ -2787,5 +2786,6 @@ export class TaskInstanceManager {
 }
 
 // TaskInstanceManager singleton is exported below after class definition
+export const taskInstanceManager = new TaskInstanceManager();
 
 console.log('✅ Task logic and scheduling engine initialized');
