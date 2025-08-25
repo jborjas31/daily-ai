@@ -1,0 +1,947 @@
+10:34:33.524 (index):192 Error: <path> attribute d: Expected moveto path command ('M' or 'm'), "21 21l-4.35-4.35".
+10:34:34.013 AppInitializer.js:7 🚀 Starting Daily AI initialization...
+10:34:34.014 ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
+10:34:34.014 ModernBrowserChecker.js:153   Features supported: true
+10:34:34.014 ModernBrowserChecker.js:157   Browser: chrome
+10:34:34.014 ModernBrowserChecker.js:158   Version: 139
+10:34:34.014 ModernBrowserChecker.js:159   Version supported: true
+10:34:34.014 AppInitializer.js:19 ✅ Browser compatibility check passed
+10:34:34.133 (index):272 SW registration failed: TypeError: Failed to register a ServiceWorker for scope ('https://daily-ai-3b51f.web.app/') with script ('https://daily-ai-3b51f.web.app/sw.js'): A bad HTTP response code (404) was received when fetching the script.
+10:34:34.391 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
+10:34:34.392 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
+10:34:34.392 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
+10:34:34.392 MemoryLeakPrevention.js:465 🛡️ Memory Leak Prevention System initialized
+10:34:34.392 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+10:34:34.392 MemoryLeakPrevention.js:501 ✅ Memory Leak Prevention utility loaded
+10:34:34.392 taskLogic.js:907 ✅ Task logic and scheduling engine initialized
+10:34:34.393 TaskValidation.js:747 ✅ Task Validation System initialized
+10:34:34.393 userSettings.js:458 ✅ User Settings management module loaded
+10:34:34.394 state.js:1080 ✅ Multi-tab synchronization initialized
+10:34:34.394 state.js:1083 ✅ Enhanced state management initialized with template support
+10:34:34.394 ui.js:864 ✅ UI management system initialized
+10:34:34.394 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskModal
+10:34:34.394 TaskModal.js:828 ✅ Task modal component initialized
+10:34:34.394 Timeline.js:741 ✅ Timeline component initialized
+10:34:34.394 app.js:338 ✅ Daily AI application module loaded
+10:34:34.394 app.js:339 🧪 Testing objects exposed globally for console access
+10:34:34.395 app.js:45 🚀 Initializing Daily AI...
+10:34:34.395 MemoryLeakPrevention.js:465 🛡️ Memory Leak Prevention System initialized
+10:34:34.395 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+10:34:34.395 ui.js:45 ✅ UI system initialized
+10:34:34.395 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
+10:34:34.395 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
+10:34:34.395 app.js:55 ✅ Network monitoring initialized
+10:34:34.395 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
+10:34:34.395 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1756046074395_nm45yvvor
+10:34:34.395 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1756046074395_nm45yvvor
+10:34:34.395 SimpleTabSync.js:19 Tab tab_1756046074395_nm45yvvor initialized
+10:34:34.395 app.js:59 ✅ Tab synchronization initialized
+10:34:34.408 firebase.js:19 ✅ Firebase initialized
+10:34:34.408 app.js:63 ✅ Firebase initialized
+10:34:34.408 app.js:111 🔒 User not authenticated, showing login
+10:34:34.409 AppInitializer.js:27 ✅ App initialized successfully
+10:34:34.409 (index):289 ✅ Daily AI loaded successfully
+10:34:34.510 (index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" class=​"input" required placeholder=​"Enter your password">​
+10:34:45.805 app.js:74 ✅ User authenticated: yearmonthday365@gmail.com
+10:34:45.805 state.js:374 Failed to broadcast state change: DataCloneError: Failed to execute 'postMessage' on 'BroadcastChannel': e=>{e.mfaInfo&&(this.enrolledFactors=e.mfaInfo.map(e=>Tt._fromServerResponse(t.auth,e)))} could not be cloned.
+    at broadcastStateChange (state.js:367:15)
+    at notifyStateChange (state.js:405:3)
+    at Object.setUser (state.js:125:5)
+    at app.js:77:15
+    at Object.next (auth.ts:378:5)
+    at subscribe.ts:104:16
+    at subscribe.ts:233:11
+broadcastStateChange @ state.js:374
+notifyStateChange @ state.js:405
+setUser @ state.js:125
+(anonymous) @ app.js:77
+next @ auth.ts:378
+(anonymous) @ subscribe.ts:104
+(anonymous) @ subscribe.ts:233
+Promise.then
+E.sendOne @ subscribe.ts:230
+E.forEachObserver @ subscribe.ts:220
+E.next @ subscribe.ts:103
+notifyAuthListeners @ auth_impl.ts:487
+(anonymous) @ auth_impl.ts:325
+Promise.then
+queue @ auth_impl.ts:548
+_updateCurrentUser @ auth_impl.ts:323
+vt @ credential.ts:49
+await in vt
+yt @ credential.ts:69
+signInWithEmailAndPassword @ email_and_password.ts:267
+signInWithEmail @ firebase.js:34
+(anonymous) @ firebase.js:50
+withErrorHandling @ SimpleErrorHandler.js:69
+safeFirebaseOperation @ firebase.js:44
+safeSignIn @ firebase.js:49
+(anonymous) @ app.js:175
+10:34:45.805 app.js:83 🔧 Step 1: Initializing user settings...
+10:34:45.805 userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:34:47.521 userSettings.js:119 📄 User settings loaded from Firestore
+10:34:47.521 userSettings.js:89 ✅ Loaded existing user settings
+10:34:47.521 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:34:47.521 taskLogic.js:751 🔗 Resolved task dependencies
+10:34:47.531 state.js:452 ✅ User data initialized with comprehensive settings
+10:34:47.531 app.js:85 ✅ Step 1 complete: User settings initialized
+10:34:47.531 app.js:87 🔧 Step 2: Loading task templates...
+10:34:47.532 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:34:47.532 data.js:146 🔍 About to execute Firestore query...
+10:34:47.700 data.js:148 🔍 Query executed successfully, processing results...
+10:34:47.700 data.js:155 ✅ Retrieved 0 task templates
+10:34:47.700 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:34:47.700 taskLogic.js:751 🔗 Resolved task dependencies
+10:34:47.701 state.js:607 ✅ Task templates loaded (0 templates)
+10:34:47.701 app.js:89 ✅ Step 2 complete: Task templates loaded
+10:34:47.701 app.js:93 🔧 Step 3: Loading task instances for today: 2025-08-24
+10:34:47.701 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:34:47.809 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:34:47.809 taskLogic.js:751 🔗 Resolved task dependencies
+10:34:47.810 state.js:1007 ✅ Task instances loaded for 2025-08-24
+10:34:47.810 app.js:95 ✅ Step 3 complete: Task instances loaded
+10:34:47.810 app.js:97 🔧 Step 4: Loading daily schedule for today: 2025-08-24
+10:34:47.810 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:34:47.904 state.js:1020 ✅ Daily schedule loaded for 2025-08-24
+10:34:47.904 app.js:99 ✅ Step 4 complete: Daily schedule loaded
+10:34:47.904 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:34:47.905 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:00.582 Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below and press Enter to allow pasting.
+10:35:02.994 allow pasting
+10:35:04.470 /**
+ * Task Template Testing Script
+ * Run this in browser console to test all template functionality
+ * 
+ * Instructions:
+ * 1. Open your web app in browser
+ * 2. Open developer tools (F12)
+ * 3. Copy and paste this entire script into the console
+ * 4. Press Enter to run all tests
+ */
+
+console.log('🧪 Starting Task Template System Tests...');
+
+// Test Data: Various template configurations
+const testTemplates = [
+  // Test 1: Simple daily task
+  {
+    taskName: 'Morning Exercise',
+    description: 'Daily workout routine',
+    durationMinutes: 30,
+    priority: 4,
+    isMandatory: true,
+    schedulingType: 'fixed',
+    defaultTime: '07:00',
+    timeWindow: 'morning',
+    recurrenceRule: {
+      frequency: 'daily',
+      interval: 1
+    }
+  },
+  
+  // Test 2: Weekly task with multiple days
+  {
+    taskName: 'Team Meeting',
+    description: 'Weekly team sync meetings',
+    durationMinutes: 60,
+    priority: 3,
+    isMandatory: true,
+    schedulingType: 'fixed',
+    defaultTime: '10:00',
+    timeWindow: 'morning',
+    recurrenceRule: {
+      frequency: 'weekly',
+      interval: 1,
+      daysOfWeek: [1, 3, 5] // Mon, Wed, Fri
+    }
+  },
+  
+  // Test 3: Flexible task with minimum duration
+  {
+    taskName: 'Creative Writing',
+    description: 'Work on creative writing projects',
+    durationMinutes: 90,
+    minDurationMinutes: 30,
+    priority: 2,
+    isMandatory: false,
+    schedulingType: 'flexible',
+    timeWindow: 'evening',
+    recurrenceRule: {
+      frequency: 'daily',
+      interval: 1
+    }
+  },
+  
+  // Test 4: Monthly task
+  {
+    taskName: 'Monthly Review',
+    description: 'Review goals and progress',
+    durationMinutes: 120,
+    priority: 5,
+    isMandatory: true,
+    schedulingType: 'flexible',
+    timeWindow: 'anytime',
+    recurrenceRule: {
+      frequency: 'monthly',
+      interval: 1,
+      dayOfMonth: 1
+    }
+  },
+  
+  // Test 5: One-time task
+  {
+    taskName: 'Project Setup',
+    description: 'Set up new project structure',
+    durationMinutes: 45,
+    priority: 3,
+    isMandatory: true,
+    schedulingType: 'flexible',
+    timeWindow: 'afternoon',
+    recurrenceRule: {
+      frequency: 'none'
+    }
+  }
+];
+
+// Invalid test templates for error testing
+const invalidTemplates = [
+  // Test 6: Missing required fields
+  {
+    description: 'Missing task name'
+  },
+  
+  // Test 7: Invalid duration
+  {
+    taskName: 'Invalid Duration Test',
+    durationMinutes: -5,
+    priority: 3
+  },
+  
+  // Test 8: Invalid scheduling
+  {
+    taskName: 'Invalid Scheduling Test',
+    schedulingType: 'fixed'
+    // Missing defaultTime for fixed scheduling
+  },
+  
+  // Test 9: Invalid recurrence
+  {
+    taskName: 'Invalid Recurrence Test',
+    durationMinutes: 30,
+    recurrenceRule: {
+      frequency: 'weekly'
+      // Missing daysOfWeek for weekly frequency
+    }
+  },
+  
+  // Test 10: Task name too long
+  {
+    taskName: 'A'.repeat(150), // Over 100 characters
+    durationMinutes: 30,
+    priority: 1
+  }
+];
+
+// Test Results Storage
+let testResults = {
+  passed: 0,
+  failed: 0,
+  errors: [],
+  createdTemplates: []
+};
+
+// Helper Functions
+function logTest(testName, success, details = '') {
+  const icon = success ? '✅' : '❌';
+  console.log(`${icon} ${testName}${details ? ': ' + details : ''}`);
+  
+  if (success) {
+    testResults.passed++;
+  } else {
+    testResults.failed++;
+    testResults.errors.push({test: testName, details});
+  }
+}
+
+function logSection(sectionName) {
+  console.log(`\n🔍 ${sectionName}`);
+  console.log('='.repeat(50));
+}
+
+// Test Functions
+async function testValidationSystem() {
+  logSection('Testing Validation System');
+  
+  // Test valid templates
+  testTemplates.forEach((template, index) => {
+    try {
+      const result = taskTemplateManager.validateTemplate(template);
+      if (result.isValid) {
+        logTest(`Valid Template ${index + 1} (${template.taskName})`, true);
+      } else {
+        logTest(`Valid Template ${index + 1}`, false, `Validation failed: ${result.getErrorMessages().join(', ')}`);
+      }
+    } catch (error) {
+      logTest(`Valid Template ${index + 1}`, false, `Exception: ${error.message}`);
+    }
+  });
+  
+  // Test invalid templates
+  invalidTemplates.forEach((template, index) => {
+    try {
+      const result = taskTemplateManager.validateTemplate(template);
+      if (!result.isValid) {
+        logTest(`Invalid Template ${index + 1} (correctly rejected)`, true, `Errors: ${result.getErrorMessages().join(', ')}`);
+      } else {
+        logTest(`Invalid Template ${index + 1}`, false, 'Should have failed validation but passed');
+      }
+    } catch (error) {
+      logTest(`Invalid Template ${index + 1}`, false, `Unexpected exception: ${error.message}`);
+    }
+  });
+}
+
+async function testCRUDOperations() {
+  logSection('Testing CRUD Operations');
+  
+  // Get current user ID for all operations - try multiple methods
+  let currentUser = null;
+  let userId = null;
+  
+  // Try getState() first
+  const state = getState();
+  if (state && state.user && state.user.uid) {
+    currentUser = state.user;
+    userId = currentUser.uid;
+  }
+  
+  // Fallback to Firebase auth helper
+  if (!userId && window.getCurrentFirebaseUser) {
+    const firebaseUser = window.getCurrentFirebaseUser();
+    if (firebaseUser && firebaseUser.uid) {
+      userId = firebaseUser.uid;
+      currentUser = firebaseUser;
+    }
+  }
+  
+  // Direct Firebase fallback
+  if (!userId && window.firebase && window.firebase.auth) {
+    try {
+      const firebaseAuth = window.firebase.auth();
+      const firebaseUser = firebaseAuth.currentUser;
+      if (firebaseUser && firebaseUser.uid) {
+        userId = firebaseUser.uid;
+        currentUser = firebaseUser;
+      }
+    } catch (error) {
+      console.log('Could not access Firebase auth directly:', error.message);
+    }
+  }
+  
+  if (!userId) {
+    logTest('User Authentication Check', false, 'No authenticated user found via any method');
+    return;
+  }
+  
+  logTest('User Authentication Check', true, `User ID: ${userId}`);
+  
+  // Test CREATE operations
+  for (let i = 0; i < testTemplates.length; i++) {
+    const template = testTemplates[i];
+    try {
+      const created = await taskTemplateManager.create(userId, template);
+      if (created && created.id) {
+        testResults.createdTemplates.push(created);
+        logTest(`CREATE Template ${i + 1} (${template.taskName})`, true, `ID: ${created.id}`);
+      } else {
+        logTest(`CREATE Template ${i + 1}`, false, 'No ID returned');
+      }
+    } catch (error) {
+      logTest(`CREATE Template ${i + 1}`, false, `Exception: ${error.message}`);
+    }
+  }
+  
+  // Test READ operations
+  for (const template of testResults.createdTemplates) {
+    try {
+      const retrieved = await taskTemplateManager.get(template.id);
+      if (retrieved && retrieved.taskName === template.taskName) {
+        logTest(`READ Template (${template.taskName})`, true);
+      } else {
+        logTest(`READ Template (${template.taskName})`, false, 'Retrieved data mismatch');
+      }
+    } catch (error) {
+      logTest(`READ Template (${template.taskName})`, false, `Exception: ${error.message}`);
+    }
+  }
+  
+  // Test GET ALL operation
+  try {
+    const allTemplates = await taskTemplateManager.getAll(userId);
+    if (Array.isArray(allTemplates) && allTemplates.length >= testResults.createdTemplates.length) {
+      logTest('GET ALL Templates', true, `Retrieved ${allTemplates.length} templates`);
+    } else {
+      logTest('GET ALL Templates', false, 'Incorrect number of templates returned');
+    }
+  } catch (error) {
+    logTest('GET ALL Templates', false, `Exception: ${error.message}`);
+  }
+  
+  // Test UPDATE operations
+  if (testResults.createdTemplates.length > 0) {
+    const templateToUpdate = testResults.createdTemplates[0];
+    const originalName = templateToUpdate.taskName;
+    
+    try {
+      const updated = await taskTemplateManager.update(templateToUpdate.id, {
+        taskName: originalName + ' (Updated)',
+        priority: 5
+      });
+      
+      if (updated && updated.taskName.includes('(Updated)')) {
+        logTest(`UPDATE Template (${originalName})`, true);
+      } else {
+        logTest(`UPDATE Template (${originalName})`, false, 'Update data not reflected');
+      }
+    } catch (error) {
+      logTest(`UPDATE Template (${originalName})`, false, `Exception: ${error.message}`);
+    }
+  }
+}
+
+async function testStateManagement() {
+  logSection('Testing State Management Integration');
+  
+  try {
+    // Test state getters - be more flexible about state structure
+    const state = getState();
+    console.log('🔍 Current state structure:', JSON.stringify(state, null, 2));
+    
+    if (state) {
+      // Check if taskTemplates exists in any form
+      if (state.taskTemplates && Array.isArray(state.taskTemplates.data)) {
+        const stateTemplates = state.taskTemplates.data;
+        logTest('State Templates Access', true, `${stateTemplates.length} templates in state`);
+      } else if (state.taskTemplates && Array.isArray(state.taskTemplates)) {
+        logTest('State Templates Access', true, `${state.taskTemplates.length} templates in state (alt structure)`);
+      } else if (Array.isArray(state.taskTemplates)) {
+        logTest('State Templates Access', true, `${state.taskTemplates.length} templates in state (direct array)`);
+      } else {
+        logTest('State Templates Access', false, `Templates structure not recognized. State keys: ${Object.keys(state).join(', ')}`);
+      }
+    } else {
+      logTest('State Templates Access', false, 'No state object returned');
+    }
+    
+    // Test state actions
+    if (typeof stateActions.loadTaskTemplates === 'function') {
+      logTest('State Actions Available', true);
+    } else {
+      logTest('State Actions Available', false, 'stateActions.loadTaskTemplates not found');
+    }
+    
+    // Test state synchronization
+    await stateActions.loadTaskTemplates();
+    const reloadedState = getState();
+    console.log('🔍 Reloaded state structure:', JSON.stringify(reloadedState, null, 2));
+    
+    if (reloadedState) {
+      // Check for templates in any structure
+      let templateCount = 0;
+      if (reloadedState.taskTemplates && reloadedState.taskTemplates.data) {
+        templateCount = reloadedState.taskTemplates.data.length;
+      } else if (Array.isArray(reloadedState.taskTemplates)) {
+        templateCount = reloadedState.taskTemplates.length;
+      }
+      
+      logTest('State Synchronization', true, `Reloaded state with ${templateCount} templates`);
+    } else {
+      logTest('State Synchronization', false, 'No reloaded state returned');
+    }
+    
+  } catch (error) {
+    logTest('State Management', false, `Exception: ${error.message}`);
+  }
+}
+
+async function testErrorHandling() {
+  logSection('Testing Error Handling');
+  
+  // Test with invalid template ID
+  try {
+    await taskTemplateManager.get('invalid-id-12345');
+    logTest('Invalid ID Handling', false, 'Should have thrown an error');
+  } catch (error) {
+    logTest('Invalid ID Handling', true, `Correctly threw: ${error.message}`);
+  }
+  
+  // Test updating non-existent template
+  try {
+    await taskTemplateManager.update('non-existent-id', {taskName: 'Test'});
+    logTest('Update Non-existent', false, 'Should have thrown an error');
+  } catch (error) {
+    logTest('Update Non-existent', true, `Correctly threw: ${error.message}`);
+  }
+  
+  // Test circular dependency detection
+  if (testResults.createdTemplates.length >= 2) {
+    const template1 = testResults.createdTemplates[0];
+    const template2 = testResults.createdTemplates[1];
+    
+    try {
+      // Try to create circular dependency
+      await taskTemplateManager.update(template1.id, {dependsOn: template2.id});
+      await taskTemplateManager.update(template2.id, {dependsOn: template1.id});
+      
+      // This should fail validation
+      const validation = taskTemplateManager.validateTemplate({
+        ...template2,
+        dependsOn: template1.id
+      }, [template1, {...template2, dependsOn: template1.id}]);
+      
+      if (!validation.isValid && validation.getErrorMessages().some(msg => msg.includes('circular'))) {
+        logTest('Circular Dependency Detection', true);
+      } else {
+        logTest('Circular Dependency Detection', false, 'Failed to detect circular dependency');
+      }
+    } catch (error) {
+      logTest('Circular Dependency Detection', true, `Prevented by system: ${error.message}`);
+    }
+  }
+}
+
+async function testPerformance() {
+  logSection('Testing Performance');
+  
+  const startTime = performance.now();
+  
+  // Test batch operations
+  try {
+    const batchTemplates = testTemplates.slice(0, 3);
+    const batchResults = await Promise.all(
+      batchTemplates.map(template => taskTemplateManager.validateTemplate(template))
+    );
+    
+    const endTime = performance.now();
+    const duration = endTime - startTime;
+    
+    logTest('Batch Validation Performance', true, `${batchResults.length} templates in ${duration.toFixed(2)}ms`);
+    
+    if (duration > 1000) {
+      logTest('Performance Warning', false, 'Validation took over 1 second');
+    } else {
+      logTest('Performance Check', true, `Good performance: ${duration.toFixed(2)}ms`);
+    }
+    
+  } catch (error) {
+    logTest('Performance Test', false, `Exception: ${error.message}`);
+  }
+}
+
+async function cleanup() {
+  logSection('Cleanup Test Data');
+  
+  // Get current user ID using same robust method as CRUD operations
+  let currentUser = null;
+  let userId = null;
+  
+  // Try getState() first
+  const state = getState();
+  if (state && state.user && state.user.uid) {
+    currentUser = state.user;
+    userId = currentUser.uid;
+  }
+  
+  // Fallback to Firebase auth helper
+  if (!userId && window.getCurrentFirebaseUser) {
+    const firebaseUser = window.getCurrentFirebaseUser();
+    if (firebaseUser && firebaseUser.uid) {
+      userId = firebaseUser.uid;
+      currentUser = firebaseUser;
+    }
+  }
+  
+  if (!userId) {
+    logTest('Cleanup - User Check', false, 'No authenticated user for cleanup');
+    return;
+  }
+  
+  logTest('Cleanup - User Check', true, `User ID: ${userId}`);
+  
+  // Delete test templates
+  for (const template of testResults.createdTemplates) {
+    try {
+      await taskTemplateManager.delete(template.id);
+      logTest(`DELETE Template (${template.taskName})`, true);
+    } catch (error) {
+      logTest(`DELETE Template (${template.taskName})`, false, `Exception: ${error.message}`);
+    }
+  }
+}
+
+// Main Test Runner
+async function runAllTests() {
+  console.log('🚀 Starting Comprehensive Task Template Tests');
+  console.log('This will test all functionality we built in Steps 1-4');
+  console.log('');
+  
+  try {
+    // Check if required objects exist
+    if (typeof taskTemplateManager === 'undefined') {
+      console.error('❌ taskTemplateManager not found. Make sure the app is loaded.');
+      return;
+    }
+    
+    if (typeof getState === 'undefined') {
+      console.error('❌ getState not found. Make sure the app is loaded.');
+      return;
+    }
+    
+    // Run all tests
+    await testValidationSystem();
+    await testCRUDOperations();
+    await testStateManagement();
+    await testErrorHandling();
+    await testPerformance();
+    
+    // Show summary
+    console.log('\n📊 TEST SUMMARY');
+    console.log('='.repeat(50));
+    console.log(`✅ Passed: ${testResults.passed}`);
+    console.log(`❌ Failed: ${testResults.failed}`);
+    console.log(`📝 Created Templates: ${testResults.createdTemplates.length}`);
+    
+    if (testResults.failed > 0) {
+      console.log('\n🔍 FAILURES:');
+      testResults.errors.forEach(error => {
+        console.log(`❌ ${error.test}: ${error.details}`);
+      });
+    }
+    
+    const successRate = ((testResults.passed / (testResults.passed + testResults.failed)) * 100).toFixed(1);
+    console.log(`\n🎯 Success Rate: ${successRate}%`);
+    
+    if (successRate >= 90) {
+      console.log('🎉 EXCELLENT! Template system is working well.');
+    } else if (successRate >= 75) {
+      console.log('👍 GOOD! Minor issues to address.');
+    } else {
+      console.log('⚠️  NEEDS WORK! Several issues found.');
+    }
+    
+    // Cleanup
+    await cleanup();
+    
+    console.log('\n✅ Testing Complete!');
+    console.log('Step 5 of Phase 2A is now ready for completion.');
+    
+  } catch (error) {
+    console.error('💥 Test runner failed:', error);
+  }
+}
+
+// Start tests automatically
+runAllTests();
+10:35:04.472 VM81:12 🧪 Starting Task Template System Tests...
+10:35:04.472 VM81:474 🚀 Starting Comprehensive Task Template Tests
+10:35:04.472 VM81:475 This will test all functionality we built in Steps 1-4
+10:35:04.472 VM81:476 
+10:35:04.472 VM81:157 
+🔍 Testing Validation System
+10:35:04.472 VM81:158 ==================================================
+10:35:04.473 VM81:146 ✅ Valid Template 1 (Morning Exercise)
+10:35:04.473 VM81:146 ✅ Valid Template 2 (Team Meeting)
+10:35:04.473 VM81:146 ✅ Valid Template 3 (Creative Writing)
+10:35:04.473 VM81:146 ✅ Valid Template 4 (Monthly Review)
+10:35:04.473 VM81:146 ✅ Valid Template 5 (Project Setup)
+10:35:04.473 VM81:146 ✅ Invalid Template 1 (correctly rejected): Errors: Task name is required
+10:35:04.473 VM81:146 ✅ Invalid Template 2 (correctly rejected): Errors: Duration must be a positive integer (minutes)
+10:35:04.473 VM81:146 ✅ Invalid Template 3 (correctly rejected): Errors: Fixed scheduling requires a default time
+10:35:04.473 VM81:146 ✅ Invalid Template 4 (correctly rejected): Errors: Weekly recurrence requires at least one day of the week
+10:35:04.474 VM81:146 ✅ Invalid Template 5 (correctly rejected): Errors: Task name must be 100 characters or less
+10:35:04.474 VM81:157 
+🔍 Testing CRUD Operations
+10:35:04.474 VM81:158 ==================================================
+10:35:04.474 VM81:146 ✅ User Authentication Check: User ID: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:04.474 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:04.474 data.js:146 🔍 About to execute Firestore query...
+10:35:04.498 Promise {<pending>}
+10:35:04.683 data.js:148 🔍 Query executed successfully, processing results...
+10:35:04.683 data.js:155 ✅ Retrieved 0 task templates
+10:35:05.110 data.js:283 ✅ Task template created: mrBU7siHWJghs9Q6PQ8x
+10:35:05.111 taskLogic.js:723 📍 Placed 1 anchor tasks
+10:35:05.111 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:05.111 taskLogic.js:86 ✅ Task template created: Morning Exercise
+10:35:05.111 VM81:146 ✅ CREATE Template 1 (Morning Exercise): ID: mrBU7siHWJghs9Q6PQ8x
+10:35:05.111 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:05.112 data.js:146 🔍 About to execute Firestore query...
+10:35:05.211 data.js:148 🔍 Query executed successfully, processing results...
+10:35:05.211 data.js:155 ✅ Retrieved 1 task templates
+10:35:05.336 data.js:283 ✅ Task template created: Gh1qGQ2LMVAoEAda6fVO
+10:35:05.337 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:05.337 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:05.338 taskLogic.js:86 ✅ Task template created: Team Meeting
+10:35:05.338 VM81:146 ✅ CREATE Template 2 (Team Meeting): ID: Gh1qGQ2LMVAoEAda6fVO
+10:35:05.338 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:05.338 data.js:146 🔍 About to execute Firestore query...
+10:35:05.461 data.js:148 🔍 Query executed successfully, processing results...
+10:35:05.462 data.js:155 ✅ Retrieved 2 task templates
+10:35:05.589 data.js:283 ✅ Task template created: WrgGg4egu3cVRJx30Qsk
+10:35:05.589 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:05.589 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:05.590 taskLogic.js:86 ✅ Task template created: Creative Writing
+10:35:05.590 VM81:146 ✅ CREATE Template 3 (Creative Writing): ID: WrgGg4egu3cVRJx30Qsk
+10:35:05.590 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:05.590 data.js:146 🔍 About to execute Firestore query...
+10:35:05.728 data.js:148 🔍 Query executed successfully, processing results...
+10:35:05.728 data.js:155 ✅ Retrieved 3 task templates
+10:35:05.849 data.js:283 ✅ Task template created: SJcrVkpJG4eeOmK4iVya
+10:35:05.849 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:05.849 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:05.850 taskLogic.js:86 ✅ Task template created: Monthly Review
+10:35:05.850 VM81:146 ✅ CREATE Template 4 (Monthly Review): ID: SJcrVkpJG4eeOmK4iVya
+10:35:05.850 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:05.850 data.js:146 🔍 About to execute Firestore query...
+10:35:05.945 data.js:148 🔍 Query executed successfully, processing results...
+10:35:05.945 data.js:155 ✅ Retrieved 4 task templates
+10:35:06.061 data.js:283 ✅ Task template created: 2eYXJChe53EWd4kTwvxl
+10:35:06.062 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:06.062 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:06.063 taskLogic.js:86 ✅ Task template created: Project Setup
+10:35:06.063 VM81:146 ✅ CREATE Template 5 (Project Setup): ID: 2eYXJChe53EWd4kTwvxl
+10:35:06.063 VM81:146 ✅ READ Template (Morning Exercise)
+10:35:06.063 VM81:146 ✅ READ Template (Team Meeting)
+10:35:06.063 VM81:146 ✅ READ Template (Creative Writing)
+10:35:06.063 VM81:146 ✅ READ Template (Monthly Review)
+10:35:06.063 VM81:146 ✅ READ Template (Project Setup)
+10:35:06.063 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.063 data.js:146 🔍 About to execute Firestore query...
+10:35:06.171 data.js:148 🔍 Query executed successfully, processing results...
+10:35:06.171 data.js:155 ✅ Retrieved 5 task templates
+10:35:06.172 VM81:146 ✅ GET ALL Templates: Retrieved 5 templates
+10:35:06.172 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.172 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.172 data.js:146 🔍 About to execute Firestore query...
+10:35:06.233 data.js:148 🔍 Query executed successfully, processing results...
+10:35:06.233 data.js:155 ✅ Retrieved 5 task templates
+10:35:06.233 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.373 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.460 data.js:315 ✅ Task template updated: mrBU7siHWJghs9Q6PQ8x
+10:35:06.460 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:06.460 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:06.461 taskLogic.js:187 ✅ Task template updated: mrBU7siHWJghs9Q6PQ8x
+10:35:06.461 VM81:146 ✅ UPDATE Template (Morning Exercise)
+10:35:06.461 VM81:157 
+🔍 Testing State Management Integration
+10:35:06.461 VM81:158 ==================================================
+10:35:06.461 VM81:308 🔍 Current state structure: {}
+10:35:06.461 VM81:146 ❌ State Templates Access: Templates structure not recognized. State keys: get, getUser, getSettings, getCurrentDate, getCurrentView, getTaskTemplates, getTaskTemplateById, getTaskTemplateMetadata, getTaskTemplateFilters, getTaskTemplatePagination, getTaskTemplateSearchResults, getTemplateOperationQueue, getTaskInstancesForDate, getDailyScheduleForDate, isLoading, isOnline, getSearchQuery, getActiveFilters, setUser, setSettings, setCurrentView, setCurrentDate, setTaskTemplates, updateTaskTemplate, removeTaskTemplate, setTaskTemplateFilters, setTaskTemplatePagination, setTaskTemplateSearchResults, clearTaskTemplateCache, addTemplateOperation, clearTemplateOperationQueue, setTaskInstancesForDate, updateTaskInstance, setDailyScheduleForDate, setLoading, setOnline, setSearchQuery, setFilter, addPendingSyncAction, clearPendingSyncActions
+10:35:06.461 VM81:146 ✅ State Actions Available
+10:35:06.461 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.461 data.js:146 🔍 About to execute Firestore query...
+10:35:06.559 data.js:148 🔍 Query executed successfully, processing results...
+10:35:06.559 data.js:155 ✅ Retrieved 5 task templates
+10:35:06.559 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:06.560 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:06.560 state.js:607 ✅ Task templates loaded (5 templates)
+10:35:06.560 VM81:336 🔍 Reloaded state structure: {}
+10:35:06.560 VM81:146 ✅ State Synchronization: Reloaded state with 0 templates
+10:35:06.560 VM81:157 
+🔍 Testing Error Handling
+10:35:06.560 VM81:158 ==================================================
+10:35:06.560 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.675 data.js:181 ❌ Error getting task template: Error: Task template not found: invalid-id-12345
+    at Object.get (data.js:178:15)
+    at async TaskTemplateManager.get (taskLogic.js:109:24)
+    at async testErrorHandling (<anonymous>:362:5)
+    at async runAllTests (<anonymous>:494:5)
+get @ data.js:181
+await in get
+get @ taskLogic.js:109
+testErrorHandling @ VM81:362
+runAllTests @ VM81:494
+await in runAllTests
+(anonymous) @ VM81:534
+10:35:06.675 taskLogic.js:116 ❌ Error retrieving task template: Error: Task template not found: invalid-id-12345
+    at Object.get (data.js:178:15)
+    at async TaskTemplateManager.get (taskLogic.js:109:24)
+    at async testErrorHandling (<anonymous>:362:5)
+    at async runAllTests (<anonymous>:494:5)
+get @ taskLogic.js:116
+await in get
+testErrorHandling @ VM81:362
+runAllTests @ VM81:494
+await in runAllTests
+(anonymous) @ VM81:534
+10:35:06.675 VM81:146 ✅ Invalid ID Handling: Correctly threw: Task template not found: invalid-id-12345
+10:35:06.675 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.790 data.js:181 ❌ Error getting task template: Error: Task template not found: non-existent-id
+    at Object.get (data.js:178:15)
+    at async TaskTemplateManager.get (taskLogic.js:109:24)
+    at async TaskTemplateManager.update (taskLogic.js:159:31)
+    at async testErrorHandling (<anonymous>:370:5)
+    at async runAllTests (<anonymous>:494:5)
+get @ data.js:181
+await in get
+get @ taskLogic.js:109
+update @ taskLogic.js:159
+testErrorHandling @ VM81:370
+await in testErrorHandling
+runAllTests @ VM81:494
+await in runAllTests
+(anonymous) @ VM81:534
+10:35:06.791 taskLogic.js:116 ❌ Error retrieving task template: Error: Task template not found: non-existent-id
+    at Object.get (data.js:178:15)
+    at async TaskTemplateManager.get (taskLogic.js:109:24)
+    at async TaskTemplateManager.update (taskLogic.js:159:31)
+    at async testErrorHandling (<anonymous>:370:5)
+    at async runAllTests (<anonymous>:494:5)
+get @ taskLogic.js:116
+await in get
+update @ taskLogic.js:159
+testErrorHandling @ VM81:370
+await in testErrorHandling
+runAllTests @ VM81:494
+await in runAllTests
+(anonymous) @ VM81:534
+10:35:06.791 taskLogic.js:190 ❌ Error updating task template: Error: Task template not found: non-existent-id
+    at Object.get (data.js:178:15)
+    at async TaskTemplateManager.get (taskLogic.js:109:24)
+    at async TaskTemplateManager.update (taskLogic.js:159:31)
+    at async testErrorHandling (<anonymous>:370:5)
+    at async runAllTests (<anonymous>:494:5)
+update @ taskLogic.js:190
+await in update
+testErrorHandling @ VM81:370
+await in testErrorHandling
+runAllTests @ VM81:494
+await in runAllTests
+(anonymous) @ VM81:534
+10:35:06.791 VM81:146 ✅ Update Non-existent: Correctly threw: Task template not found: non-existent-id
+10:35:06.791 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.791 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:06.791 data.js:146 🔍 About to execute Firestore query...
+10:35:06.884 data.js:148 🔍 Query executed successfully, processing results...
+10:35:06.884 data.js:155 ✅ Retrieved 5 task templates
+10:35:06.885 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.006 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.119 data.js:315 ✅ Task template updated: mrBU7siHWJghs9Q6PQ8x
+10:35:07.119 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:07.120 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:07.120 taskLogic.js:187 ✅ Task template updated: mrBU7siHWJghs9Q6PQ8x
+10:35:07.120 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.120 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.120 data.js:146 🔍 About to execute Firestore query...
+10:35:07.226 data.js:148 🔍 Query executed successfully, processing results...
+10:35:07.226 data.js:155 ✅ Retrieved 5 task templates
+10:35:07.226 taskLogic.js:190 ❌ Error updating task template: Error: Template validation failed: Circular dependency detected: Gh1qGQ2LMVAoEAda6fVO → mrBU7siHWJghs9Q6PQ8x → Gh1qGQ2LMVAoEAda6fVO
+    at TaskTemplateManager.update (taskLogic.js:175:15)
+    at async testErrorHandling (<anonymous>:384:7)
+    at async runAllTests (<anonymous>:494:5)
+update @ taskLogic.js:190
+await in update
+testErrorHandling @ VM81:384
+await in testErrorHandling
+runAllTests @ VM81:494
+await in runAllTests
+(anonymous) @ VM81:534
+10:35:07.226 VM81:146 ✅ Circular Dependency Detection: Prevented by system: Template validation failed: Circular dependency detected: Gh1qGQ2LMVAoEAda6fVO → mrBU7siHWJghs9Q6PQ8x → Gh1qGQ2LMVAoEAda6fVO
+10:35:07.226 VM81:157 
+🔍 Testing Performance
+10:35:07.227 VM81:158 ==================================================
+10:35:07.227 VM81:146 ✅ Batch Validation Performance: 3 templates in 0.00ms
+10:35:07.227 VM81:146 ✅ Performance Check: Good performance: 0.00ms
+10:35:07.227 VM81:498 
+📊 TEST SUMMARY
+10:35:07.227 VM81:499 ==================================================
+10:35:07.227 VM81:500 ✅ Passed: 30
+10:35:07.227 VM81:501 ❌ Failed: 1
+10:35:07.227 VM81:502 📝 Created Templates: 5
+10:35:07.227 VM81:505 
+🔍 FAILURES:
+10:35:07.227 VM81:507 ❌ State Templates Access: Templates structure not recognized. State keys: get, getUser, getSettings, getCurrentDate, getCurrentView, getTaskTemplates, getTaskTemplateById, getTaskTemplateMetadata, getTaskTemplateFilters, getTaskTemplatePagination, getTaskTemplateSearchResults, getTemplateOperationQueue, getTaskInstancesForDate, getDailyScheduleForDate, isLoading, isOnline, getSearchQuery, getActiveFilters, setUser, setSettings, setCurrentView, setCurrentDate, setTaskTemplates, updateTaskTemplate, removeTaskTemplate, setTaskTemplateFilters, setTaskTemplatePagination, setTaskTemplateSearchResults, clearTaskTemplateCache, addTemplateOperation, clearTemplateOperationQueue, setTaskInstancesForDate, updateTaskInstance, setDailyScheduleForDate, setLoading, setOnline, setSearchQuery, setFilter, addPendingSyncAction, clearPendingSyncActions
+10:35:07.227 VM81:512 
+🎯 Success Rate: 96.8%
+10:35:07.227 VM81:515 🎉 EXCELLENT! Template system is working well.
+10:35:07.227 VM81:157 
+🔍 Cleanup Test Data
+10:35:07.227 VM81:158 ==================================================
+10:35:07.227 VM81:146 ✅ Cleanup - User Check: User ID: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.227 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.227 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.227 data.js:146 🔍 About to execute Firestore query...
+10:35:07.306 data.js:148 🔍 Query executed successfully, processing results...
+10:35:07.306 data.js:155 ✅ Retrieved 5 task templates
+10:35:07.306 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.442 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.562 data.js:315 ✅ Task template updated: mrBU7siHWJghs9Q6PQ8x
+10:35:07.562 taskLogic.js:723 📍 Placed 2 anchor tasks
+10:35:07.562 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:07.563 taskLogic.js:187 ✅ Task template updated: mrBU7siHWJghs9Q6PQ8x
+10:35:07.563 taskLogic.js:723 📍 Placed 1 anchor tasks
+10:35:07.563 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:07.564 taskLogic.js:216 ✅ Task template deleted (deactivated): mrBU7siHWJghs9Q6PQ8x
+10:35:07.564 VM81:146 ✅ DELETE Template (Morning Exercise)
+10:35:07.564 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.564 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.564 data.js:146 🔍 About to execute Firestore query...
+10:35:07.640 data.js:148 🔍 Query executed successfully, processing results...
+10:35:07.640 data.js:155 ✅ Retrieved 4 task templates
+10:35:07.640 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.740 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.842 data.js:315 ✅ Task template updated: Gh1qGQ2LMVAoEAda6fVO
+10:35:07.842 taskLogic.js:723 📍 Placed 1 anchor tasks
+10:35:07.842 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:07.843 taskLogic.js:187 ✅ Task template updated: Gh1qGQ2LMVAoEAda6fVO
+10:35:07.843 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:07.843 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:07.843 taskLogic.js:216 ✅ Task template deleted (deactivated): Gh1qGQ2LMVAoEAda6fVO
+10:35:07.844 VM81:146 ✅ DELETE Template (Team Meeting)
+10:35:07.844 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.844 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:07.844 data.js:146 🔍 About to execute Firestore query...
+10:35:07.941 data.js:148 🔍 Query executed successfully, processing results...
+10:35:07.941 data.js:155 ✅ Retrieved 3 task templates
+10:35:07.941 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.043 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.115 data.js:315 ✅ Task template updated: WrgGg4egu3cVRJx30Qsk
+10:35:08.115 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:08.115 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:08.116 taskLogic.js:187 ✅ Task template updated: WrgGg4egu3cVRJx30Qsk
+10:35:08.116 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:08.116 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:08.116 taskLogic.js:216 ✅ Task template deleted (deactivated): WrgGg4egu3cVRJx30Qsk
+10:35:08.116 VM81:146 ✅ DELETE Template (Creative Writing)
+10:35:08.116 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.116 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.116 data.js:146 🔍 About to execute Firestore query...
+10:35:08.226 data.js:148 🔍 Query executed successfully, processing results...
+10:35:08.226 data.js:155 ✅ Retrieved 2 task templates
+10:35:08.226 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.344 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.460 data.js:315 ✅ Task template updated: SJcrVkpJG4eeOmK4iVya
+10:35:08.460 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:08.460 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:08.461 taskLogic.js:187 ✅ Task template updated: SJcrVkpJG4eeOmK4iVya
+10:35:08.461 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:08.461 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:08.461 taskLogic.js:216 ✅ Task template deleted (deactivated): SJcrVkpJG4eeOmK4iVya
+10:35:08.461 VM81:146 ✅ DELETE Template (Monthly Review)
+10:35:08.461 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.461 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.461 data.js:146 🔍 About to execute Firestore query...
+10:35:08.575 data.js:148 🔍 Query executed successfully, processing results...
+10:35:08.576 data.js:155 ✅ Retrieved 1 task templates
+10:35:08.576 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.694 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+10:35:08.769 data.js:315 ✅ Task template updated: 2eYXJChe53EWd4kTwvxl
+10:35:08.770 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:08.770 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:08.770 taskLogic.js:187 ✅ Task template updated: 2eYXJChe53EWd4kTwvxl
+10:35:08.770 taskLogic.js:723 📍 Placed 0 anchor tasks
+10:35:08.770 taskLogic.js:751 🔗 Resolved task dependencies
+10:35:08.771 taskLogic.js:216 ✅ Task template deleted (deactivated): 2eYXJChe53EWd4kTwvxl
+10:35:08.771 VM81:146 ✅ DELETE Template (Project Setup)
+10:35:08.771 VM81:525 
+✅ Testing Complete!
+10:35:08.771 VM81:526 Step 5 of Phase 2A is now ready for completion.

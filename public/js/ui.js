@@ -8,7 +8,8 @@
 import { state, stateListeners } from './state.js';
 import { schedulingEngine, taskTemplateManager, taskInstanceManager } from './taskLogic.js';
 import { SimpleErrorHandler } from './utils/SimpleErrorHandler.js';
-import { dataUtils } from './data.js';
+import { dataUtils } from './dataOffline.js';
+import { taskList } from './components/TaskList.js';
 
 /**
  * UI State Management
@@ -139,13 +140,20 @@ export const uiController = {
    */
   renderCurrentView() {
     const currentView = state.getCurrentView();
+    const previousView = uiState.lastRenderedView;
     
     // Prevent unnecessary re-renders
-    if (uiState.lastRenderedView === currentView && !this.shouldForceRender()) {
+    if (previousView === currentView && !this.shouldForceRender()) {
       return;
     }
 
     try {
+      // Clean up previous view if switching views
+      if (previousView && previousView !== currentView) {
+        this.cleanupPreviousView(previousView);
+      }
+      
+      // Render new view
       switch (currentView) {
         case 'today':
           this.renderTodayView();
@@ -164,6 +172,24 @@ export const uiController = {
     } catch (error) {
       console.error('❌ Error rendering view:', error);
       SimpleErrorHandler.showError('Failed to render view. Please try refreshing the page.', error);
+    }
+  },
+
+  /**
+   * Clean up resources from the previous view
+   */
+  cleanupPreviousView(previousView) {
+    try {
+      switch (previousView) {
+        case 'library':
+          if (taskLibraryUI.destroy) {
+            taskLibraryUI.destroy();
+          }
+          break;
+        // Add cleanup for other views as needed
+      }
+    } catch (error) {
+      console.warn('⚠️ Warning during view cleanup:', error);
     }
   },
 
@@ -635,138 +661,51 @@ export const todayViewUI = {
  */
 export const taskLibraryUI = {
   /**
-   * Render Task Library View
+   * Render Task Library View using the new TaskList component
    */
   render() {
     const mainContent = document.getElementById('app-main');
-    const taskTemplates = state.getTaskTemplates();
     
+    // Create container for the TaskList component
     mainContent.innerHTML = `
-      <div class="view-container">
-        <div class="library-header">
-          <h2>Task Library</h2>
-          <p>Manage all your task templates</p>
-        </div>
-        
-        <div class="library-content">
-          ${this.renderSearchAndFilters()}
-          ${this.renderTaskCategories(taskTemplates)}
-        </div>
+      <div class="view-container task-library-view">
+        <div id="task-library-container"></div>
       </div>
     `;
     
-    this.setupEventListeners();
-  },
-
-  /**
-   * Render search and filters
-   */
-  renderSearchAndFilters() {
-    return `
-      <div class="search-filters">
-        <div class="search-bar">
-          <input type="text" id="task-search" class="input" placeholder="Search tasks...">
-        </div>
-        <div class="filter-buttons">
-          <button class="btn btn-sm btn-secondary filter-btn active" data-filter="all">All</button>
-          <button class="btn btn-sm btn-secondary filter-btn" data-filter="mandatory">Mandatory</button>
-          <button class="btn btn-sm btn-secondary filter-btn" data-filter="skippable">Skippable</button>
-        </div>
-      </div>
-    `;
-  },
-
-  /**
-   * Render task categories
-   */
-  renderTaskCategories(taskTemplates) {
-    if (taskTemplates.length === 0) {
-      return `
-        <div class="empty-state">
-          <h3>No Tasks Found</h3>
-          <p>Start by creating your first task template!</p>
-          <button class="btn btn-primary" onclick="mainAppUI.showAddTaskModal()">
-            ➕ Add Your First Task
-          </button>
+    // Initialize the TaskList component
+    try {
+      taskList.init('#task-library-container');
+      console.log('✅ Task Library view rendered with TaskList component');
+    } catch (error) {
+      console.error('❌ Error initializing TaskList component:', error);
+      SimpleErrorHandler.showError('Failed to load task library. Please try refreshing the page.', error);
+      
+      // Fallback content
+      mainContent.innerHTML = `
+        <div class="view-container">
+          <div class="error-state">
+            <h3>⚠️ Task Library Unavailable</h3>
+            <p>There was an error loading the task library. Please refresh the page to try again.</p>
+            <button class="btn btn-primary" onclick="location.reload()">
+              🔄 Refresh Page
+            </button>
+          </div>
         </div>
       `;
     }
-    
-    return `
-      <div class="task-categories">
-        <div class="category-section">
-          <h3>All Tasks (${taskTemplates.length})</h3>
-          <div class="tasks-grid">
-            ${taskTemplates.map(task => this.renderLibraryTaskItem(task)).join('')}
-          </div>
-        </div>
-      </div>
-    `;
   },
 
   /**
-   * Render library task item
+   * Clean up TaskList component when leaving this view
    */
-  renderLibraryTaskItem(task) {
-    return `
-      <div class="library-task-item card" data-task-id="${task.id}">
-        <div class="task-header">
-          <h4 class="task-name">${task.taskName}</h4>
-          <div class="task-actions">
-            <button class="btn btn-sm btn-secondary" onclick="editTask('${task.id}')">Edit</button>
-            <button class="btn btn-sm btn-secondary" onclick="duplicateTask('${task.id}')">Copy</button>
-          </div>
-        </div>
-        ${task.description ? `<p class="task-description">${task.description}</p>` : ''}
-        <div class="task-details">
-          <span class="detail-item">Duration: ${task.durationMinutes}min</span>
-          <span class="detail-item">Priority: ${task.priority}/5</span>
-          <span class="detail-item">Type: ${task.schedulingType}</span>
-          <span class="detail-item">${task.isMandatory ? 'Mandatory' : 'Skippable'}</span>
-          <span class="detail-item">Window: ${task.timeWindow}</span>
-        </div>
-      </div>
-    `;
-  },
-
-  /**
-   * Setup event listeners for Task Library view
-   */
-  setupEventListeners() {
-    // Search functionality
-    const searchInput = document.getElementById('task-search');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        this.handleSearch(e.target.value);
-      });
+  destroy() {
+    try {
+      taskList.destroy();
+      console.log('✅ Task Library view cleaned up');
+    } catch (error) {
+      console.warn('⚠️ Warning cleaning up TaskList component:', error);
     }
-    
-    // Filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        this.handleFilter(btn.dataset.filter);
-      });
-    });
-  },
-
-  /**
-   * Handle search input
-   */
-  handleSearch(query) {
-    state.setSearchQuery(query);
-    // Re-render with filtered results
-    this.render();
-  },
-
-  /**
-   * Handle filter selection
-   */
-  handleFilter(filterType) {
-    state.setFilter('mandatory', filterType);
-    // Re-render with filtered results
-    this.render();
   }
 };
 

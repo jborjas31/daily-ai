@@ -16,7 +16,7 @@ import {
 
 // Import data and state management
 import { state, stateListeners, stateActions } from './state.js';
-import { dataUtils } from './data.js';
+import { dataUtils } from './dataOffline.js';
 import { userSettingsManager } from './userSettings.js';
 
 // Import task logic and scheduling
@@ -36,6 +36,10 @@ import { SimpleTabSync } from './utils/SimpleTabSync.js';
 import { ResponsiveNavigation } from './utils/ResponsiveNavigation.js';
 import { SafeEventListener, initMemoryLeakPrevention } from './utils/MemoryLeakPrevention.js';
 
+// Import offline functionality
+import { offlineDataLayer } from './utils/OfflineDataLayer.js';
+import { offlineDetection } from './utils/OfflineDetection.js';
+
 /**
  * Application initialization
  * Called by AppInitializer after browser compatibility check
@@ -46,6 +50,10 @@ export async function initApp() {
     
     // Initialize memory leak prevention system first
     initMemoryLeakPrevention();
+    
+    // Initialize offline system early
+    await offlineDataLayer.init();
+    console.log('✅ Offline system initialized');
     
     // Initialize UI system first
     uiController.init();

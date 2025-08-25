@@ -8,7 +8,7 @@
 import { state } from '../state.js';
 import { schedulingEngine, realTimeTaskLogic } from '../taskLogic.js';
 import { taskModal } from './TaskModal.js';
-import { dataUtils } from '../data.js';
+import { dataUtils } from '../dataOffline.js';
 import { SafeInterval, SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
 
 /**
