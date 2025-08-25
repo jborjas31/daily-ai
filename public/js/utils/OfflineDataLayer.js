@@ -83,22 +83,22 @@ export class OfflineDataLayer {
   async performInitialMaintenance() {
     try {
       console.log('🔧 OfflineDataLayer: Performing initial maintenance...');
-      
-      // Check for data corruption
-      const corruptionReport = await dataMaintenance.checkDataCorruption();
-      if (corruptionReport.corrupted.length > 0) {
-        console.warn('⚠️ OfflineDataLayer: Found corrupted data, attempting repair');
-        await dataMaintenance.repairCorruption(corruptionReport);
+
+      // Validate data integrity
+      const integrityReport = await dataMaintenance.validateDataIntegrity();
+      if (integrityReport.taskTemplates.invalid > 0 || integrityReport.taskInstances.invalid > 0) {
+        console.warn('⚠️ OfflineDataLayer: Found data with integrity issues, attempting repair');
+        await dataMaintenance.repairCorruptedData();
       }
-      
+
       // Clean up old data
-      await dataMaintenance.performCleanup();
-      
-      // Validate schema
-      await dataMaintenance.validateSchema();
-      
+      await dataMaintenance.cleanupOldData();
+
+      // Migrate schema to the latest version
+      await dataMaintenance.migrateSchema();
+
       console.log('✅ OfflineDataLayer: Initial maintenance complete');
-      
+
     } catch (error) {
       console.warn('⚠️ OfflineDataLayer: Initial maintenance failed:', error);
       // Don't throw - app should still work even if maintenance fails

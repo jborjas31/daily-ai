@@ -678,13 +678,97 @@ function updateTaskInstanceMetadata() {
 /**
  * Multi-tab Synchronization
  */
+
+/**
+ * Sanitize data for BroadcastChannel transmission
+ * BroadcastChannel can only handle structured cloneable data
+ */
+function sanitizeDataForBroadcast(data) {
+  if (data === null || data === undefined) {
+    return data;
+  }
+  
+  // Handle primitive types
+  if (typeof data !== 'object') {
+    return data;
+  }
+  
+  // Handle Arrays
+  if (Array.isArray(data)) {
+    return data.map(item => sanitizeDataForBroadcast(item));
+  }
+  
+  // Handle Firebase User objects
+  if (data && typeof data === 'object' && data.uid && data.email !== undefined) {
+    return {
+      uid: data.uid,
+      email: data.email,
+      displayName: data.displayName,
+      photoURL: data.photoURL,
+      emailVerified: data.emailVerified,
+      isAnonymous: data.isAnonymous,
+      phoneNumber: data.phoneNumber,
+      providerId: data.providerId,
+      providerData: data.providerData ? data.providerData.map(provider => ({
+        uid: provider.uid,
+        email: provider.email,
+        displayName: provider.displayName,
+        photoURL: provider.photoURL,
+        providerId: provider.providerId
+      })) : []
+    };
+  }
+  
+  // Handle Date objects
+  if (data instanceof Date) {
+    return data.toISOString();
+  }
+  
+  // Handle plain objects
+  if (data.constructor === Object) {
+    const sanitized = {};
+    for (const [key, value] of Object.entries(data)) {
+      // Skip functions and undefined values
+      if (typeof value !== 'function' && value !== undefined) {
+        sanitized[key] = sanitizeDataForBroadcast(value);
+      }
+    }
+    return sanitized;
+  }
+  
+  // For other complex objects, try to extract serializable properties
+  try {
+    JSON.stringify(data);
+    return data; // Already serializable
+  } catch (error) {
+    // Object is not serializable, extract basic properties
+    const sanitized = {};
+    for (const key in data) {
+      try {
+        const value = data[key];
+        if (typeof value !== 'function' && value !== undefined) {
+          const serializedValue = sanitizeDataForBroadcast(value);
+          JSON.stringify(serializedValue); // Test serializability
+          sanitized[key] = serializedValue;
+        }
+      } catch (e) {
+        // Skip this property if it can't be serialized
+        continue;
+      }
+    }
+    return sanitized;
+  }
+}
+
 function broadcastStateChange(type, data) {
   if (appState.tabSyncEnabled && typeof BroadcastChannel !== 'undefined') {
     try {
       const channel = new BroadcastChannel('daily-ai-state');
+      const sanitizedData = sanitizeDataForBroadcast(data);
+      
       channel.postMessage({
         type: `state-${type}`,
-        data,
+        data: sanitizedData,
         timestamp: new Date().toISOString(),
         source: 'state-manager'
       });
