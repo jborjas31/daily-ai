@@ -123,12 +123,15 @@ export class TaskList {
             <button type="button" class="btn btn-primary" id="create-template-btn">
               ➕ Create Template
             </button>
+            <!-- Import/Export features temporarily disabled -->
+            <!--
             <button type="button" class="btn btn-secondary" id="import-templates-btn">
               📥 Import
             </button>
             <button type="button" class="btn btn-secondary" id="export-templates-btn">
               📤 Export
             </button>
+            -->
           </div>
         </div>
         
@@ -314,9 +317,12 @@ export class TaskList {
           <button type="button" id="bulk-duplicate-btn" class="btn btn-secondary">
             📄 Duplicate Selected
           </button>
+          <!-- Bulk export temporarily disabled -->
+          <!--
           <button type="button" id="bulk-export-btn" class="btn btn-secondary">
             📤 Export Selected
           </button>
+          -->
           <button type="button" id="bulk-delete-btn" class="btn btn-danger">
             🗑️ Delete Selected
           </button>
@@ -684,9 +690,9 @@ export class TaskList {
       ['#create-template-btn', 'click', () => this.handleCreateTemplate()],
       ['#create-first-template-btn', 'click', () => this.handleCreateTemplate()],
       
-      // Import/Export buttons
-      ['#import-templates-btn', 'click', () => this.handleImportTemplates()],
-      ['#export-templates-btn', 'click', () => this.handleExportTemplates()],
+      // Import/Export buttons - temporarily disabled
+      // ['#import-templates-btn', 'click', () => this.handleImportTemplates()],
+      // ['#export-templates-btn', 'click', () => this.handleExportTemplates()],
       
       // === Toolbar Controls ===
       
@@ -732,7 +738,7 @@ export class TaskList {
       ['#bulk-activate-btn', 'click', () => this.handleBulkAction('activate')],
       ['#bulk-deactivate-btn', 'click', () => this.handleBulkAction('deactivate')],
       ['#bulk-duplicate-btn', 'click', () => this.handleBulkAction('duplicate')],
-      ['#bulk-export-btn', 'click', () => this.handleBulkAction('export')],
+      // ['#bulk-export-btn', 'click', () => this.handleBulkAction('export')], // temporarily disabled
       ['#bulk-delete-btn', 'click', () => this.handleBulkAction('delete')],
       
       // === Task Card Actions ===
@@ -962,9 +968,9 @@ export class TaskList {
           confirmMessage = `Duplicate ${selectedIds.length} selected template${selectedIds.length !== 1 ? 's' : ''}?`;
           successMessage = 'Templates duplicated successfully!';
           break;
-        case 'export':
-          await this.handleBulkExport(selectedIds);
-          return;
+        // case 'export': // temporarily disabled
+          // await this.handleBulkExport(selectedIds);
+          // return;
         case 'delete':
           confirmMessage = `Delete ${selectedIds.length} selected template${selectedIds.length !== 1 ? 's' : ''}? This action cannot be undone.`;
           successMessage = 'Templates deleted successfully!';

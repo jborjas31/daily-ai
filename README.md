@@ -305,7 +305,8 @@ The app has three views: **"Today View,"** **"Task Library,"** and **"Settings."
 
 * **Sleep Configuration:** Fields for desired sleep duration, default wake time, and default sleep time.
 * **User Preferences:** Any additional customization options.
-* **Data Management:** Options for data export/backup if needed.
+* **Data Management:** Basic preferences and settings configuration.
+  > **Note:** Data export/backup functionality is planned for future development.
 
 ### Task Logic & Real-Time Behavior
 
@@ -568,7 +569,8 @@ Build the application in the following logical order.
 11. **✅ Build Task Management Interfaces**
     - Created professional TaskList component with advanced categorization system
     - Implemented comprehensive search and filtering with real-time updates
-    - Added bulk operations, import/export, and intuitive task status management
+    - Added bulk operations and intuitive task status management
+      > **Note:** Import/export functionality implemented but temporarily hidden - planned for future release
 12. **✅ Complete Offline Integration**
     - Implemented comprehensive offline persistence with IndexedDB storage system
     - Added intelligent sync queue with conflict resolution and automatic retry

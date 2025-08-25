@@ -439,7 +439,7 @@ class DataCleanupManager {
 ### **Test Case 2: Critical Threshold**
 - **Setup**: Fill storage to 95% capacity  
 - **Expected**: Critical dialog blocks further operations
-- **Verify**: Must clean up or export data to continue
+- **Verify**: Must clean up data to continue (data export feature planned for future development)
 
 ### **Test Case 3: IndexedDB Failure**
 - **Setup**: Disable IndexedDB in browser

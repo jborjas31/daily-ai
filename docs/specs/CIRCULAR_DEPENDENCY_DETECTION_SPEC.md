@@ -356,7 +356,7 @@ class AdvancedDependencyAnalyzer {
 
 1. **Task Deletion**: Remove dependencies when deleting tasks
 2. **Bulk Operations**: Validate multiple dependency changes  
-3. **Import/Export**: Validate dependencies during data import
+3. **Import/Export**: Validate dependencies during data import (feature planned for future development)
 4. **Recurring Tasks**: Handle dependencies for recurring task instances
 5. **Very Deep Chains**: Optimize for 10+ level dependency chains
 
