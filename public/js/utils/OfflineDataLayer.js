@@ -9,7 +9,7 @@
 import { offlineStorage } from './OfflineStorage.js';
 import { offlineQueue, OPERATION_TYPES, OPERATION_PRIORITIES } from './OfflineQueue.js';
 import { offlineDetection } from './OfflineDetection.js';
-import { conflictResolver } from './ConflictResolution.js';
+import { conflictResolution } from './ConflictResolution.js';
 import { dataMaintenance } from './DataMaintenance.js';
 import * as originalData from '../data.js';
 
@@ -1173,12 +1173,14 @@ export class OfflineDataLayer {
         if (localTemplate._hasOfflineChanges) {
           try {
             const remoteTemplate = await originalData.taskTemplates.get(localTemplate.id);
-            const resolved = await conflictResolver.resolveConflict(
-              'taskTemplate',
-              localTemplate.id,
-              localTemplate,
-              remoteTemplate
-            );
+            const conflict = conflictResolution.detectConflict(localTemplate, remoteTemplate, 'taskTemplate');
+            let resolved;
+            if (conflict) {
+              const resolution = await conflictResolution.resolveConflict(conflict);
+              resolved = resolution.result;
+            } else {
+              resolved = localTemplate; // No conflict, use local
+            }
             
             if (resolved !== localTemplate) {
               // Update with resolved version
@@ -1196,12 +1198,14 @@ export class OfflineDataLayer {
         if (localInstance._hasOfflineChanges) {
           try {
             const remoteInstance = await originalData.taskInstances.get(localInstance.id);
-            const resolved = await conflictResolver.resolveConflict(
-              'taskInstance',
-              localInstance.id,
-              localInstance,
-              remoteInstance
-            );
+            const conflict = conflictResolution.detectConflict(localInstance, remoteInstance, 'taskInstance');
+            let resolved;
+            if (conflict) {
+              const resolution = await conflictResolution.resolveConflict(conflict);
+              resolved = resolution.result;
+            } else {
+              resolved = localInstance; // No conflict, use local
+            }
             
             if (resolved !== localInstance) {
               // Update with resolved version
