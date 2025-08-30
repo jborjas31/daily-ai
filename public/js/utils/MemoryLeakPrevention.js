@@ -482,7 +482,7 @@ export function initMemoryLeakPrevention() {
     memoryManager.performPeriodicCleanup();
     
     // Log stats every 5 minutes in development
-    if (process?.env?.NODE_ENV === 'development') {
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('local'))) {
       memoryManager.logMemoryStats();
     }
   }, 5 * 60 * 1000, 'Memory monitoring');

@@ -27,6 +27,7 @@ import { uiController, authUI, mainAppUI } from './ui.js';
 
 // Import components
 import { taskModal } from './components/TaskModal.js';
+import { taskList } from './components/TaskList.js';
 import Timeline from './components/Timeline.js';
 
 // Import utility modules
@@ -332,6 +333,8 @@ window.toggleTaskCompletion = async (taskId) => {
 // Expose objects globally for testing purposes
 // This allows the comprehensive test script to access required modules
 window.taskTemplateManager = taskTemplateManager;
+window.taskList = taskList;
+window.schedulingEngine = schedulingEngine;
 window.getState = () => state;
 window.stateActions = stateActions;
 

@@ -6,10 +6,9 @@ ModernBrowserChecker.js:158   Version: 139
 ModernBrowserChecker.js:159   Version supported: true
 AppInitializer.js:19 ✅ Browser compatibility check passed
 sw.js:85 SW: Service Worker loaded
-sw.js:30 SW: Installing service worker
 (index):271 SW registered: ServiceWorkerRegistration {installing: ServiceWorker, waiting: null, active: null, navigationPreload: NavigationPreloadManager, scope: 'https://daily-ai-3b51f.web.app/', …}
+sw.js:30 SW: Installing service worker
 sw.js:34 SW: Caching static assets
-sw.js:46 SW: Activating service worker
 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
@@ -42,6 +41,7 @@ app.js:49 🚀 Initializing Daily AI...
 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
 OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
+sw.js:46 SW: Activating service worker
 OfflineStorage.js:134 ✅ OfflineStorage: Database stores created
 OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
 OfflineQueue.js:193 🔄 OfflineQueue: Processing started
@@ -57,9 +57,9 @@ MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker onlin
 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
 app.js:63 ✅ Network monitoring initialized
 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
-MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1756519348548_c7ywmptt9
-MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1756519348548_c7ywmptt9
-SimpleTabSync.js:19 Tab tab_1756519348548_c7ywmptt9 initialized
+MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1756520026632_5vo2iiavr
+MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1756520026632_5vo2iiavr
+SimpleTabSync.js:19 Tab tab_1756520026632_5vo2iiavr initialized
 app.js:67 ✅ Tab synchronization initialized
 firebase.js:19 ✅ Firebase initialized
 app.js:71 ✅ Firebase initialized
@@ -74,96 +74,8 @@ userSettings.js:119 📄 User settings loaded from Firestore
 userSettings.js:89 ✅ Loaded existing user settings
 taskLogic.js:618 📍 Placed 0 anchor tasks
 taskLogic.js:646 🔗 Resolved task dependencies
-taskLogic.js:483 ❌ Error generating schedule: TypeError: this.detectAndMarkConflicts is not a function
-    at Object.runSchedulingAlgorithm (taskLogic.js:600:40)
-    at Object.generateScheduleForDate (taskLogic.js:472:29)
-    at Object.render (ui.js:483:45)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:107:12
-    at state.js:790:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (state.js:788:13)
-    at Object.setSettings (state.js:215:5)
-    at UserSettingsManager.updateAppState (userSettings.js:346:11)
-generateScheduleForDate @ taskLogic.js:483
-render @ ui.js:483
-renderCurrentView @ ui.js:181
-(anonymous) @ ui.js:107
-(anonymous) @ state.js:790
-notifyStateChange @ state.js:788
-setSettings @ state.js:215
-updateAppState @ userSettings.js:346
-initializeUserSettings @ userSettings.js:90
-await in initializeUserSettings
-initializeUser @ state.js:852
-(anonymous) @ app.js:92
-next @ auth.ts:378
-(anonymous) @ subscribe.ts:104
-(anonymous) @ subscribe.ts:233
-Promise.then
-E.sendOne @ subscribe.ts:230
-E.forEachObserver @ subscribe.ts:220
-E.next @ subscribe.ts:103
-notifyAuthListeners @ auth_impl.ts:487
-(anonymous) @ auth_impl.ts:325
-Promise.then
-queue @ auth_impl.ts:548
-_updateCurrentUser @ auth_impl.ts:323
-vt @ credential.ts:49
-await in vt
-yt @ credential.ts:69
-signInWithEmailAndPassword @ email_and_password.ts:267
-signInWithEmail @ firebase.js:34
-(anonymous) @ firebase.js:50
-withErrorHandling @ SimpleErrorHandler.js:69
-safeFirebaseOperation @ firebase.js:44
-safeSignIn @ firebase.js:49
-(anonymous) @ app.js:183
 taskLogic.js:618 📍 Placed 0 anchor tasks
 taskLogic.js:646 🔗 Resolved task dependencies
-taskLogic.js:483 ❌ Error generating schedule: TypeError: this.detectAndMarkConflicts is not a function
-    at Object.runSchedulingAlgorithm (taskLogic.js:600:40)
-    at Object.generateScheduleForDate (taskLogic.js:472:29)
-    at Object.render (ui.js:483:45)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:107:12
-    at state.js:790:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (state.js:788:13)
-    at Object.setSettings (state.js:215:5)
-    at Object.initializeUser (state.js:853:13)
-generateScheduleForDate @ taskLogic.js:483
-render @ ui.js:483
-renderCurrentView @ ui.js:181
-(anonymous) @ ui.js:107
-(anonymous) @ state.js:790
-notifyStateChange @ state.js:788
-setSettings @ state.js:215
-initializeUser @ state.js:853
-await in initializeUser
-(anonymous) @ app.js:92
-next @ auth.ts:378
-(anonymous) @ subscribe.ts:104
-(anonymous) @ subscribe.ts:233
-Promise.then
-E.sendOne @ subscribe.ts:230
-E.forEachObserver @ subscribe.ts:220
-E.next @ subscribe.ts:103
-notifyAuthListeners @ auth_impl.ts:487
-(anonymous) @ auth_impl.ts:325
-Promise.then
-queue @ auth_impl.ts:548
-_updateCurrentUser @ auth_impl.ts:323
-vt @ credential.ts:49
-await in vt
-yt @ credential.ts:69
-signInWithEmailAndPassword @ email_and_password.ts:267
-signInWithEmail @ firebase.js:34
-(anonymous) @ firebase.js:50
-withErrorHandling @ SimpleErrorHandler.js:69
-safeFirebaseOperation @ firebase.js:44
-safeSignIn @ firebase.js:49
-(anonymous) @ app.js:183
 state.js:855 ✅ User data initialized with comprehensive settings
 app.js:93 ✅ Step 1 complete: User settings initialized
 app.js:95 🔧 Step 2: Loading task templates...
@@ -173,50 +85,6 @@ data.js:148 🔍 Query executed successfully, processing results...
 data.js:155 ✅ Retrieved 0 task templates
 taskLogic.js:618 📍 Placed 0 anchor tasks
 taskLogic.js:646 🔗 Resolved task dependencies
-taskLogic.js:483 ❌ Error generating schedule: TypeError: this.detectAndMarkConflicts is not a function
-    at Object.runSchedulingAlgorithm (taskLogic.js:600:40)
-    at Object.generateScheduleForDate (taskLogic.js:472:29)
-    at Object.render (ui.js:483:45)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:94:14
-    at state.js:790:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (state.js:788:13)
-    at Object.setTaskTemplates (state.js:247:5)
-    at Object.loadTaskTemplates (state.js:1003:13)
-generateScheduleForDate @ taskLogic.js:483
-render @ ui.js:483
-renderCurrentView @ ui.js:181
-(anonymous) @ ui.js:94
-(anonymous) @ state.js:790
-notifyStateChange @ state.js:788
-setTaskTemplates @ state.js:247
-loadTaskTemplates @ state.js:1003
-await in loadTaskTemplates
-(anonymous) @ app.js:96
-await in (anonymous)
-next @ auth.ts:378
-(anonymous) @ subscribe.ts:104
-(anonymous) @ subscribe.ts:233
-Promise.then
-E.sendOne @ subscribe.ts:230
-E.forEachObserver @ subscribe.ts:220
-E.next @ subscribe.ts:103
-notifyAuthListeners @ auth_impl.ts:487
-(anonymous) @ auth_impl.ts:325
-Promise.then
-queue @ auth_impl.ts:548
-_updateCurrentUser @ auth_impl.ts:323
-vt @ credential.ts:49
-await in vt
-yt @ credential.ts:69
-signInWithEmailAndPassword @ email_and_password.ts:267
-signInWithEmail @ firebase.js:34
-(anonymous) @ firebase.js:50
-withErrorHandling @ SimpleErrorHandler.js:69
-safeFirebaseOperation @ firebase.js:44
-safeSignIn @ firebase.js:49
-(anonymous) @ app.js:183
 state.js:1010 ✅ Task templates loaded (0 templates)
 app.js:97 ✅ Step 2 complete: Task templates loaded
 app.js:101 🔧 Step 3: Loading task instances for today: 2025-08-30
@@ -224,50 +92,6 @@ data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl
 data.js:638 ✅ Retrieved 0 task instances for 2025-08-30
 taskLogic.js:618 📍 Placed 0 anchor tasks
 taskLogic.js:646 🔗 Resolved task dependencies
-taskLogic.js:483 ❌ Error generating schedule: TypeError: this.detectAndMarkConflicts is not a function
-    at Object.runSchedulingAlgorithm (taskLogic.js:600:40)
-    at Object.generateScheduleForDate (taskLogic.js:472:29)
-    at Object.render (ui.js:483:45)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:101:14
-    at state.js:790:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (state.js:788:13)
-    at Object.setTaskInstancesForDate (state.js:365:5)
-    at Object.loadTaskInstancesForDate (state.js:1425:13)
-generateScheduleForDate @ taskLogic.js:483
-render @ ui.js:483
-renderCurrentView @ ui.js:181
-(anonymous) @ ui.js:101
-(anonymous) @ state.js:790
-notifyStateChange @ state.js:788
-setTaskInstancesForDate @ state.js:365
-loadTaskInstancesForDate @ state.js:1425
-await in loadTaskInstancesForDate
-(anonymous) @ app.js:102
-await in (anonymous)
-next @ auth.ts:378
-(anonymous) @ subscribe.ts:104
-(anonymous) @ subscribe.ts:233
-Promise.then
-E.sendOne @ subscribe.ts:230
-E.forEachObserver @ subscribe.ts:220
-E.next @ subscribe.ts:103
-notifyAuthListeners @ auth_impl.ts:487
-(anonymous) @ auth_impl.ts:325
-Promise.then
-queue @ auth_impl.ts:548
-_updateCurrentUser @ auth_impl.ts:323
-vt @ credential.ts:49
-await in vt
-yt @ credential.ts:69
-signInWithEmailAndPassword @ email_and_password.ts:267
-signInWithEmail @ firebase.js:34
-(anonymous) @ firebase.js:50
-withErrorHandling @ SimpleErrorHandler.js:69
-safeFirebaseOperation @ firebase.js:44
-safeSignIn @ firebase.js:49
-(anonymous) @ app.js:183
 state.js:1427 ✅ Task instances loaded for 2025-08-30 (0 instances)
 app.js:103 ✅ Step 3 complete: Task instances loaded
 app.js:105 🔧 Step 4: Loading daily schedule for today: 2025-08-30
@@ -276,40 +100,361 @@ state.js:1838 ✅ Daily schedule loaded for 2025-08-30
 app.js:107 ✅ Step 4 complete: Daily schedule loaded
 taskLogic.js:618 📍 Placed 0 anchor tasks
 taskLogic.js:646 🔗 Resolved task dependencies
-taskLogic.js:483 ❌ Error generating schedule: TypeError: this.detectAndMarkConflicts is not a function
-    at Object.runSchedulingAlgorithm (taskLogic.js:600:40)
-    at Object.generateScheduleForDate (taskLogic.js:472:29)
-    at Object.render (ui.js:483:45)
-    at Object.renderCurrentView (ui.js:181:16)
-    at Object.renderAppStructure (ui.js:382:18)
-    at Object.show (ui.js:364:10)
-    at app.js:112:21
-generateScheduleForDate @ taskLogic.js:483
-render @ ui.js:483
-renderCurrentView @ ui.js:181
-renderAppStructure @ ui.js:382
-show @ ui.js:364
-(anonymous) @ app.js:112
-await in (anonymous)
-next @ auth.ts:378
-(anonymous) @ subscribe.ts:104
-(anonymous) @ subscribe.ts:233
-Promise.then
-E.sendOne @ subscribe.ts:230
-E.forEachObserver @ subscribe.ts:220
-E.next @ subscribe.ts:103
-notifyAuthListeners @ auth_impl.ts:487
-(anonymous) @ auth_impl.ts:325
-Promise.then
-queue @ auth_impl.ts:548
-_updateCurrentUser @ auth_impl.ts:323
-vt @ credential.ts:49
-await in vt
-yt @ credential.ts:69
-signInWithEmailAndPassword @ email_and_password.ts:267
-signInWithEmail @ firebase.js:34
-(anonymous) @ firebase.js:50
-withErrorHandling @ SimpleErrorHandler.js:69
-safeFirebaseOperation @ firebase.js:44
-safeSignIn @ firebase.js:49
-(anonymous) @ app.js:183
+OfflineDetection.js:135 📶 OfflineDetection: Connection change - 4g, downlink: 4.35
+OfflineDetection.js:135 📶 OfflineDetection: Connection change - 4g, downlink: 9.55
+MemoryLeakPrevention.js:190 📱 Page hidden - pausing non-essential operations
+ui.js:141 ⏸️ UI updates paused (tab hidden)
+MemoryLeakPrevention.js:193 📱 Page visible - resuming all operations
+ui.js:148 ▶️ UI updates resumed (tab visible)
+taskLogic.js:618 📍 Placed 0 anchor tasks
+taskLogic.js:646 🔗 Resolved task dependencies
+SimpleTabSync.js:64 Tab tab_1756520026632_5vo2iiavr became active - refreshing data
+SimpleTabSync.js:83 Tab tab_1756520026632_5vo2iiavr sent: refresh-check null
+Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below and press Enter to allow pasting.
+allow pasting
+/**
+ * Quick recursion fix test - Run this in browser console
+ * Tests that component cleanup no longer causes infinite recursion
+ */
+
+console.log('🧪 Starting component recursion fix test...');
+
+// Test 1: Check if MemoryLeakPrevention has state guards
+function testMemoryLeakPreventionStateGuards() {
+  console.log('\n📋 Test 1: MemoryLeakPrevention state guards');
+  
+  // Create a mock component with destroy method
+  const mockComponent = {
+    constructor: { name: 'TestComponent' },
+    _isDestroying: false,
+    _isDestroyed: false,
+    destroy: function() {
+      console.log('Mock component destroy called');
+    }
+  };
+  
+  try {
+    // First call should work
+    console.log('Calling unregisterComponent first time...');
+    memoryManager.unregisterComponent(mockComponent);
+    
+    // Second call should be prevented by state guards
+    console.log('Calling unregisterComponent second time (should be prevented)...');
+    memoryManager.unregisterComponent(mockComponent);
+    
+    console.log('✅ State guards working - no infinite recursion');
+    return true;
+  } catch (error) {
+    console.error('❌ State guards failed:', error);
+    return false;
+  }
+}
+
+// Test 2: Check TaskList no longer calls ComponentManager.unregister
+function testTaskListRecursionFix() {
+  console.log('\n📋 Test 2: TaskList recursion prevention');
+  
+  try {
+    const testTaskList = new TaskList();
+    testTaskList._isDestroying = false;
+    testTaskList._isDestroyed = false;
+    
+    console.log('Calling TaskList destroy method...');
+    testTaskList.destroy();
+    
+    // If we reach here, no infinite recursion occurred
+    console.log('✅ TaskList destroy completed without recursion');
+    return true;
+  } catch (error) {
+    console.error('❌ TaskList recursion test failed:', error);
+    return false;
+  }
+}
+
+// Test 3: Monitor console for recursion messages
+function monitorConsoleForRecursion() {
+  console.log('\n📋 Test 3: Console monitoring for recursion messages');
+  
+  let recursionCount = 0;
+  const originalLog = console.log;
+  
+  // Override console.log to count recursion messages
+  console.log = function(...args) {
+    const message = args.join(' ');
+    if (message.includes('🗑️ Unregistered component')) {
+      recursionCount++;
+    }
+    return originalLog.apply(console, args);
+  };
+  
+  // Wait a bit then restore and report
+  setTimeout(() => {
+    console.log = originalLog;
+    if (recursionCount > 5) {
+      console.error(`❌ Detected ${recursionCount} repeated unregister messages`);
+      return false;
+    } else {
+      console.log(`✅ Only ${recursionCount} unregister messages (acceptable)`);
+      return true;
+    }
+  }, 2000);
+}
+
+// Run all tests
+async function runRecursionFixTests() {
+  console.log('🚀 Running recursion fix validation tests...\n');
+  
+  const test1 = testMemoryLeakPreventionStateGuards();
+  const test2 = testTaskListRecursionFix();
+  
+  console.log('\n📊 Test Results:');
+  console.log(`Memory Leak Prevention State Guards: ${test1 ? '✅' : '❌'}`);
+  console.log(`TaskList Recursion Prevention: ${test2 ? '✅' : '❌'}`);
+  
+  if (test1 && test2) {
+    console.log('\n🎉 All recursion fix tests PASSED!');
+    console.log('Infinite recursion bug should be resolved.');
+  } else {
+    console.log('\n⚠️  Some tests FAILED - recursion may still occur');
+  }
+  
+  // Start console monitoring
+  monitorConsoleForRecursion();
+}
+
+// Expose test function globally
+window.testRecursionFix = runRecursionFixTests;
+
+console.log('✅ Recursion fix test loaded. Run testRecursionFix() to validate the fix.');
+VM95:6 🧪 Starting component recursion fix test...
+VM95:114 ✅ Recursion fix test loaded. Run testRecursionFix() to validate the fix.
+undefined
+testRecursionFix()
+VM95:91 🚀 Running recursion fix validation tests...
+
+VM95:10 
+📋 Test 1: MemoryLeakPrevention state guards
+VM95:24 Calling unregisterComponent first time...
+VM95:28 Calling unregisterComponent second time (should be prevented)...
+VM95:31 ✅ State guards working - no infinite recursion
+VM95:41 
+📋 Test 2: TaskList recursion prevention
+VM95:55 ❌ TaskList recursion test failed: ReferenceError: TaskList is not defined
+    at testTaskListRecursionFix (<anonymous>:44:26)
+    at runRecursionFixTests (<anonymous>:94:17)
+    at <anonymous>:1:1
+testTaskListRecursionFix @ VM95:55
+runRecursionFixTests @ VM95:94
+(anonymous) @ VM132:1
+VM95:96 
+📊 Test Results:
+VM95:97 Memory Leak Prevention State Guards: ✅
+VM95:98 TaskList Recursion Prevention: ❌
+VM95:104 
+⚠️  Some tests FAILED - recursion may still occur
+VM95:62 
+📋 Test 3: Console monitoring for recursion messages
+Promise {<fulfilled>: undefined}
+VM95:83 ✅ Only 0 unregister messages (acceptable)
+testTaskListRecursionFix()
+VM95:41 
+📋 Test 2: TaskList recursion prevention
+VM95:55 ❌ TaskList recursion test failed: ReferenceError: TaskList is not defined
+    at testTaskListRecursionFix (<anonymous>:44:26)
+    at <anonymous>:1:1
+testTaskListRecursionFix @ VM95:55
+(anonymous) @ VM191:1
+false
+MemoryLeakPrevention.js:485 Uncaught ReferenceError: process is not defined
+    at MemoryLeakPrevention.js:485:5
+    at MemoryLeakPrevention.js:36:9
+(anonymous) @ MemoryLeakPrevention.js:485
+(anonymous) @ MemoryLeakPrevention.js:36
+setInterval
+registerInterval @ MemoryLeakPrevention.js:34
+set @ MemoryLeakPrevention.js:365
+initMemoryLeakPrevention @ MemoryLeakPrevention.js:481
+(anonymous) @ MemoryLeakPrevention.js:500
+MemoryLeakPrevention.js:485 Uncaught ReferenceError: process is not defined
+    at MemoryLeakPrevention.js:485:5
+    at MemoryLeakPrevention.js:36:9
+(anonymous) @ MemoryLeakPrevention.js:485
+(anonymous) @ MemoryLeakPrevention.js:36
+setInterval
+registerInterval @ MemoryLeakPrevention.js:34
+set @ MemoryLeakPrevention.js:365
+initMemoryLeakPrevention @ MemoryLeakPrevention.js:481
+initApp @ app.js:52
+initializeMainApp @ AppInitializer.js:93
+await in initializeMainApp
+initialize @ AppInitializer.js:25
+(anonymous) @ (index):287
+/**
+ * Scheduling System Fix Validation Test
+ * Run this in browser console to verify the detectAndMarkConflicts fix
+ */
+
+console.log('🧪 Testing scheduling system fix...');
+
+// Test 1: Verify detectAndMarkConflicts method exists in schedulingEngine
+function testDetectAndMarkConflictsExists() {
+  console.log('\n📋 Test 1: detectAndMarkConflicts method accessibility');
+  
+  try {
+    if (typeof schedulingEngine !== 'undefined') {
+      if (typeof schedulingEngine.detectAndMarkConflicts === 'function') {
+        console.log('✅ schedulingEngine.detectAndMarkConflicts exists');
+        return true;
+      } else {
+        console.log('❌ detectAndMarkConflicts method not found in schedulingEngine');
+        return false;
+      }
+    } else {
+      console.log('❌ schedulingEngine object not found');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Error checking detectAndMarkConflicts:', error);
+    return false;
+  }
+}
+
+// Test 2: Test the actual scheduling algorithm
+function testSchedulingAlgorithm() {
+  console.log('\n📋 Test 2: runSchedulingAlgorithm execution');
+  
+  try {
+    if (typeof schedulingEngine !== 'undefined' && typeof schedulingEngine.runSchedulingAlgorithm === 'function') {
+      // Create mock data for testing
+      const mockTasks = [
+        {
+          id: 'test-1',
+          taskName: 'Test Task 1',
+          durationMinutes: 30,
+          scheduledTime: '09:00',
+          isSkippable: false
+        },
+        {
+          id: 'test-2', 
+          taskName: 'Test Task 2',
+          durationMinutes: 45,
+          scheduledTime: '09:15', // This should create a conflict
+          isSkippable: true
+        }
+      ];
+      
+      const mockSleepSchedule = {
+        sleepTime: '23:00',
+        wakeTime: '07:00'
+      };
+      
+      console.log('Calling runSchedulingAlgorithm with test data...');
+      const result = schedulingEngine.runSchedulingAlgorithm(mockTasks, mockSleepSchedule);
+      
+      if (result && Array.isArray(result)) {
+        console.log('✅ runSchedulingAlgorithm completed successfully');
+        console.log(`   Returned ${result.length} scheduled tasks`);
+        
+        // Check if conflict detection worked
+        const conflictTasks = result.filter(task => task.hasConflicts);
+        if (conflictTasks.length > 0) {
+          console.log(`✅ Conflict detection working: Found ${conflictTasks.length} tasks with conflicts`);
+        } else {
+          console.log('ℹ️  No conflicts detected in test data');
+        }
+        
+        return true;
+      } else {
+        console.log('❌ runSchedulingAlgorithm returned invalid result:', result);
+        return false;
+      }
+    } else {
+      console.log('❌ runSchedulingAlgorithm method not found');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Error testing scheduling algorithm:', error);
+    return false;
+  }
+}
+
+// Test 3: Test actual schedule generation for today
+function testScheduleGeneration() {
+  console.log('\n📋 Test 3: generateScheduleForDate execution');
+  
+  try {
+    if (typeof schedulingEngine !== 'undefined' && typeof schedulingEngine.generateScheduleForDate === 'function') {
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+      
+      console.log(`Generating schedule for ${today}...`);
+      const result = schedulingEngine.generateScheduleForDate(today);
+      
+      if (result && typeof result === 'object') {
+        console.log('✅ generateScheduleForDate completed successfully');
+        console.log('   Schedule object returned');
+        return true;
+      } else {
+        console.log('❌ generateScheduleForDate returned invalid result:', result);
+        return false;
+      }
+    } else {
+      console.log('❌ generateScheduleForDate method not found');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Error testing schedule generation:', error);
+    console.error('   Error details:', error.message);
+    return false;
+  }
+}
+
+// Run all tests
+async function runSchedulingTests() {
+  console.log('🚀 Running scheduling system validation tests...\n');
+  
+  const test1 = testDetectAndMarkConflictsExists();
+  const test2 = testSchedulingAlgorithm();
+  const test3 = testScheduleGeneration();
+  
+  console.log('\n📊 Test Results:');
+  console.log(`detectAndMarkConflicts exists: ${test1 ? '✅' : '❌'}`);
+  console.log(`Scheduling algorithm works: ${test2 ? '✅' : '❌'}`);
+  console.log(`Schedule generation works: ${test3 ? '✅' : '❌'}`);
+  
+  if (test1 && test2 && test3) {
+    console.log('\n🎉 All scheduling system tests PASSED!');
+    console.log('The detectAndMarkConflicts fix is working correctly.');
+  } else {
+    console.log('\n⚠️  Some tests FAILED - scheduling system may still have issues');
+  }
+  
+  return { test1, test2, test3 };
+}
+
+// Expose test function globally
+window.testSchedulingFix = runSchedulingTests;
+
+console.log('✅ Scheduling system test loaded. Run testSchedulingFix() to validate the fix.');
+VM194:6 🧪 Testing scheduling system fix...
+VM194:146 ✅ Scheduling system test loaded. Run testSchedulingFix() to validate the fix.
+undefined
+testSchedulingFix()
+VM194:122 🚀 Running scheduling system validation tests...
+
+VM194:10 
+📋 Test 1: detectAndMarkConflicts method accessibility
+VM194:22 ❌ schedulingEngine object not found
+VM194:33 
+📋 Test 2: runSchedulingAlgorithm execution
+VM194:81 ❌ runSchedulingAlgorithm method not found
+VM194:92 
+📋 Test 3: generateScheduleForDate execution
+VM194:110 ❌ generateScheduleForDate method not found
+VM194:128 
+📊 Test Results:
+VM194:129 detectAndMarkConflicts exists: ❌
+VM194:130 Scheduling algorithm works: ❌
+VM194:131 Schedule generation works: ❌
+VM194:137 
+⚠️  Some tests FAILED - scheduling system may still have issues
+Promise {<fulfilled>: {…}}
