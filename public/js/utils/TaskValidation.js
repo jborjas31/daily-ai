@@ -87,6 +87,9 @@ export class TaskTemplateValidator {
     // Time conflict validation
     result.merge(this.validateTimeConflicts(templateData, existingTemplates));
     
+    // Time relationship validation (for negative duration prevention)
+    result.merge(this.validateTimeRelationship(templateData));
+    
     // Business logic validation
     result.merge(this.validateBusinessLogic(templateData));
 
@@ -234,6 +237,39 @@ export class TaskTemplateValidator {
         
         if (taskHour < startHour || taskHour >= endHour) {
           result.addWarning(`Fixed time ${templateData.defaultTime} is outside selected time window ${templateData.timeWindow}`, 'timeWindow');
+        }
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Validate time relationships to prevent negative durations
+   */
+  validateTimeRelationship(templateData) {
+    const result = new ValidationResult();
+
+    // Only validate if both start and end times are provided for fixed scheduling
+    if (templateData.schedulingType === 'fixed' && templateData.defaultTime && templateData.endTime) {
+      if (!this.timeFormatRegex.test(templateData.endTime)) {
+        result.addError('End time must be in HH:MM format (24-hour)', 'endTime');
+        return result;
+      }
+
+      const startMinutes = this.timeStringToMinutes(templateData.defaultTime);
+      const endMinutes = this.timeStringToMinutes(templateData.endTime);
+      
+      if (endMinutes <= startMinutes) {
+        result.addError('End time must be after start time', 'endTime');
+      } else {
+        // Calculate and validate the duration
+        const calculatedDuration = endMinutes - startMinutes;
+        
+        // Update the template's duration if it was calculated from time range
+        if (!templateData.durationMinutes || templateData.durationMinutes !== calculatedDuration) {
+          // This is informational - the duration will be auto-calculated
+          result.addWarning(`Duration auto-calculated as ${calculatedDuration} minutes from time range`, 'durationMinutes');
         }
       }
     }
@@ -733,6 +769,16 @@ export class TaskValidationSystem {
     
     if (templateData.schedulingType === 'fixed' && !templateData.defaultTime) {
       result.addError('Fixed scheduling requires a default time', 'defaultTime');
+    }
+    
+    // Quick time relationship check for real-time feedback
+    if (templateData.schedulingType === 'fixed' && templateData.defaultTime && templateData.endTime) {
+      const startMinutes = templateData.defaultTime.split(':').reduce((h, m) => h * 60 + +m);
+      const endMinutes = templateData.endTime.split(':').reduce((h, m) => h * 60 + +m);
+      
+      if (endMinutes <= startMinutes) {
+        result.addError('End time must be after start time', 'endTime');
+      }
     }
     
     return result;

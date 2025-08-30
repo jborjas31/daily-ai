@@ -150,18 +150,31 @@ class MemoryManager {
 
   /**
    * Unregister component and call its destroy method
+   * Includes state guards to prevent infinite recursion
    */
   unregisterComponent(component) {
-    if (this.components.has(component)) {
-      try {
-        if (typeof component.destroy === 'function') {
-          component.destroy();
-        }
-        this.components.delete(component);
-        console.log(`🗑️ Unregistered component: ${component.constructor.name}`);
-      } catch (error) {
-        console.error('Error destroying component:', error);
+    if (!this.components.has(component)) return;
+    if (component._isDestroying || component._isDestroyed) return;
+    
+    try {
+      // Mark as destroying to prevent recursion
+      component._isDestroying = true;
+      
+      // Remove from registry BEFORE calling destroy to prevent recursive calls
+      this.components.delete(component);
+      console.log(`🗑️ Unregistered component: ${component.constructor.name}`);
+      
+      // Call destroy method if it exists
+      if (typeof component.destroy === 'function') {
+        component.destroy();
       }
+      
+      // Mark as destroyed
+      component._isDestroyed = true;
+    } catch (error) {
+      console.error('Error destroying component:', error);
+      // Ensure component is still marked as destroyed even on error
+      component._isDestroyed = true;
     }
   }
 

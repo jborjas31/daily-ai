@@ -1421,33 +1421,58 @@ export class TaskModal {
    * Validate form data
    */
   validateFormData(formData) {
-    let isValid = true;
+    // Use the comprehensive validation system
+    const validationResult = taskValidation.quickValidateTemplate(formData);
     
-    // Validate task name
-    if (!formData.taskName) {
-      this.showValidationError('task-name', 'Task name is required.');
-      isValid = false;
+    // Clear all existing errors
+    this.clearAllValidationErrors();
+    
+    if (!validationResult.isValid) {
+      // Show validation errors
+      validationResult.errors.forEach(error => {
+        const fieldId = this.getFieldIdFromValidationError(error.field);
+        if (fieldId) {
+          this.showValidationError(fieldId, error.message);
+        }
+      });
+      
+      return false;
     }
     
-    // Validate duration
-    if (!formData.durationMinutes || formData.durationMinutes < 1 || formData.durationMinutes > 480) {
-      this.showValidationError('duration', 'Duration must be between 1 and 480 minutes.');
-      isValid = false;
-    }
+    return true;
+  }
+  
+  /**
+   * Map validation error field names to form field IDs
+   */
+  getFieldIdFromValidationError(fieldName) {
+    const fieldMap = {
+      'taskName': 'task-name',
+      'durationMinutes': 'duration',
+      'priority': 'priority', 
+      'defaultTime': 'default-time',
+      'endTime': 'end-time',
+      'schedulingType': 'scheduling-type',
+      'timeWindow': 'time-window'
+    };
     
-    // Validate priority
-    if (!formData.priority || formData.priority < 1 || formData.priority > 5) {
-      this.showValidationError('priority', 'Priority must be between 1 and 5.');
-      isValid = false;
-    }
+    return fieldMap[fieldName] || fieldName;
+  }
+  
+  /**
+   * Clear all validation errors
+   */
+  clearAllValidationErrors() {
+    const errorDivs = this.modalElement.querySelectorAll('.validation-error');
+    errorDivs.forEach(div => {
+      div.textContent = '';
+      div.style.display = 'none';
+    });
     
-    // Validate fixed time if scheduling type is fixed
-    if (formData.schedulingType === 'fixed' && !formData.defaultTime) {
-      this.showValidationError('default-time', 'Fixed time is required for fixed scheduling.');
-      isValid = false;
-    }
-    
-    return isValid;
+    const errorFields = this.modalElement.querySelectorAll('.input.error');
+    errorFields.forEach(field => {
+      field.classList.remove('error');
+    });
   }
 
   /**
@@ -1624,6 +1649,67 @@ export class TaskModal {
           } else if (interval > 365) {
             isValid = false;
             errorMessage = 'Interval cannot exceed 365.';
+          }
+          break;
+          
+        case 'end-time':
+          // Validate end time and check relationship with start time
+          const timeFormat = /^([01]\d|2[0-3]):([0-5]\d)$/;
+          if (!timeFormat.test(value)) {
+            isValid = false;
+            errorMessage = 'End time must be in HH:MM format (24-hour).';
+          } else {
+            // Check relationship with default time if both are present
+            const startTimeField = this.modalElement.querySelector('#default-time');
+            if (startTimeField && startTimeField.value) {
+              const startMinutes = startTimeField.value.split(':').reduce((h, m) => h * 60 + +m);
+              const endMinutes = value.split(':').reduce((h, m) => h * 60 + +m);
+              
+              if (endMinutes <= startMinutes) {
+                isValid = false;
+                errorMessage = 'End time must be after start time.';
+              } else {
+                // Calculate and show duration
+                const duration = endMinutes - startMinutes;
+                const durationField = this.modalElement.querySelector('#duration');
+                if (durationField) {
+                  durationField.value = duration;
+                  // Trigger validation on duration field
+                  this.validateFieldRealTime('duration');
+                }
+              }
+            }
+          }
+          break;
+          
+        case 'default-time':
+          // Validate start time and check relationship with end time if present
+          if (value && !/^([01]\d|2[0-3]):([0-5]\d)$/.test(value)) {
+            isValid = false;
+            errorMessage = 'Start time must be in HH:MM format (24-hour).';
+          } else if (value) {
+            // Check relationship with end time if both are present
+            const endTimeField = this.modalElement.querySelector('#end-time');
+            if (endTimeField && endTimeField.value) {
+              const startMinutes = value.split(':').reduce((h, m) => h * 60 + +m);
+              const endMinutes = endTimeField.value.split(':').reduce((h, m) => h * 60 + +m);
+              
+              if (endMinutes <= startMinutes) {
+                // Clear the end time error and show it on the end time field instead
+                this.clearValidationError('end-time');
+                this.showValidationError('end-time', 'End time must be after start time.');
+              } else {
+                // Clear any end time errors and calculate duration
+                this.clearValidationError('end-time');
+                const duration = endMinutes - startMinutes;
+                const durationField = this.modalElement.querySelector('#duration');
+                if (durationField) {
+                  durationField.value = duration;
+                  // Trigger validation on duration field
+                  this.validateFieldRealTime('duration');
+                }
+              }
+            }
           }
           break;
       }
@@ -2005,6 +2091,9 @@ export class TaskModal {
    * Destroy modal and clean up
    */
   destroy() {
+    // Prevent double cleanup
+    if (this._isDestroying || this._isDestroyed) return;
+    
     if (this.modalElement) {
       // Clear all tracked event listeners
       this.eventListeners.forEach(listenerId => {
@@ -2023,8 +2112,8 @@ export class TaskModal {
       this.modalElement = null;
       document.body.style.overflow = ''; // Restore scrolling
       
-      // Unregister from memory manager
-      ComponentManager.unregister(this);
+      // DO NOT call ComponentManager.unregister(this) here to prevent recursion
+      // Memory manager handles unregistration externally via MemoryLeakPrevention.unregisterComponent()
     }
   }
 }

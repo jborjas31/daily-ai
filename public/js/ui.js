@@ -10,6 +10,8 @@ import { schedulingEngine, taskTemplateManager, taskInstanceManager } from './ta
 import { SimpleErrorHandler } from './utils/SimpleErrorHandler.js';
 import { dataUtils } from './dataOffline.js';
 import { taskList } from './components/TaskList.js';
+import { Timeline } from './components/Timeline.js';
+import { ComponentManager } from './utils/MemoryLeakPrevention.js';
 
 /**
  * UI State Management
@@ -18,7 +20,27 @@ const uiState = {
   currentModal: null,
   isLoading: false,
   lastRenderedView: null,
-  renderCache: new Map()
+  renderCache: new Map(),
+  viewMode: localStorage.getItem('preferredView') || 'list', // 'timeline' or 'list'
+  
+  /**
+   * Get current view mode
+   */
+  getViewMode() {
+    return this.viewMode;
+  },
+  
+  /**
+   * Set view mode and persist to localStorage
+   */
+  setViewMode(mode) {
+    if (mode !== 'timeline' && mode !== 'list') {
+      console.warn('Invalid view mode:', mode);
+      return;
+    }
+    this.viewMode = mode;
+    localStorage.setItem('preferredView', mode);
+  }
 };
 
 /**
@@ -445,6 +467,8 @@ export const mainAppUI = {
  * Today View UI Management
  */
 export const todayViewUI = {
+  timelineInstance: null,
+  
   /**
    * Render Today View
    */
@@ -463,11 +487,32 @@ export const todayViewUI = {
         ${this.renderDateNavigation(currentDate)}
         ${this.renderScheduleOverview(settings, taskTemplates, taskInstances, scheduleResult)}
         ${this.renderQuickActions()}
-        ${this.renderTasksList(taskTemplates, scheduleResult)}
+        ${this.renderContentArea(taskTemplates, scheduleResult)}
       </div>
     `;
     
     this.setupEventListeners();
+  },
+  
+  /**
+   * Render content area based on current view mode
+   */
+  renderContentArea(taskTemplates, scheduleResult) {
+    const currentView = uiState.getViewMode();
+    
+    if (currentView === 'timeline') {
+      return `
+        <div class="content-area" data-view="timeline">
+          <div id="timeline-container" class="timeline-container"></div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="content-area" data-view="list">
+          ${this.renderTasksList(taskTemplates, scheduleResult)}
+        </div>
+      `;
+    }
   },
 
   /**
@@ -476,10 +521,32 @@ export const todayViewUI = {
   renderDateNavigation(currentDate) {
     return `
       <div class="date-navigation">
-        <button id="prev-day" class="btn btn-secondary">← Previous</button>
-        <h2 class="current-date">${this.formatDate(currentDate)}</h2>
-        <button id="next-day" class="btn btn-secondary">Next →</button>
-        <button id="today-btn" class="btn btn-primary">Today</button>
+        <div class="date-controls">
+          <button id="prev-day" class="btn btn-secondary">← Previous</button>
+          <h2 class="current-date">${this.formatDate(currentDate)}</h2>
+          <button id="next-day" class="btn btn-secondary">Next →</button>
+          <button id="today-btn" class="btn btn-primary">Today</button>
+        </div>
+        ${this.renderViewToggle()}
+      </div>
+    `;
+  },
+  
+  /**
+   * Render view toggle buttons
+   */
+  renderViewToggle() {
+    const currentView = uiState.getViewMode();
+    return `
+      <div class="view-toggle">
+        <button class="toggle-btn ${currentView === 'timeline' ? 'active' : ''}" 
+                data-view="timeline" id="view-timeline-btn">
+          📅 Timeline
+        </button>
+        <button class="toggle-btn ${currentView === 'list' ? 'active' : ''}" 
+                data-view="list" id="view-list-btn">
+          📝 List
+        </button>
       </div>
     `;
   },
@@ -631,6 +698,76 @@ export const todayViewUI = {
       uiController.renderCurrentView();
       SimpleErrorHandler.showSuccess('Schedule refreshed!');
     });
+    
+    // View toggle listeners
+    document.getElementById('view-timeline-btn')?.addEventListener('click', () => {
+      this.switchView('timeline');
+    });
+    
+    document.getElementById('view-list-btn')?.addEventListener('click', () => {
+      this.switchView('list');
+    });
+    
+    // Initialize Timeline component if in timeline view
+    this.initializeTimeline();
+  },
+  
+  /**
+   * Switch between timeline and list views
+   */
+  switchView(newView) {
+    const currentView = uiState.getViewMode();
+    
+    if (newView === currentView) {
+      return; // Already in this view
+    }
+    
+    // Set new view mode
+    uiState.setViewMode(newView);
+    
+    // Re-render the entire view to update content
+    this.render();
+  },
+  
+  /**
+   * Get mobile-responsive hour height for timeline
+   */
+  getResponsiveHourHeight() {
+    const isMobile = window.innerWidth <= 767;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
+    
+    if (isMobile) {
+      return 60; // Reduced height for mobile
+    } else if (isTablet) {
+      return 70; // Medium height for tablet
+    } else {
+      return 80; // Full height for desktop
+    }
+  },
+  
+  /**
+   * Initialize Timeline component
+   */
+  initializeTimeline() {
+    // Only initialize if we're in timeline view and container exists
+    const isTimelineView = uiState.getViewMode() === 'timeline';
+    const containerExists = document.getElementById('timeline-container');
+    
+    if (!isTimelineView || !containerExists) {
+      return;
+    }
+    
+    if (this.timelineInstance) {
+      this.timelineInstance.destroy(); // Clean up existing instance
+    }
+    
+    this.timelineInstance = new Timeline('timeline-container', {
+      hourHeight: this.getResponsiveHourHeight(),
+      enableClickToCreate: true,
+      enableRealTimeIndicator: true
+    });
+    
+    ComponentManager.register(this.timelineInstance);
   },
 
   /**

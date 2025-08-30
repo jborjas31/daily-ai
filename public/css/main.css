@@ -177,6 +177,195 @@ body {
   }
 }
 
+/* Timeline Integration Styles */
+.timeline-container {
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 800px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--neutral-50);
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-4) 0;
+}
+
+/* Timeline responsive breakpoints */
+@media (min-width: 768px) {
+  .timeline-container {
+    height: 70vh;
+    min-height: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeline-container {
+    height: 75vh;
+    min-height: 600px;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 767px) {
+  .timeline-container {
+    height: 50vh;
+    min-height: 350px;
+    margin: var(--space-2) 0;
+    border-radius: var(--radius-sm);
+    
+    /* Touch-friendly scrolling */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+  }
+  
+  /* Enhanced mobile view toggle */
+  .view-toggle {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .toggle-btn {
+    min-height: 44px; /* iOS recommended touch target */
+    font-size: 14px;
+    padding: var(--space-2) var(--space-2);
+  }
+  
+  /* Date navigation mobile spacing */
+  .date-controls {
+    gap: var(--space-1);
+  }
+  
+  .date-controls .btn {
+    padding: var(--space-2) var(--space-2);
+    font-size: 14px;
+    min-height: 44px; /* Touch-friendly */
+  }
+}
+
+/* Dark mode support for timeline */
+@media (prefers-color-scheme: dark) {
+  .timeline-container {
+    background: var(--neutral-900);
+    border-color: var(--neutral-600);
+  }
+}
+
+/* View Toggle Styles */
+.date-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.date-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.view-toggle {
+  display: flex;
+  background: var(--neutral-100);
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
+  gap: var(--space-1);
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: transparent;
+  color: var(--neutral-600);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: 100px;
+}
+
+.toggle-btn:hover {
+  background: var(--neutral-50);
+  color: var(--neutral-900);
+}
+
+.toggle-btn.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Responsive view toggle */
+@media (min-width: 768px) {
+  .date-navigation {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .date-controls {
+    flex: 1;
+    justify-content: flex-start;
+  }
+  
+  .view-toggle {
+    flex: none;
+    width: auto;
+  }
+}
+
+/* Content area styling */
+.content-area {
+  min-height: 200px;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.content-area[data-view="timeline"] {
+  padding: 0;
+}
+
+.content-area[data-view="list"] {
+  padding: var(--space-2);
+}
+
+/* Dark mode support for view toggle */
+@media (prefers-color-scheme: dark) {
+  .view-toggle {
+    background: var(--neutral-900);
+  }
+  
+  .toggle-btn {
+    color: var(--neutral-400);
+  }
+  
+  .toggle-btn:hover {
+    background: var(--neutral-600);
+    color: var(--neutral-50);
+  }
+}
+
 /* Focus Styles for Accessibility */
 *:focus-visible {
   outline: 2px solid var(--primary);

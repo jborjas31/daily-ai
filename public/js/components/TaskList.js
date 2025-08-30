@@ -1317,6 +1317,9 @@ export class TaskList {
    * Destroy the component and clean up resources
    */
   destroy() {
+    // Prevent double cleanup
+    if (this._isDestroying || this._isDestroyed) return;
+    
     // Clear event listeners
     this.clearEventListeners();
     
@@ -1338,8 +1341,8 @@ export class TaskList {
     // Clear data
     this.selectedTasks.clear();
     
-    // Unregister from memory manager
-    ComponentManager.unregister(this);
+    // DO NOT call ComponentManager.unregister(this) here to prevent recursion
+    // Memory manager handles unregistration externally via MemoryLeakPrevention.unregisterComponent()
   }
 }
 

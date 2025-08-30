@@ -2722,6 +2722,9 @@ export class Timeline {
    * Destroy timeline component
    */
   destroy() {
+    // Prevent double cleanup
+    if (this._isDestroying || this._isDestroyed) return;
+    
     const timerId = `${this.componentId}-destroy`;
     performanceMonitor.startTimer(timerId, 'destruction');
     
@@ -2741,8 +2744,8 @@ export class Timeline {
     });
     this.eventListeners = [];
     
-    // Unregister from memory manager
-    ComponentManager.unregister(this);
+    // DO NOT call ComponentManager.unregister(this) here to prevent recursion
+    // Memory manager handles unregistration externally via MemoryLeakPrevention.unregisterComponent()
     
     performanceMonitor.endTimer(timerId, {
       finalRenderCount: this.performanceMetrics.renderCount,

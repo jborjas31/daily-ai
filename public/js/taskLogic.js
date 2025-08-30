@@ -595,9 +595,11 @@ export const schedulingEngine = {
     const schedule = this.slotFlexibleTasks(tasks, anchors, dependencyOrder, sleepSchedule);
     
     // Step 4: Crunch-Time Adjustments (will be implemented in later phases)
-    // Step 5: Conflict Detection (will be implemented in later phases)
     
-    return schedule;
+    // Step 5: Conflict Detection
+    const scheduleWithConflicts = this.detectAndMarkConflicts(schedule);
+    
+    return scheduleWithConflicts;
   },
 
   /**
@@ -741,6 +743,99 @@ export const searchAndFilter = {
       default:
         return sorted;
     }
+  },
+
+  /**
+   * Step 5: Detect and mark task conflicts in the schedule
+   */
+  detectAndMarkConflicts(schedule) {
+    if (!schedule || schedule.length === 0) {
+      return schedule;
+    }
+
+    // Create a copy of schedule to avoid mutating original
+    const scheduleWithConflicts = schedule.map(task => ({ ...task }));
+    
+    // Sort by scheduled time for easier conflict detection
+    const sortedSchedule = [...scheduleWithConflicts].sort((a, b) => {
+      if (!a.scheduledTime || !b.scheduledTime) return 0;
+      return a.scheduledTime.localeCompare(b.scheduledTime);
+    });
+
+    // Check each task against all others for conflicts
+    for (let i = 0; i < sortedSchedule.length; i++) {
+      const taskA = sortedSchedule[i];
+      if (!taskA.scheduledTime) continue;
+
+      const taskAStart = this.timeStringToMinutes(taskA.scheduledTime);
+      const taskAEnd = taskAStart + (taskA.durationMinutes || 0);
+
+      const conflicts = [];
+
+      for (let j = 0; j < sortedSchedule.length; j++) {
+        if (i === j) continue; // Don't compare task with itself
+        
+        const taskB = sortedSchedule[j];
+        if (!taskB.scheduledTime) continue;
+
+        const taskBStart = this.timeStringToMinutes(taskB.scheduledTime);
+        const taskBEnd = taskBStart + (taskB.durationMinutes || 0);
+
+        // Check for time overlap
+        if (this.hasTimeOverlap(taskAStart, taskAEnd, taskBStart, taskBEnd)) {
+          conflicts.push({
+            conflictWith: taskB.id,
+            conflictWithName: taskB.taskName,
+            overlapStart: Math.max(taskAStart, taskBStart),
+            overlapEnd: Math.min(taskAEnd, taskBEnd),
+            overlapMinutes: Math.min(taskAEnd, taskBEnd) - Math.max(taskAStart, taskBStart)
+          });
+        }
+      }
+
+      // Mark task with conflicts
+      if (conflicts.length > 0) {
+        taskA.hasConflicts = true;
+        taskA.conflicts = conflicts;
+        taskA.conflictType = 'time_overlap';
+        taskA.conflictSeverity = this.calculateConflictSeverity(conflicts);
+      } else {
+        taskA.hasConflicts = false;
+        taskA.conflicts = [];
+      }
+    }
+
+    console.log(`✅ Conflict detection complete: Found ${sortedSchedule.filter(t => t.hasConflicts).length} tasks with conflicts`);
+    return scheduleWithConflicts;
+  },
+
+  /**
+   * Check if two time ranges overlap
+   */
+  hasTimeOverlap(start1, end1, start2, end2) {
+    return Math.max(start1, start2) < Math.min(end1, end2);
+  },
+
+  /**
+   * Calculate conflict severity based on overlap and priorities
+   */
+  calculateConflictSeverity(conflicts) {
+    if (!conflicts || conflicts.length === 0) return 'none';
+    
+    const maxOverlap = Math.max(...conflicts.map(c => c.overlapMinutes));
+    
+    if (maxOverlap >= 60) return 'high';     // 1+ hour overlap
+    if (maxOverlap >= 30) return 'medium';   // 30+ minute overlap
+    return 'low';                            // Less than 30 minutes
+  },
+
+  /**
+   * Convert time string (HH:MM) to minutes since midnight
+   */
+  timeStringToMinutes(timeString) {
+    if (!timeString || typeof timeString !== 'string') return 0;
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return (hours * 60) + (minutes || 0);
   }
 };
 
