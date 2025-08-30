@@ -683,66 +683,6 @@ export const schedulingEngine = {
     
     // For now, just return the start of the time window as a placeholder
     return timeWindow.start;
-  }
-};
-
-/**
- * Search and Filter Logic
- */
-export const searchAndFilter = {
-  /**
-   * Filter tasks based on search query and filters
-   */
-  filterTasks(tasks, searchQuery, filters) {
-    let filteredTasks = [...tasks];
-    
-    // Apply search query
-    if (searchQuery && searchQuery.trim() !== '') {
-      const query = searchQuery.toLowerCase().trim();
-      filteredTasks = filteredTasks.filter(task => 
-        task.taskName.toLowerCase().includes(query) ||
-        (task.description && task.description.toLowerCase().includes(query))
-      );
-    }
-    
-    // Apply time window filter
-    if (filters.timeWindow && filters.timeWindow !== 'all') {
-      filteredTasks = filteredTasks.filter(task => 
-        task.timeWindow === filters.timeWindow
-      );
-    }
-    
-    // Apply mandatory filter
-    if (filters.mandatory && filters.mandatory !== 'all') {
-      const isMandatory = filters.mandatory === 'mandatory';
-      filteredTasks = filteredTasks.filter(task => 
-        task.isMandatory === isMandatory
-      );
-    }
-    
-    return filteredTasks;
-  },
-
-  /**
-   * Sort tasks by priority and other criteria
-   */
-  sortTasks(tasks, sortBy = 'priority') {
-    const sorted = [...tasks];
-    
-    switch (sortBy) {
-      case 'priority':
-        return sorted.sort((a, b) => b.priority - a.priority);
-      case 'name':
-        return sorted.sort((a, b) => a.taskName.localeCompare(b.taskName));
-      case 'duration':
-        return sorted.sort((a, b) => a.durationMinutes - b.durationMinutes);
-      case 'created':
-        return sorted.sort((a, b) => 
-          new Date(b.createdAt) - new Date(a.createdAt)
-        );
-      default:
-        return sorted;
-    }
   },
 
   /**
@@ -836,6 +776,66 @@ export const searchAndFilter = {
     if (!timeString || typeof timeString !== 'string') return 0;
     const [hours, minutes] = timeString.split(':').map(Number);
     return (hours * 60) + (minutes || 0);
+  }
+};
+
+/**
+ * Search and Filter Logic
+ */
+export const searchAndFilter = {
+  /**
+   * Filter tasks based on search query and filters
+   */
+  filterTasks(tasks, searchQuery, filters) {
+    let filteredTasks = [...tasks];
+    
+    // Apply search query
+    if (searchQuery && searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase().trim();
+      filteredTasks = filteredTasks.filter(task => 
+        task.taskName.toLowerCase().includes(query) ||
+        (task.description && task.description.toLowerCase().includes(query))
+      );
+    }
+    
+    // Apply time window filter
+    if (filters.timeWindow && filters.timeWindow !== 'all') {
+      filteredTasks = filteredTasks.filter(task => 
+        task.timeWindow === filters.timeWindow
+      );
+    }
+    
+    // Apply mandatory filter
+    if (filters.mandatory && filters.mandatory !== 'all') {
+      const isMandatory = filters.mandatory === 'mandatory';
+      filteredTasks = filteredTasks.filter(task => 
+        task.isMandatory === isMandatory
+      );
+    }
+    
+    return filteredTasks;
+  },
+
+  /**
+   * Sort tasks by priority and other criteria
+   */
+  sortTasks(tasks, sortBy = 'priority') {
+    const sorted = [...tasks];
+    
+    switch (sortBy) {
+      case 'priority':
+        return sorted.sort((a, b) => b.priority - a.priority);
+      case 'name':
+        return sorted.sort((a, b) => a.taskName.localeCompare(b.taskName));
+      case 'duration':
+        return sorted.sort((a, b) => a.durationMinutes - b.durationMinutes);
+      case 'created':
+        return sorted.sort((a, b) => 
+          new Date(b.createdAt) - new Date(a.createdAt)
+        );
+      default:
+        return sorted;
+    }
   }
 };
 
