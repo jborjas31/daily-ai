@@ -878,9 +878,17 @@ export const settingsUI = {
         
         <div class="settings-content">
           ${this.renderSleepConfiguration(settings)}
+          ${this.renderSettingsEmptyCTA()}
         </div>
       </div>
     `;
+
+    // Bind CTA button
+    document.getElementById('settings-edit-btn')?.addEventListener('click', () => {
+      import('./utils/Toast.js').then(({ Toast }) => 
+        Toast.info('Settings editing is coming soon!', { duration: 2500 })
+      ).catch(() => {});
+    });
   },
 
   /**
@@ -907,6 +915,23 @@ export const settingsUI = {
         <p class="settings-note">
           Settings editing will be implemented in a future phase.
         </p>
+      </div>
+    `;
+  }
+  ,
+  /**
+   * Render settings empty state CTA with icon
+   */
+  renderSettingsEmptyCTA() {
+    return `
+      <div class="card" style="text-align:center;">
+        <div class="empty-state">
+          <div class="empty-icon">⚙️</div>
+          <p>More preferences and editing controls are on the way.</p>
+          <div class="empty-actions">
+            <button id="settings-edit-btn" class="btn btn-primary">Edit Settings</button>
+          </div>
+        </div>
       </div>
     `;
   }
