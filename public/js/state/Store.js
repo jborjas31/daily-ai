@@ -206,7 +206,15 @@ function broadcastStateChange(type, data) {
   if (appState.tabSyncEnabled && typeof BroadcastChannel !== 'undefined') {
     try {
       const channel = new BroadcastChannel('daily-ai-state');
-      const sanitizedData = sanitizeDataForBroadcast(data);
+      // Special-case 'user' payloads (Firebase Auth user has non-cloneable functions)
+      const payload = (type === 'user' && data) ? {
+        uid: data.uid,
+        email: data.email || null,
+        displayName: data.displayName || null,
+        photoURL: data.photoURL || null,
+        emailVerified: !!data.emailVerified
+      } : data;
+      const sanitizedData = sanitizeDataForBroadcast(payload);
       channel.postMessage({
         type: `state-${type}`,
         data: sanitizedData,
