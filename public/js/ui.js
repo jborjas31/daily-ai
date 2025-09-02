@@ -453,8 +453,20 @@ export const mainAppUI = {
    * Show add task modal (placeholder for now)
    */
   showAddTaskModal() {
-    import('./utils/Toast.js').then(({ Toast }) => Toast.info('Add Task modal coming soon!', { duration: 2500 })).catch(() => {});
-    // TODO: Implement task creation modal in Phase 4
+    try {
+      if (window.taskModal && typeof window.taskModal.showCreate === 'function') {
+        window.taskModal.showCreate({}, (savedTask) => {
+          // UI updates propagate via state listeners
+          console.log('Task created:', savedTask);
+        });
+      } else {
+        import('./utils/Toast.js').then(({ Toast }) => 
+          Toast.info('Task modal not ready yet', { duration: 2500 })
+        ).catch(() => {});
+      }
+    } catch (e) {
+      console.error('Failed to open Add Task modal:', e);
+    }
   }
 };
 

@@ -113,6 +113,13 @@ export async function initApp() {
           
           // Show main app using UI module
           mainAppUI.show();
+
+          // Global Add Task event listener (header/FAB/other sources)
+          try {
+            document.addEventListener('addTask', handleAddTaskAction);
+          } catch (e) {
+            console.warn('Failed to attach addTask listener:', e);
+          }
         } catch (error) {
           SimpleErrorHandler.hideLoading();
           console.error('❌ Error initializing user data:', error);
