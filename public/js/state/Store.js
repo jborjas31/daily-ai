@@ -262,13 +262,3 @@ export const stateListeners = {
     stateListeners.on('*', callback);
   }
 };
-
-// Central application state (to be populated in ST-04)
-export const appState = {};
-
-// Event bus (to be implemented in ST-04)
-export function notifyStateChange() {}
-export const stateListeners = {
-  on: () => {},
-  off: () => {}
-};
