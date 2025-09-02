@@ -424,7 +424,7 @@ export class TimelineContainer {
    */
   startRealTimeUpdates() {
     if (this.realTimeTimer) {
-      this.realTimeTimer.clear();
+      SafeInterval.clear(this.realTimeTimer);
     }
     
     this.realTimeTimer = SafeInterval.set(() => {
@@ -448,7 +448,7 @@ export class TimelineContainer {
    */
   pauseRealTimeUpdates() {
     if (this.realTimeTimer) {
-      this.realTimeTimer.clear();
+      SafeInterval.clear(this.realTimeTimer);
       this.realTimeTimer = null;
     }
   }
@@ -741,7 +741,7 @@ export class TimelineContainer {
     
     // Clear timers
     if (this.realTimeTimer) {
-      this.realTimeTimer.clear();
+      SafeInterval.clear(this.realTimeTimer);
       this.realTimeTimer = null;
     }
     
