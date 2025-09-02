@@ -63,24 +63,24 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version if available
-        if (response) {
+  // Prefer fresh HTML for navigations (SPA shell), fallback to offline page
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
           return response;
-        }
-        
-        // Otherwise fetch from network
-        return fetch(event.request)
-          .catch((error) => {
-            // If network fails and it's a navigation request, show offline page
-            if (event.request.mode === 'navigate') {
-              return caches.match('/offline.html');
-            }
-            throw error;
-          });
-      })
+        })
+        .catch(() => caches.match('/offline.html'))
+    );
+    return;
+  }
+
+  // For static assets and API calls, use cache-first fallback to network
+  event.respondWith(
+    caches.match(event.request).then((cached) => {
+      if (cached) return cached;
+      return fetch(event.request);
+    })
   );
 });
 

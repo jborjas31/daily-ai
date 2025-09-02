@@ -352,7 +352,7 @@ export const authUI = {
  */
 export const mainAppUI = {
   /**
-   * Show main application
+   * Show main application using existing layout in index.html
    */
   show() {
     const authContainer = document.getElementById('auth-container');
@@ -361,25 +361,20 @@ export const mainAppUI = {
     authContainer.style.display = 'none';
     mainApp.style.display = 'block';
     
-    this.renderAppStructure();
+    this.initializeNavigationBindings();
+    uiController.renderCurrentView();
   },
 
   /**
-   * Render main app structure (header, nav, main content area)
+   * Initialize nav/menu bindings without rebuilding DOM
    */
-  renderAppStructure() {
-    const mainApp = document.getElementById('main-app');
-    mainApp.innerHTML = `
-      <div class="app-container">
-        <header id="app-header" class="app-header"></header>
-        <nav id="app-nav" class="app-nav"></nav>
-        <main id="app-main" class="app-main"></main>
-      </div>
-    `;
-    
-    this.renderHeader();
-    this.renderNavigation();
-    uiController.renderCurrentView();
+  initializeNavigationBindings() {
+    // Initialize responsive navigation to manage visibility/active states
+    import('./utils/ResponsiveNavigation.js').then(({ ResponsiveNavigation }) => {
+      if (!window.__responsiveNavInstance) {
+        window.__responsiveNavInstance = new ResponsiveNavigation();
+      }
+    }).catch(() => {});
   },
 
   /**
@@ -458,7 +453,7 @@ export const mainAppUI = {
    * Show add task modal (placeholder for now)
    */
   showAddTaskModal() {
-    alert('Add Task modal coming soon! This will be implemented in Phase 4.');
+    import('./utils/Toast.js').then(({ Toast }) => Toast.info('Add Task modal coming soon!', { duration: 2500 })).catch(() => {});
     // TODO: Implement task creation modal in Phase 4
   }
 };
@@ -473,7 +468,7 @@ export const todayViewUI = {
    * Render Today View
    */
   render() {
-    const mainContent = document.getElementById('app-main');
+    const mainContent = document.querySelector('#today-view .view-content');
     const settings = state.getSettings();
     const taskTemplates = state.getTaskTemplates();
     const currentDate = state.getCurrentDate();
@@ -482,12 +477,15 @@ export const todayViewUI = {
     // Generate schedule for today
     const scheduleResult = schedulingEngine.generateScheduleForDate(currentDate);
     
+    if (!mainContent) return;
     mainContent.innerHTML = `
-      <div class="view-container">
-        ${this.renderDateNavigation(currentDate)}
-        ${this.renderScheduleOverview(settings, taskTemplates, taskInstances, scheduleResult)}
-        ${this.renderQuickActions()}
-        ${this.renderContentArea(taskTemplates, scheduleResult)}
+      <div class="container">
+        <div class="view-container">
+          ${this.renderDateNavigation(currentDate)}
+          ${this.renderScheduleOverview(settings, taskTemplates, taskInstances, scheduleResult)}
+          ${this.renderQuickActions()}
+          ${this.renderContentArea(taskTemplates, scheduleResult)}
+        </div>
       </div>
     `;
     
@@ -502,13 +500,13 @@ export const todayViewUI = {
     
     if (currentView === 'timeline') {
       return `
-        <div class="content-area" data-view="timeline">
+        <div class="content-area card" data-view="timeline">
           <div id="timeline-container" class="timeline-container"></div>
         </div>
       `;
     } else {
       return `
-        <div class="content-area" data-view="list">
+        <div class="content-area card" data-view="list">
           ${this.renderTasksList(taskTemplates, scheduleResult)}
         </div>
       `;
@@ -558,7 +556,7 @@ export const todayViewUI = {
     const sleepSchedule = `${settings.defaultSleepTime} - ${settings.defaultWakeTime} (${settings.desiredSleepDuration}h)`;
     
     return `
-      <div class="schedule-overview">
+      <div class="schedule-overview card">
         <div class="overview-card">
           <h3>Today's Schedule</h3>
           <p class="sleep-info">Sleep: ${sleepSchedule}</p>
@@ -598,7 +596,7 @@ export const todayViewUI = {
    */
   renderQuickActions() {
     return `
-      <div class="quick-actions">
+      <div class="quick-actions card">
         <h3>Quick Actions</h3>
         <div class="action-buttons">
           <button id="add-task-btn" class="btn btn-primary">
@@ -624,7 +622,9 @@ export const todayViewUI = {
         <div class="tasks-section">
           <h3>Your Tasks</h3>
           <div class="empty-state">
-            <p>No tasks yet. Add your first task to get started!</p>
+            <div class="empty-icon">🗓️</div>
+            <p>No tasks yet. Create your first task to get started.</p>
+            <button id="empty-add-task-btn" class="btn btn-primary">➕ Add Task</button>
           </div>
         </div>
       `;
@@ -687,6 +687,9 @@ export const todayViewUI = {
     
     // Quick actions
     document.getElementById('add-task-btn')?.addEventListener('click', () => {
+      mainAppUI.showAddTaskModal();
+    });
+    document.getElementById('empty-add-task-btn')?.addEventListener('click', () => {
       mainAppUI.showAddTaskModal();
     });
     
@@ -764,10 +767,18 @@ export const todayViewUI = {
     this.timelineInstance = new TimelineContainer('timeline-container', {
       hourHeight: this.getResponsiveHourHeight(),
       enableClickToCreate: true,
-      enableRealTimeIndicator: true
+      enableRealTimeIndicator: true,
+      showIndicatorOnlyForToday: true
     });
     
     ComponentManager.register(this.timelineInstance);
+
+    // Ensure the time indicator is positioned immediately after render
+    requestAnimationFrame(() => {
+      try {
+        this.timelineInstance?.timelineGrid?.updateTimeIndicator?.();
+      } catch (_) {}
+    });
   },
 
   /**
@@ -801,8 +812,8 @@ export const taskLibraryUI = {
    * Render Task Library View using the new TaskList component
    */
   render() {
-    const mainContent = document.getElementById('app-main');
-    
+    const mainContent = document.querySelector('#task-library-view .view-content');
+    if (!mainContent) return;
     // Create container for the TaskList component
     mainContent.innerHTML = `
       <div class="view-container task-library-view">
@@ -854,9 +865,10 @@ export const settingsUI = {
    * Render Settings View
    */
   render() {
-    const mainContent = document.getElementById('app-main');
+    const mainContent = document.querySelector('#settings-view .view-content');
     const settings = state.getSettings();
     
+    if (!mainContent) return;
     mainContent.innerHTML = `
       <div class="view-container">
         <div class="settings-header">
@@ -912,7 +924,7 @@ uiController.renderSettingsView = settingsUI.render.bind(settingsUI);
  */
 window.editTask = (taskId) => {
   console.log('Edit task:', taskId);
-  alert('Task editing modal will be implemented in Phase 4.');
+  import('./utils/Toast.js').then(({ Toast }) => Toast.info('Task editing modal will be implemented in Phase 4.', { duration: 2500 })).catch(() => {});
   // TODO: Implement task editing modal in Phase 4
 };
 

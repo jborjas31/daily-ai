@@ -71,6 +71,11 @@
   width: 100%;
 }
 
+/* Ensure positioned parent for absolute children (e.g., time indicator) */
+.timeline-grid-container {
+  position: relative;
+}
+
 /* Hour Markers */
 .hour-marker, .tl-hour-marker {
   position: relative;
@@ -103,7 +108,7 @@
 }
 
 /* Time Indicator */
-.time-indicator {
+.timeline-grid-container .time-indicator {
   position: absolute;
   left: 0;
   right: 0;
@@ -111,9 +116,11 @@
   background: var(--tl-danger);
   z-index: 10;
   pointer-events: none;
+  border-radius: 9999px; /* smooth line caps */
+  box-shadow: 0 1px 4px rgba(239, 68, 68, 0.25);
 }
 
-.time-indicator::before {
+.timeline-grid-container .time-indicator::before {
   content: '';
   position: absolute;
   left: 8px;
@@ -122,6 +129,7 @@
   height: 10px;
   background: var(--tl-danger);
   border-radius: 50%;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.35);
 }
 
 /* Sleep Blocks */
@@ -157,7 +165,7 @@
   }
 
   /* Adjusted time indicator for mobile */
-  .time-indicator::before {
+  .timeline-grid-container .time-indicator::before {
     left: 6px;
     width: 8px;
     height: 8px;
@@ -254,10 +262,10 @@
   .task-block, .tl-task {
     border: 2px solid var(--tl-text);
   }
-  .time-indicator {
+  .timeline-grid-container .time-indicator {
     background: var(--tl-text);
   }
-  .time-indicator::before {
+  .timeline-grid-container .time-indicator::before {
     background: var(--tl-text);
   }
 }

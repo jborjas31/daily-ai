@@ -1,4 +1,5 @@
 import { SafeEventListener } from './MemoryLeakPrevention.js';
+import { Toast } from './Toast.js';
 
 // Simple network connection checking
 class SimpleNetworkChecker {
@@ -13,7 +14,7 @@ class SimpleNetworkChecker {
       window,
       'online',
       () => {
-        alert('✅ Internet connection restored');
+        Toast.success('Internet connection restored');
         console.log('Back online');
       },
       { description: 'Network checker online listener' }
@@ -24,7 +25,7 @@ class SimpleNetworkChecker {
       window,
       'offline',
       () => {
-        alert('⚠️ Internet connection lost. Changes will be saved locally.');
+        Toast.error('Internet connection lost. Changes will be saved locally.', { duration: 5000 });
         console.log('Gone offline');
       },
       { description: 'Network checker offline listener' }
@@ -41,7 +42,7 @@ class SimpleNetworkChecker {
   
   static checkConnectionBeforeAction(action) {
     if (!this.isOnline()) {
-      alert('⚠️ No internet connection. Please check your network and try again.');
+      Toast.error('No internet connection. Please check your network and try again.', { duration: 5000 });
       return false;
     }
     

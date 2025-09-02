@@ -1,4 +1,6 @@
 import { SafeInterval, SafeTimeout, SafeEventListener, ComponentManager } from './MemoryLeakPrevention.js';
+import { state } from '../state.js';
+import { stateListeners } from '../state/Store.js';
 
 // Responsive Navigation Management
 class ResponsiveNavigation {
@@ -19,17 +21,23 @@ class ResponsiveNavigation {
   
   init() {
     console.log('🧭 Initializing responsive navigation...');
-    
+
     // Setup navigation event listeners
     this.setupMobileMenuToggle();
     this.setupNavigationButtons();
     this.setupViewSwitching();
     this.setupLiveClock();
     this.setupResponsiveClasses();
-    
+
     // Initialize current date display
     this.updateCurrentDate();
-    
+
+    // Keep in sync with global state changes
+    stateListeners.on('view', (view) => {
+      // Avoid loops: update DOM without re-setting state
+      this.switchToView(view, true /* closeMobileMenu */, false /* propagateToState */);
+    });
+
     console.log('✅ Responsive navigation initialized');
   }
   
@@ -185,12 +193,15 @@ class ResponsiveNavigation {
   
   setupViewSwitching() {
     // Initialize view state
-    this.switchToView(this.currentView, false);
+    this.switchToView(this.currentView, false /* closeMobileMenu */);
   }
-  
-  switchToView(viewName, closeMobileMenu = true) {
-    if (viewName === this.currentView) return;
-    
+
+  switchToView(viewName, closeMobileMenu = true, propagateToState = true) {
+    if (viewName === this.currentView && propagateToState) {
+      // No state change needed; still ensure DOM reflects the current view
+      // but avoid redundant state notifications
+    }
+
     console.log(`🧭 Switching to view: ${viewName}`);
     
     const views = ['today', 'library', 'settings'];
@@ -222,15 +233,20 @@ class ResponsiveNavigation {
     // Update current view
     const previousView = this.currentView;
     this.currentView = viewName;
-    
+
     // Close mobile menu if requested
     if (closeMobileMenu && this.mobileMenuOpen) {
       this.closeMobileMenu();
     }
-    
+
     // Emit view change event
     this.emitViewChangeEvent(viewName, previousView);
-    
+
+    // Propagate to global state so the rest of the app renders
+    if (propagateToState) {
+      state.setCurrentView(viewName);
+    }
+
     console.log(`✅ View switched to: ${viewName}`);
   }
   

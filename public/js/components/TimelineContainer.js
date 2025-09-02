@@ -689,7 +689,7 @@ export class TimelineContainer {
    */
   showValidationError(message) {
     // Simple alert for now - can be replaced with better UI
-    alert(message);
+        import('../utils/Toast.js').then(({ Toast }) => Toast.info(message, { duration: 3000 })).catch(() => {});
   }
 
   /**

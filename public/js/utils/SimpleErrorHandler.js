@@ -1,8 +1,10 @@
 // Simple Error Handling System
+import { Toast } from './Toast.js';
+
 class SimpleErrorHandler {
   static showError(message, details = null) {
-    // Show user-friendly alert
-    alert(`⚠️ ${message}`);
+    // Non-blocking toast error
+    Toast.error(`⚠️ ${message}`, { duration: 4000 });
     
     // Log technical details to console for debugging
     if (details) {
@@ -11,8 +13,8 @@ class SimpleErrorHandler {
   }
   
   static showSuccess(message) {
-    // Simple success notification
-    alert(`✅ ${message}`);
+    // Non-blocking toast success
+    Toast.success(`✅ ${message}`, { duration: 2500 });
   }
   
   static handleFirebaseError(error) {

@@ -24,6 +24,7 @@ export class TimelineGrid {
     this.options = {
       hourHeight: 80,
       enableRealTimeIndicator: true,
+      showIndicatorOnlyForToday: false,
       enableClickToCreate: true,
       enableDragDrop: true,
       ...options
@@ -216,6 +217,11 @@ export class TimelineGrid {
    * Render real-time indicator
    */
   renderTimeIndicator() {
+    // Optionally hide indicator when not viewing today's date
+    if (this.options.showIndicatorOnlyForToday && !this.isCurrentDateToday()) {
+      return '';
+    }
+
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const topPosition = (currentMinutes / 60) * this.options.hourHeight;
@@ -226,6 +232,19 @@ export class TimelineGrid {
         <div class="time-indicator-line"></div>
       </div>
     `;
+  }
+
+  /**
+   * Check if the currentDate equals today's local date
+   */
+  isCurrentDateToday() {
+    if (!this.currentDate) return true; // Default to true when unknown
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    const todayStr = `${y}-${m}-${d}`;
+    return this.currentDate === todayStr;
   }
 
   /**

@@ -12,6 +12,8 @@
   cursor: pointer;
   border: none;
   outline: none;
+  min-height: 40px;
+  gap: 0.5rem;
 }
 
 .btn-primary {
@@ -41,6 +43,18 @@
 .btn-secondary:hover {
   background: var(--neutral-50);
   border-color: var(--neutral-400);
+}
+
+.btn-sm {
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+  min-height: 32px;
+}
+
+@media (max-width: 767px) {
+  .btn {
+    min-height: 44px; /* Touch target */
+  }
 }
 
 /* Floating Action Button (Mobile) */
@@ -111,6 +125,23 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Empty State */
+.empty-state {
+  text-align: center;
+  color: var(--neutral-600);
+  padding: var(--space-8) var(--space-4);
+}
+
+.empty-state .empty-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+}
+
+.empty-state p {
+  margin-bottom: var(--space-4);
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -157,6 +188,46 @@
     max-width: none;
     max-height: none;
   }
+}
+
+/* Toast notifications */
+.toast-container {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10000;
+}
+
+.toast {
+  min-width: 240px;
+  max-width: 360px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  color: #0b1a28;
+  background: #e6f0ff;
+  box-shadow: var(--shadow-md);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  transition: transform 200ms ease, opacity 200ms ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast--hide {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.toast--success { background: #e6f7ed; color: #0c3b24; }
+.toast--error { background: #fdecea; color: #611a15; }
+.toast--info { background: #e6f0ff; color: #0b1a28; }
+
+@media (prefers-reduced-motion: reduce) {
+  .toast { transition: none; }
+  .toast--hide { transition: none; }
 }
 
 /* Timeline-Specific Styles */
@@ -230,28 +301,7 @@
   background: var(--neutral-50);
 }
 
-.time-indicator {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--error) 0%, #F97316 100%);
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-  z-index: 10;
-  border-radius: var(--radius-full);
-}
-
-.time-indicator::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: -4px;
-  width: 10px;
-  height: 10px;
-  background: var(--error);
-  border-radius: var(--radius-full);
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-}
+/* time-indicator styles consolidated in timeline.css */
 
 .sleep-block {
   background: linear-gradient(135deg, var(--neutral-100) 0%, var(--neutral-200) 100%);

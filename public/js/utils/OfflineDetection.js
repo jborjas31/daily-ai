@@ -605,7 +605,7 @@ export class OfflineDetection {
         `Conflicts: ${conflicts.length} pending`
       ].join('\n');
       
-      alert('Sync Status:\n\n' + message);
+      import('./Toast.js').then(({ Toast }) => Toast.info('Sync Status: ' + message, { duration: 5000 })).catch(() => {});
     } catch (error) {
       console.error('❌ OfflineDetection: Failed to show sync details:', error);
     }

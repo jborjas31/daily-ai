@@ -50,11 +50,7 @@ async function safeSignIn(email, password) {
     () => signInWithEmail(email, password),
     'Signing in...'
   );
-  
-  if (result.success) {
-    SimpleErrorHandler.showSuccess('Signed in successfully!');
-  }
-  
+  // On successful sign-in, proceed silently without showing a popup
   return result;
 }
 
