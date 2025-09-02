@@ -6,18 +6,17 @@
  */
 
 // Import all components
-import { TaskModal, taskModal } from './TaskModal.js';
-import Timeline from './Timeline.js';
+import { TaskModalContainer } from './TaskModalContainer.js';
+import { TimelineContainer } from './TimelineContainer.js';
 import { TaskBlock, taskBlockUtils } from './TaskBlock.js';
 
 // Export all components
 export {
-  // Task Modal Component
-  TaskModal,
-  taskModal,
+  // Task Modal Container (V2)
+  TaskModalContainer,
   
-  // Timeline Component
-  Timeline,
+  // Timeline Components
+  TimelineContainer,
   
   // Task Block Component
   TaskBlock,
@@ -26,9 +25,8 @@ export {
 
 // Default export for convenience
 export default {
-  TaskModal,
-  taskModal,
-  Timeline,
+  TaskModalContainer,
+  TimelineContainer,
   TaskBlock,
   taskBlockUtils
 };

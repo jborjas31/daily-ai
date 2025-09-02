@@ -238,27 +238,32 @@
 }
 
 /* Priority Visual Indicators */
-.task-block.priority-critical {
+.task-block.priority-critical,
+.task-block--priority-5 {
   border-left: 4px solid #dc2626;
   box-shadow: 0 0 12px rgba(220, 38, 38, 0.2);
 }
 
-.task-block.priority-high {
+.task-block.priority-high,
+.task-block--priority-4 {
   border-left: 4px solid #ea580c;
   box-shadow: 0 0 10px rgba(234, 88, 12, 0.15);
 }
 
-.task-block.priority-medium {
+.task-block.priority-medium,
+.task-block--priority-3 {
   border-left: 4px solid #d97706;
   box-shadow: 0 0 8px rgba(217, 119, 6, 0.1);
 }
 
-.task-block.priority-low {
+.task-block.priority-low,
+.task-block--priority-2 {
   border-left: 4px solid #65a30d;
   box-shadow: 0 0 6px rgba(101, 163, 13, 0.1);
 }
 
-.task-block.priority-minimal {
+.task-block.priority-minimal,
+.task-block--priority-1 {
   border-left: 4px solid #6b7280;
   box-shadow: 0 0 4px rgba(107, 114, 128, 0.05);
 }
@@ -300,27 +305,32 @@
 
 /* Dark mode priority styles */
 @media (prefers-color-scheme: dark) {
-  .task-block.priority-critical {
+  .task-block.priority-critical,
+  .task-block--priority-5 {
     border-left-color: #f87171;
     box-shadow: 0 0 12px rgba(248, 113, 113, 0.2);
   }
 
-  .task-block.priority-high {
+  .task-block.priority-high,
+  .task-block--priority-4 {
     border-left-color: #fb923c;
     box-shadow: 0 0 10px rgba(251, 146, 60, 0.15);
   }
 
-  .task-block.priority-medium {
+  .task-block.priority-medium,
+  .task-block--priority-3 {
     border-left-color: #fbbf24;
     box-shadow: 0 0 8px rgba(251, 191, 36, 0.1);
   }
 
-  .task-block.priority-low {
+  .task-block.priority-low,
+  .task-block--priority-2 {
     border-left-color: #84cc16;
     box-shadow: 0 0 6px rgba(132, 204, 22, 0.1);
   }
 
-  .task-block.priority-minimal {
+  .task-block.priority-minimal,
+  .task-block--priority-1 {
     border-left-color: #9ca3af;
     box-shadow: 0 0 4px rgba(156, 163, 175, 0.05);
   }
@@ -348,17 +358,20 @@
 
 /* High Contrast Mode Priority Support */
 @media (prefers-contrast: high) {
-  .task-block.priority-critical {
+  .task-block.priority-critical,
+  .task-block--priority-5 {
     border-left-color: #000;
     border-left-width: 6px;
   }
 
-  .task-block.priority-high {
+  .task-block.priority-high,
+  .task-block--priority-4 {
     border-left-color: #000;
     border-left-width: 5px;
   }
 
-  .task-block.priority-medium {
+  .task-block.priority-medium,
+  .task-block--priority-3 {
     border-left-color: #000;
     border-left-width: 4px;
   }

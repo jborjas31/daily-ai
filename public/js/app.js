@@ -5,6 +5,8 @@
  * and starts the Daily AI task management application.
  */
 
+// Task Modal V2 is now the default (legacy modal removed)
+
 // Import Firebase module with error handling
 import { 
   initFirebase, 
@@ -20,15 +22,15 @@ import { dataUtils } from './dataOffline.js';
 import { userSettingsManager } from './userSettings.js';
 
 // Import task logic and scheduling
-import { taskTemplateManager, schedulingEngine } from './taskLogic.js';
+import { taskTemplateManager, schedulingEngine, taskInstanceManager } from './taskLogic.js';
 
 // Import UI management system
 import { uiController, authUI, mainAppUI } from './ui.js';
 
 // Import components
-import { taskModal } from './components/TaskModal.js';
+import { TaskModalContainer } from './components/TaskModalContainer.js';
 import { taskList } from './components/TaskList.js';
-import Timeline from './components/Timeline.js';
+import { TimelineContainer } from './components/TimelineContainer.js';
 
 // Import utility modules
 import { SimpleValidation } from './utils/SimpleValidation.js';
@@ -254,8 +256,7 @@ function setupAuthEventListeners() {
 function handleAddTaskAction() {
   console.log('🚀 Opening task creation modal...');
   
-  // Use the new task modal component
-  taskModal.showCreate({}, (savedTask) => {
+  window.taskModal.showCreate({}, (savedTask) => {
     console.log('Task created:', savedTask);
     // The UI will automatically update via state listeners
   });
@@ -299,7 +300,7 @@ window.editTask = (taskId) => {
   const task = taskTemplates.find(t => t.id === taskId);
   
   if (task) {
-    taskModal.showEdit(task, (savedTask) => {
+    window.taskModal.showEdit(task, (savedTask) => {
       console.log('Task updated:', savedTask);
       // UI will update automatically via state listeners
     });
@@ -308,7 +309,12 @@ window.editTask = (taskId) => {
 
 window.duplicateTask = async (taskId) => {
   try {
-    await taskTemplateManager.duplicateTemplate(taskId);
+    const uid = state.getUser()?.uid;
+    if (!uid) {
+      SimpleErrorHandler.showError('Please sign in to duplicate tasks.');
+      return;
+    }
+    await taskTemplateManager.duplicate(uid, taskId);
     SimpleErrorHandler.showSuccess('Task duplicated successfully!');
   } catch (error) {
     console.error('Error duplicating task:', error);
@@ -319,7 +325,7 @@ window.duplicateTask = async (taskId) => {
 window.toggleTaskCompletion = async (taskId) => {
   try {
     const currentDate = state.getCurrentDate();
-    await taskInstanceManager.toggleTaskCompletion(taskId, currentDate);
+    await taskInstanceManager.toggleByTemplateAndDate(taskId, currentDate);
     SimpleErrorHandler.showSuccess('Task status updated!');
   } catch (error) {
     console.error('Error toggling task completion:', error);
@@ -345,6 +351,9 @@ window.getCurrentFirebaseUser = () => {
   }
   return null;
 };
+
+// Initialize Task Modal container globally
+window.taskModal = new TaskModalContainer();
 
 console.log('✅ Daily AI application module loaded');
 console.log('🧪 Testing objects exposed globally for console access');

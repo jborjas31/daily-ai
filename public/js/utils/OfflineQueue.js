@@ -437,7 +437,9 @@ export class OfflineQueue {
 
   async handleDuplicateTemplate(operation) {
     const { taskTemplateManager } = await import('../taskLogic.js');
-    return await taskTemplateManager.duplicateTemplate(operation.resourceId);
+    const { state } = await import('../state.js');
+    const uid = state.getUser()?.uid;
+    return await taskTemplateManager.duplicate(uid, operation.resourceId);
   }
 
   async handleActivateTemplate(operation) {

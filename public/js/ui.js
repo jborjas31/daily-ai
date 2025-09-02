@@ -10,7 +10,7 @@ import { schedulingEngine, taskTemplateManager, taskInstanceManager } from './ta
 import { SimpleErrorHandler } from './utils/SimpleErrorHandler.js';
 import { dataUtils } from './dataOffline.js';
 import { taskList } from './components/TaskList.js';
-import { Timeline } from './components/Timeline.js';
+import { TimelineContainer } from './components/TimelineContainer.js';
 import { ComponentManager } from './utils/MemoryLeakPrevention.js';
 
 /**
@@ -761,7 +761,7 @@ export const todayViewUI = {
       this.timelineInstance.destroy(); // Clean up existing instance
     }
     
-    this.timelineInstance = new Timeline('timeline-container', {
+    this.timelineInstance = new TimelineContainer('timeline-container', {
       hourHeight: this.getResponsiveHourHeight(),
       enableClickToCreate: true,
       enableRealTimeIndicator: true
@@ -918,7 +918,12 @@ window.editTask = (taskId) => {
 
 window.duplicateTask = async (taskId) => {
   try {
-    await taskTemplateManager.duplicateTemplate(taskId);
+    const uid = state.getUser()?.uid;
+    if (!uid) {
+      SimpleErrorHandler.showError('Please sign in to duplicate tasks.');
+      return;
+    }
+    await taskTemplateManager.duplicate(uid, taskId);
     SimpleErrorHandler.showSuccess('Task duplicated successfully!');
   } catch (error) {
     console.error('Error duplicating task:', error);
@@ -929,7 +934,7 @@ window.duplicateTask = async (taskId) => {
 window.toggleTaskCompletion = async (taskId) => {
   try {
     const currentDate = state.getCurrentDate();
-    await taskInstanceManager.toggleTaskCompletion(taskId, currentDate);
+    await taskInstanceManager.toggleByTemplateAndDate(taskId, currentDate);
     SimpleErrorHandler.showSuccess('Task status updated!');
   } catch (error) {
     console.error('Error toggling task completion:', error);

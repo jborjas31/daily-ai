@@ -6,8 +6,10 @@
  */
 
 import { state } from '../state.js';
-import { taskTemplateManager, TIME_WINDOWS } from '../taskLogic.js';
-import { taskModal } from './TaskModal.js';
+import { taskTemplateManager } from '../taskLogic.js';
+import { TIME_WINDOWS } from '../constants/timeWindows.js';
+// Legacy TaskModal removed; use global container
+import { TaskQuery } from '../logic/TaskQuery.js';
 import { SimpleErrorHandler } from '../utils/SimpleErrorHandler.js';
 import { SafeTimeout, SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
 
@@ -533,13 +535,9 @@ export class TaskList {
       templates = templates.filter(t => t.isActive === false);
     }
     
-    // Apply search filter
+    // Apply search filter using centralized TaskQuery
     if (this.searchQuery) {
-      const query = this.searchQuery.toLowerCase();
-      templates = templates.filter(template => 
-        template.taskName.toLowerCase().includes(query) ||
-        (template.description && template.description.toLowerCase().includes(query))
-      );
+      templates = TaskQuery.search(templates, this.searchQuery);
     }
     
     // Apply detailed filters
@@ -784,7 +782,7 @@ export class TaskList {
    * Handle create template button
    */
   handleCreateTemplate() {
-    taskModal.showCreate({}, (newTemplate) => {
+    window.taskModal.showCreate({}, (newTemplate) => {
       if (newTemplate) {
         SimpleErrorHandler.showSuccess('Template created successfully!');
         this.refreshView();
@@ -966,7 +964,7 @@ export class TaskList {
           break;
         case 'duplicate':
           confirmMessage = `Duplicate ${selectedIds.length} selected template${selectedIds.length !== 1 ? 's' : ''}?`;
-          successMessage = 'Templates duplicated successfully!';
+          successMessage = 'Tasks duplicated successfully!';
           break;
         // case 'export': // temporarily disabled
           // await this.handleBulkExport(selectedIds);
@@ -987,19 +985,26 @@ export class TaskList {
       // Perform bulk action
       switch (action) {
         case 'activate':
-          await taskTemplateManager.bulkActivate(selectedIds);
+          await taskTemplateManager.getBulkOperations().bulkActivate(selectedIds);
           break;
         case 'deactivate':
-          await taskTemplateManager.bulkDeactivate(selectedIds);
+          await taskTemplateManager.getBulkOperations().bulkDeactivate(selectedIds);
           break;
         case 'duplicate':
-          for (const id of selectedIds) {
-            await taskTemplateManager.duplicateTemplate(id);
+          {
+            const uid = state.getUser()?.uid;
+            if (!uid) {
+              SimpleErrorHandler.showError('Please sign in to duplicate templates.');
+              break;
+            }
+            for (const id of selectedIds) {
+              await taskTemplateManager.duplicate(uid, id);
+            }
           }
           break;
         case 'delete':
           for (const id of selectedIds) {
-            await taskTemplateManager.deleteTemplate(id);
+            await taskTemplateManager.delete(id);
           }
           break;
       }
@@ -1026,7 +1031,7 @@ export class TaskList {
       return;
     }
     
-    taskModal.showEdit(template, (updatedTemplate) => {
+    window.taskModal.showEdit(template, (updatedTemplate) => {
       if (updatedTemplate) {
         SimpleErrorHandler.showSuccess('Template updated successfully!');
         this.refreshView();
@@ -1039,8 +1044,13 @@ export class TaskList {
    */
   async handleDuplicateTemplate(templateId) {
     try {
-      await taskTemplateManager.duplicateTemplate(templateId);
-      SimpleErrorHandler.showSuccess('Template duplicated successfully!');
+      const uid = state.getUser()?.uid;
+      if (!uid) {
+        SimpleErrorHandler.showError('Please sign in to duplicate templates.');
+        return;
+      }
+      await taskTemplateManager.duplicate(uid, templateId);
+      SimpleErrorHandler.showSuccess('Task duplicated successfully!');
       this.refreshView();
     } catch (error) {
       console.error('Duplicate template error:', error);
@@ -1060,7 +1070,7 @@ export class TaskList {
       }
       
       const newStatus = !template.isActive;
-      await taskTemplateManager.updateTemplate(templateId, { isActive: newStatus });
+      await taskTemplateManager.update(templateId, { isActive: newStatus });
       
       const statusText = newStatus ? 'activated' : 'deactivated';
       SimpleErrorHandler.showSuccess(`Template ${statusText} successfully!`);
@@ -1096,9 +1106,14 @@ export class TaskList {
         
         // Import templates
         let imported = 0;
+        const uid = state.getUser()?.uid;
+        if (!uid) {
+          SimpleErrorHandler.showError('Please sign in to import templates.');
+          return;
+        }
         for (const template of templates) {
           try {
-            await taskTemplateManager.createTemplate(template);
+            await taskTemplateManager.create(uid, template);
             imported++;
           } catch (error) {
             console.warn('Failed to import template:', template.taskName, error);

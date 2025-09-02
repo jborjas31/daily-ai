@@ -3,7 +3,7 @@
  * Provides basic offline support and caching
  */
 
-const CACHE_NAME = 'daily-ai-v1';
+const CACHE_NAME = 'daily-ai-v2';
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',
@@ -17,8 +17,10 @@ const STATIC_CACHE_URLS = [
   '/js/ui.js',
   '/js/taskLogic.js',
   '/js/data.js',
-  '/js/components/TaskModal.js',
-  '/js/components/Timeline.js',
+  '/js/components/TaskModalContainer.js',
+  '/js/components/TimelineContainer.js',
+  '/js/components/TimelineHeader.js',
+  '/js/components/TimelineGrid.js',
   '/js/utils/AppInitializer.js',
   '/js/utils/ModernBrowserChecker.js',
   '/manifest.json',

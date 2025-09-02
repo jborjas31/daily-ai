@@ -3,135 +3,19 @@
  * Single source of truth for all application data
  */
 
-import { taskTemplates, taskInstances, dataUtils } from './dataOffline.js';
-import { dailySchedules } from './data.js'; // Keep this from original data.js as it doesn't need offline support
+import { taskTemplates, dataUtils } from './dataOffline.js';
 import { userSettingsManager } from './userSettings.js';
 import { taskTemplateManager } from './taskLogic.js';
+import { appState as appStateFromStore, notifyStateChange, stateListeners } from './state/Store.js';
+import * as templateActions from './state/actions.templates.js';
+import * as instanceActions from './state/actions.instances.js';
+import * as appActions from './state/actions.app.js';
+import * as userActions from './state/actions.user.js';
 
 /**
- * Global Application State
+ * Global Application State (moved to Store.js)
  */
-let appState = {
-  // User authentication
-  user: null,
-  isAuthenticated: false,
-  
-  // User settings
-  settings: {
-    desiredSleepDuration: 7.5,
-    defaultWakeTime: "06:30",
-    defaultSleepTime: "23:00"
-  },
-  
-  // Current view
-  currentView: 'today', // 'today', 'library', 'settings'
-  currentDate: dataUtils.getTodayDateString(),
-  
-  // Task template data with enhanced caching
-  taskTemplates: {
-    data: [],
-    cache: new Map(), // Template ID -> template object for fast lookups
-    lastLoaded: null,
-    metadata: {
-      total: 0,
-      active: 0,
-      inactive: 0,
-      byPriority: {},
-      byTimeWindow: {},
-      lastUpdated: null
-    },
-    filters: {
-      includeInactive: false,
-      timeWindow: null,
-      priority: null,
-      isMandatory: null,
-      schedulingType: null
-    },
-    pagination: {
-      limit: 50,
-      offset: 0,
-      hasMore: false,
-      total: 0
-    },
-    searchResults: {
-      query: '',
-      results: [],
-      lastSearch: null
-    }
-  },
-  
-  // Task instance data with enhanced date-based management
-  taskInstances: {
-    data: new Map(), // Date string -> array of instances for fast date lookups
-    cache: new Map(), // Instance ID -> instance object for fast instance lookups
-    dateRange: {
-      startDate: null,
-      endDate: null,
-      loadedDates: new Set() // Track which dates have been loaded
-    },
-    metadata: {
-      totalInstances: 0,
-      dateCount: 0,
-      byStatus: {},
-      byDate: {},
-      completionRate: 0,
-      averageCompletionTime: null,
-      lastUpdated: null
-    },
-    filters: {
-      status: null, // 'pending', 'completed', 'skipped', 'postponed'
-      templateId: null,
-      dateRange: {
-        start: null,
-        end: null
-      }
-    },
-    searchResults: {
-      query: '',
-      results: [],
-      dateFilter: null,
-      lastSearch: null
-    },
-    currentDate: dataUtils.getTodayDateString(), // Currently viewed date for instances
-    navigationHistory: [], // For date navigation history
-    preloadDates: [], // Dates to preload for performance
-    stats: {
-      daily: new Map(), // Date -> daily stats
-      weekly: new Map(), // Week -> weekly stats  
-      monthly: new Map() // Month -> monthly stats
-    }
-  },
-  dailySchedules: new Map(), // Date string -> schedule override
-  
-  // UI state
-  loading: {
-    tasks: false,
-    settings: false,
-    saving: false
-  },
-  
-  // Offline state
-  isOnline: navigator.onLine,
-  pendingSyncActions: [],
-  templateOperationQueue: [], // Queue for offline template operations
-  instanceOperationQueue: [], // Queue for offline instance operations
-  
-  // Multi-tab synchronization
-  tabSyncEnabled: true,
-  lastSyncTimestamp: new Date().toISOString(),
-  
-  // Real-time updates
-  lastUpdated: new Date().toISOString(),
-  
-  // Search and filters
-  searchQuery: '',
-  activeFilters: {
-    showCompleted: true,
-    showSkipped: true,
-    timeWindow: 'all', // 'all', 'morning', 'afternoon', 'evening'
-    mandatory: 'all' // 'all', 'mandatory', 'skippable'
-  }
-};
+let appState = appStateFromStore;
 
 /**
  * State Management Functions
@@ -679,159 +563,7 @@ function updateTaskInstanceMetadata() {
  * Multi-tab Synchronization
  */
 
-/**
- * Sanitize data for BroadcastChannel transmission
- * BroadcastChannel can only handle structured cloneable data
- */
-function sanitizeDataForBroadcast(data) {
-  if (data === null || data === undefined) {
-    return data;
-  }
-  
-  // Handle primitive types
-  if (typeof data !== 'object') {
-    return data;
-  }
-  
-  // Handle Arrays
-  if (Array.isArray(data)) {
-    return data.map(item => sanitizeDataForBroadcast(item));
-  }
-  
-  // Handle Firebase User objects
-  if (data && typeof data === 'object' && data.uid && data.email !== undefined) {
-    return {
-      uid: data.uid,
-      email: data.email,
-      displayName: data.displayName,
-      photoURL: data.photoURL,
-      emailVerified: data.emailVerified,
-      isAnonymous: data.isAnonymous,
-      phoneNumber: data.phoneNumber,
-      providerId: data.providerId,
-      providerData: data.providerData ? data.providerData.map(provider => ({
-        uid: provider.uid,
-        email: provider.email,
-        displayName: provider.displayName,
-        photoURL: provider.photoURL,
-        providerId: provider.providerId
-      })) : []
-    };
-  }
-  
-  // Handle Date objects
-  if (data instanceof Date) {
-    return data.toISOString();
-  }
-  
-  // Handle plain objects
-  if (data.constructor === Object) {
-    const sanitized = {};
-    for (const [key, value] of Object.entries(data)) {
-      // Skip functions and undefined values
-      if (typeof value !== 'function' && value !== undefined) {
-        sanitized[key] = sanitizeDataForBroadcast(value);
-      }
-    }
-    return sanitized;
-  }
-  
-  // For other complex objects, try to extract serializable properties
-  try {
-    JSON.stringify(data);
-    return data; // Already serializable
-  } catch (error) {
-    // Object is not serializable, extract basic properties
-    const sanitized = {};
-    for (const key in data) {
-      try {
-        const value = data[key];
-        if (typeof value !== 'function' && value !== undefined) {
-          const serializedValue = sanitizeDataForBroadcast(value);
-          JSON.stringify(serializedValue); // Test serializability
-          sanitized[key] = serializedValue;
-        }
-      } catch (e) {
-        // Skip this property if it can't be serialized
-        continue;
-      }
-    }
-    return sanitized;
-  }
-}
-
-function broadcastStateChange(type, data) {
-  if (appState.tabSyncEnabled && typeof BroadcastChannel !== 'undefined') {
-    try {
-      const channel = new BroadcastChannel('daily-ai-state');
-      const sanitizedData = sanitizeDataForBroadcast(data);
-      
-      channel.postMessage({
-        type: `state-${type}`,
-        data: sanitizedData,
-        timestamp: new Date().toISOString(),
-        source: 'state-manager'
-      });
-    } catch (error) {
-      console.warn('Failed to broadcast state change:', error);
-    }
-  }
-}
-
-/**
- * State Change Notification System
- */
-const stateChangeListeners = new Map();
-
-function notifyStateChange(type, data) {
-  const listeners = stateChangeListeners.get(type) || [];
-  listeners.forEach(callback => {
-    try {
-      callback(data);
-    } catch (error) {
-      console.error(`Error in state change listener for ${type}:`, error);
-    }
-  });
-  
-  // Also notify global listeners
-  const globalListeners = stateChangeListeners.get('*') || [];
-  globalListeners.forEach(callback => {
-    try {
-      callback({ type, data });
-    } catch (error) {
-      console.error('Error in global state change listener:', error);
-    }
-  });
-
-  // Broadcast to other tabs for multi-tab synchronization
-  broadcastStateChange(type, data);
-}
-
-export const stateListeners = {
-  // Add listener for specific state change
-  on: (type, callback) => {
-    if (!stateChangeListeners.has(type)) {
-      stateChangeListeners.set(type, []);
-    }
-    stateChangeListeners.get(type).push(callback);
-  },
-  
-  // Remove listener
-  off: (type, callback) => {
-    const listeners = stateChangeListeners.get(type);
-    if (listeners) {
-      const index = listeners.indexOf(callback);
-      if (index >= 0) {
-        listeners.splice(index, 1);
-      }
-    }
-  },
-  
-  // Add global listener (listens to all state changes)
-  onAll: (callback) => {
-    stateListeners.on('*', callback);
-  }
-};
+// Event system (notifyStateChange, stateListeners) moved to './state/Store.js'
 
 /**
  * Data Loading Functions
@@ -976,7 +708,11 @@ export const stateActions = {
     }
   },
   
+  /* BEGIN legacy template actions (disabled)
+   */
   // Enhanced task template management actions
+  // NOTE: Deprecated — migrated to './state/actions.templates.js'.
+  // Calls resolve to the extracted module via Object.assign below.
   
   // Initialize task template manager
   async initializeTaskTemplateManager() {
@@ -1180,7 +916,7 @@ export const stateActions = {
     try {
       state.setLoading('saving', true);
       
-      const results = await taskTemplateManager.bulkActivate(templateIds);
+      const results = await taskTemplateManager.getBulkOperations().bulkActivate(templateIds);
       
       // Update each template in state
       for (const templateId of templateIds) {
@@ -1205,7 +941,7 @@ export const stateActions = {
     try {
       state.setLoading('saving', true);
       
-      const results = await taskTemplateManager.bulkDeactivate(templateIds);
+      const results = await taskTemplateManager.getBulkOperations().bulkDeactivate(templateIds);
       
       // Update each template in state
       for (const templateId of templateIds) {
@@ -1388,7 +1124,7 @@ export const stateActions = {
       }
     }
   },
-
+  
   // Clear template cache and reload
   async refreshTaskTemplates() {
     try {
@@ -1400,448 +1136,16 @@ export const stateActions = {
       throw error;
     }
   },
+  // END legacy template actions
   
-  // Enhanced task instance management actions
-  
-  // Load task instances for specific date with options
-  async loadTaskInstancesForDate(date, options = {}) {
-    try {
-      state.setLoading('tasks', true);
-      
-      const {
-        status = null,
-        templateId = null,
-        force = false // Force reload even if already cached
-      } = options;
-      
-      // Check if already loaded and not forcing reload
-      if (!force && state.getLoadedInstanceDates().has(date)) {
-        const cachedInstances = state.getTaskInstancesForDate(date);
-        console.log(`✅ Task instances retrieved from cache for ${date} (${cachedInstances.length} instances)`);
-        return cachedInstances;
-      }
-      
-      const instances = await taskInstances.getForDate(date, { status, templateId });
-      state.setTaskInstancesForDate(date, instances);
-      
-      console.log(`✅ Task instances loaded for ${date} (${instances.length} instances)`);
-      return instances;
-    } catch (error) {
-      console.error(`❌ Error loading task instances for ${date}:`, error);
-      
-      // Add to offline queue if network error
-      if (!state.isOnline()) {
-        state.addInstanceOperation({
-          type: 'LOAD_INSTANCES_FOR_DATE',
-          data: { date, options },
-          retry: true
-        });
-      }
-      
-      throw error;
-    } finally {
-      state.setLoading('tasks', false);
-    }
-  },
-  
-  // Load task instances for date range
-  async loadTaskInstancesForDateRange(startDate, endDate, options = {}) {
-    try {
-      state.setLoading('tasks', true);
-      
-      const instances = await taskInstances.getForDateRange(startDate, endDate, options);
-      
-      // Group instances by date
-      const instancesByDate = {};
-      instances.forEach(instance => {
-        if (!instancesByDate[instance.date]) {
-          instancesByDate[instance.date] = [];
-        }
-        instancesByDate[instance.date].push(instance);
-      });
-      
-      // Update state for each date
-      Object.entries(instancesByDate).forEach(([date, dateInstances]) => {
-        state.setTaskInstancesForDate(date, dateInstances);
-      });
-      
-      console.log(`✅ Task instances loaded for range ${startDate} to ${endDate} (${instances.length} total)`);
-      return instances;
-    } catch (error) {
-      console.error(`❌ Error loading task instances for range ${startDate} to ${endDate}:`, error);
-      throw error;
-    } finally {
-      state.setLoading('tasks', false);
-    }
-  },
-
-  // Load instances by template ID
-  async loadTaskInstancesByTemplate(templateId, options = {}) {
-    try {
-      state.setLoading('tasks', true);
-      
-      const instances = await taskInstances.getByTemplateId(templateId, options);
-      
-      // Group instances by date and update state
-      const instancesByDate = {};
-      instances.forEach(instance => {
-        if (!instancesByDate[instance.date]) {
-          instancesByDate[instance.date] = [];
-        }
-        instancesByDate[instance.date].push(instance);
-      });
-      
-      // Update state for each date (merge with existing instances)
-      Object.entries(instancesByDate).forEach(([date, templateInstances]) => {
-        const existingInstances = state.getTaskInstancesForDate(date);
-        const existingIds = new Set(existingInstances.map(i => i.id));
-        
-        // Add new instances that don't already exist
-        const newInstances = templateInstances.filter(i => !existingIds.has(i.id));
-        const mergedInstances = [...existingInstances, ...newInstances];
-        
-        state.setTaskInstancesForDate(date, mergedInstances);
-      });
-      
-      console.log(`✅ Task instances loaded for template ${templateId} (${instances.length} instances)`);
-      return instances;
-    } catch (error) {
-      console.error(`❌ Error loading task instances for template ${templateId}:`, error);
-      throw error;
-    } finally {
-      state.setLoading('tasks', false);
-    }
-  },
-
-  // Create new task instance
-  async createTaskInstance(instanceData) {
-    try {
-      state.setLoading('saving', true);
-      
-      const newInstance = await taskInstances.create(instanceData);
-      state.updateTaskInstance(newInstance);
-      
-      console.log('✅ Task instance created:', newInstance.id);
-      return newInstance;
-    } catch (error) {
-      console.error('❌ Error creating task instance:', error);
-      
-      // Add to offline queue if network error
-      if (!state.isOnline()) {
-        state.addInstanceOperation({
-          type: 'CREATE_INSTANCE',
-          data: instanceData,
-          retry: true
-        });
-      }
-      
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Update task instance
-  async updateTaskInstance(instanceId, updates) {
-    try {
-      state.setLoading('saving', true);
-      
-      const updatedInstance = await taskInstances.update(instanceId, updates);
-      state.updateTaskInstance(updatedInstance);
-      
-      console.log('✅ Task instance updated:', instanceId);
-      return updatedInstance;
-    } catch (error) {
-      console.error('❌ Error updating task instance:', error);
-      
-      // Add to offline queue if network error
-      if (!state.isOnline()) {
-        state.addInstanceOperation({
-          type: 'UPDATE_INSTANCE',
-          data: { instanceId, updates },
-          retry: true
-        });
-      }
-      
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Delete task instance
-  async deleteTaskInstance(instanceId) {
-    try {
-      state.setLoading('saving', true);
-      
-      await taskInstances.delete(instanceId);
-      state.removeTaskInstance(instanceId);
-      
-      console.log('✅ Task instance deleted:', instanceId);
-    } catch (error) {
-      console.error('❌ Error deleting task instance:', error);
-      
-      // Add to offline queue if network error
-      if (!state.isOnline()) {
-        state.addInstanceOperation({
-          type: 'DELETE_INSTANCE',
-          data: { instanceId },
-          retry: true
-        });
-      }
-      
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Batch update multiple instances
-  async batchUpdateTaskInstances(updates) {
-    try {
-      state.setLoading('saving', true);
-      
-      const instanceIds = updates.map(u => u.instanceId);
-      const updateData = updates.reduce((acc, u) => ({ ...acc, ...u.updates }), {});
-      
-      await taskInstances.batchUpdate(instanceIds, updateData);
-      
-      // Update state for each instance
-      const stateUpdates = updates.map(({ instanceId, updates: instanceUpdates }) => ({
-        instanceId,
-        updates: instanceUpdates
-      }));
-      state.batchUpdateTaskInstances(stateUpdates);
-      
-      console.log(`✅ Batch updated ${instanceIds.length} instances`);
-      return { updatedCount: instanceIds.length };
-    } catch (error) {
-      console.error('❌ Error batch updating instances:', error);
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Batch create multiple instances
-  async batchCreateTaskInstances(instancesData) {
-    try {
-      state.setLoading('saving', true);
-      
-      const createdInstances = await taskInstances.batchCreate(instancesData);
-      
-      // Update state for each created instance
-      createdInstances.forEach(instance => {
-        state.updateTaskInstance(instance);
-      });
-      
-      console.log(`✅ Batch created ${createdInstances.length} instances`);
-      return createdInstances;
-    } catch (error) {
-      console.error('❌ Error batch creating instances:', error);
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Get instance statistics for date range
-  async getTaskInstanceStats(startDate, endDate) {
-    try {
-      const stats = await taskInstances.getStats(startDate, endDate);
-      
-      // Update state metadata with stats
-      appState.taskInstances.metadata = {
-        ...appState.taskInstances.metadata,
-        ...stats,
-        lastUpdated: new Date().toISOString()
-      };
-      
-      notifyStateChange('taskInstanceMetadata', appState.taskInstances.metadata);
-      
-      console.log('✅ Instance statistics updated');
-      return stats;
-    } catch (error) {
-      console.error('❌ Error getting instance statistics:', error);
-      throw error;
-    }
-  },
-
-  // Export instances for backup
-  async exportTaskInstances(startDate, endDate, options = {}) {
-    try {
-      const exportData = await taskInstances.exportInstances(startDate, endDate, options);
-      
-      console.log(`✅ Exported ${exportData.instanceCount} instances for range ${startDate} to ${endDate}`);
-      return exportData;
-    } catch (error) {
-      console.error('❌ Error exporting instances:', error);
-      throw error;
-    }
-  },
-
-  // Import instances from backup
-  async importTaskInstances(importData, options = {}) {
-    try {
-      state.setLoading('saving', true);
-      
-      const result = await taskInstances.importInstances(importData, options);
-      
-      // Refresh instances for affected date range
-      if (importData.dateRange) {
-        await this.loadTaskInstancesForDateRange(
-          importData.dateRange.startDate,
-          importData.dateRange.endDate,
-          { force: true }
-        );
-      }
-      
-      console.log(`✅ Import completed: ${result.importedCount} imported, ${result.skippedCount} skipped`);
-      return result;
-    } catch (error) {
-      console.error('❌ Error importing instances:', error);
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Cleanup old instances
-  async cleanupOldInstances(retentionDays = 365) {
-    try {
-      state.setLoading('saving', true);
-      
-      const result = await taskInstances.cleanupOldInstances(retentionDays);
-      
-      // Clear cache for dates that were cleaned up
-      const cutoffDate = result.cutoffDate;
-      const loadedDates = state.getLoadedInstanceDates();
-      
-      loadedDates.forEach(date => {
-        if (date < cutoffDate) {
-          const instances = state.getTaskInstancesForDate(date);
-          instances.forEach(instance => {
-            appState.taskInstances.cache.delete(instance.id);
-          });
-          appState.taskInstances.data.delete(date);
-          appState.taskInstances.dateRange.loadedDates.delete(date);
-        }
-      });
-      
-      // Update metadata after cleanup
-      updateTaskInstanceMetadata();
-      notifyStateChange('taskInstanceMetadata', appState.taskInstances.metadata);
-      
-      console.log(`✅ Cleanup completed: ${result.deletedCount} old instances deleted`);
-      return result;
-    } catch (error) {
-      console.error('❌ Error cleaning up old instances:', error);
-      throw error;
-    } finally {
-      state.setLoading('saving', false);
-    }
-  },
-
-  // Navigate to different date with preloading
-  async navigateToInstanceDate(date, preloadDays = 7) {
-    try {
-      // Update current date
-      state.setTaskInstanceCurrentDate(date);
-      
-      // Load instances for the target date
-      await this.loadTaskInstancesForDate(date);
-      
-      // Preload surrounding dates for smooth navigation
-      const preloadDates = [];
-      for (let i = -preloadDays; i <= preloadDays; i++) {
-        if (i !== 0) { // Skip current date (already loaded)
-          const preloadDate = dataUtils.addDaysToDate(date, i);
-          preloadDates.push(preloadDate);
-        }
-      }
-      
-      state.setTaskInstancePreloadDates(preloadDates);
-      
-      // Load preload dates in background (non-blocking)
-      preloadDates.forEach(async (preloadDate) => {
-        try {
-          await this.loadTaskInstancesForDate(preloadDate);
-        } catch (error) {
-          console.warn(`Failed to preload instances for ${preloadDate}:`, error);
-        }
-      });
-      
-      console.log(`✅ Navigated to ${date} with preloading`);
-      return date;
-    } catch (error) {
-      console.error(`❌ Error navigating to instance date ${date}:`, error);
-      throw error;
-    }
-  },
-
-  // Process offline instance operations queue
-  async processInstanceOperationQueue() {
-    if (state.isOnline() && appState.instanceOperationQueue.length > 0) {
-      try {
-        const operations = [...appState.instanceOperationQueue];
-        state.clearInstanceOperationQueue();
-        
-        for (const operation of operations) {
-          try {
-            switch (operation.type) {
-              case 'CREATE_INSTANCE':
-                await this.createTaskInstance(operation.data);
-                break;
-              case 'UPDATE_INSTANCE':
-                await this.updateTaskInstance(operation.data.instanceId, operation.data.updates);
-                break;
-              case 'DELETE_INSTANCE':
-                await this.deleteTaskInstance(operation.data.instanceId);
-                break;
-              case 'LOAD_INSTANCES_FOR_DATE':
-                await this.loadTaskInstancesForDate(operation.data.date, operation.data.options);
-                break;
-              default:
-                console.warn('Unknown instance operation type:', operation.type);
-            }
-          } catch (error) {
-            console.error('Error processing queued instance operation:', operation, error);
-          }
-        }
-        
-        console.log(`✅ Processed ${operations.length} queued instance operations`);
-      } catch (error) {
-        console.error('❌ Error processing instance operation queue:', error);
-      }
-    }
-  },
-
-  // Clear instance cache and reload current date
-  async refreshTaskInstances() {
-    try {
-      const currentDate = state.getTaskInstanceCurrentDate();
-      state.clearTaskInstanceCache();
-      await this.loadTaskInstancesForDate(currentDate, { force: true });
-      console.log('✅ Task instances refreshed');
-    } catch (error) {
-      console.error('❌ Error refreshing task instances:', error);
-      throw error;
-    }
-  },
-  
-  // Load daily schedule for date
-  async loadDailyScheduleForDate(date) {
-    try {
-      const schedule = await dailySchedules.getForDate(date);
-      state.setDailyScheduleForDate(date, schedule);
-      
-      console.log(`✅ Daily schedule loaded for ${date}`);
-    } catch (error) {
-      console.error(`❌ Error loading daily schedule for ${date}:`, error);
-      throw error;
-    }
-  }
+  // Load daily schedule for date moved to './state/actions.app.js'
 };
+
+// After construction, merge in extracted template actions to avoid behavioral changes
+Object.assign(stateActions, templateActions);
+Object.assign(stateActions, instanceActions);
+Object.assign(stateActions, appActions);
+Object.assign(stateActions, userActions);
 
 // Initialize online/offline detection
 window.addEventListener('online', () => {
@@ -1932,3 +1236,16 @@ if (typeof BroadcastChannel !== 'undefined') {
 }
 
 console.log('✅ Enhanced state management initialized with comprehensive template and instance support');
+
+// ---
+// Refactor façade re-exports (compat mode; non-breaking)
+// These exports expose the new module surfaces without altering existing API.
+// Later steps (ST-10) will flip primary exports to use these modules.
+// Re-export public API for listeners to maintain compatibility
+export { stateListeners };
+export { stateListeners as __storeStateListeners } from './state/Store.js';
+export * as __selectors from './state/selectors.js';
+export * as __actionsTemplates from './state/actions.templates.js';
+export * as __actionsInstances from './state/actions.instances.js';
+export * as __actionsApp from './state/actions.app.js';
+export * as __actionsUser from './state/actions.user.js';

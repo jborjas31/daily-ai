@@ -338,7 +338,7 @@ export class TaskBlock {
   async handleComplete() {
     try {
       const currentDate = state.getCurrentDate();
-      await taskInstanceManager.toggleTaskCompletion(this.task.id, currentDate);
+      await taskInstanceManager.toggleByTemplateAndDate(this.task.id, currentDate);
       
       // Update the block appearance
       this.updateStatus();
@@ -410,7 +410,7 @@ export class TaskBlock {
   async handleSkipToday() {
     try {
       const currentDate = state.getCurrentDate();
-      await taskInstanceManager.skipTask(this.task.id, currentDate, 'Skipped by user');
+      await taskInstanceManager.skipByTemplateAndDate(this.task.id, currentDate, 'Skipped by user');
       this.updateStatus();
       this.emitEvent('task-skipped', { task: this.task });
     } catch (error) {
@@ -425,7 +425,7 @@ export class TaskBlock {
   async handlePostpone() {
     try {
       const currentDate = state.getCurrentDate();
-      await taskInstanceManager.postponeTask(this.task.id, currentDate);
+      await taskInstanceManager.postponeByTemplateAndDate(this.task.id, currentDate);
       this.updateStatus();
       this.emitEvent('task-postponed', { task: this.task });
     } catch (error) {

@@ -9,7 +9,7 @@
  * - Business logic validation
  */
 
-import { TIME_WINDOWS } from '../taskLogic.js';
+import { TIME_WINDOWS } from '../constants/timeWindows.js';
 
 /**
  * Validation Result Structure
