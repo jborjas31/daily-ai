@@ -194,11 +194,11 @@ export class TimelineGrid {
       hour12: true
     });
     
-    const filterClass = isHighlighted ? 'hour-highlighted' : 'hour-dimmed';
+    const filterClass = isHighlighted ? 'is-highlighted' : 'is-dimmed';
     
     return `
       <div class="timeline-hour ${filterClass}" data-hour="${hour}" style="height: ${this.options.hourHeight}px;">
-        <div class="hour-marker">
+        <div class="hour-marker tl-hour-marker">
           <span class="hour-label">${hourDisplay}</span>
           <span class="hour-time">${hourString}</span>
         </div>
@@ -399,7 +399,6 @@ export class TimelineGrid {
    */
   updateTaskBlockElement(taskBlock, task) {
     // Update data attributes
-    taskBlock.setAttribute('data-has-conflicts', task.hasConflicts || false);
     taskBlock.setAttribute('data-conflict-severity', task.conflictSeverity || 'none');
     taskBlock.setAttribute('data-priority', task.priority || 0);
     taskBlock.setAttribute('data-category', this.determineTaskCategory(task));
@@ -412,7 +411,7 @@ export class TimelineGrid {
     const priorityClasses = this.getPriorityClasses(task);
     const filterClasses = this.getFilterClasses(task);
     const categoryClasses = this.getCategoryClasses(task);
-    taskBlock.className = `task-block ${status.className} ${conflictClasses} ${priorityClasses} ${filterClasses} ${categoryClasses}`;
+    taskBlock.className = `tl-task task-block ${status.className} ${conflictClasses} ${priorityClasses} ${filterClasses} ${categoryClasses}`;
 
     // Update positioning
     const startMinutes = this.timeStringToMinutes(task.scheduledTime);
@@ -458,11 +457,10 @@ export class TimelineGrid {
     
     // Create main task block element
     const taskBlock = document.createElement('div');
-    taskBlock.className = `task-block ${status.className} ${conflictClasses} ${priorityClasses} ${filterClasses} ${categoryClasses}`;
+    taskBlock.className = `tl-task task-block ${status.className} ${conflictClasses} ${priorityClasses} ${filterClasses} ${categoryClasses}`;
     
     // Set data attributes
     taskBlock.setAttribute('data-task-id', task.id);
-    taskBlock.setAttribute('data-has-conflicts', task.hasConflicts || false);
     taskBlock.setAttribute('data-conflict-severity', task.conflictSeverity || 'none');
     taskBlock.setAttribute('data-priority', task.priority || 0);
     taskBlock.setAttribute('data-category', taskDisplayLogic.determineTaskCategory(task));
@@ -695,14 +693,14 @@ export class TimelineGrid {
       return '';
     }
 
-    const classes = ['has-conflicts'];
-    
-    // Add severity class
+    const classes = ['is-conflict'];
+
+    // Add severity class (legacy + new alias)
     if (task.conflictSeverity) {
-      classes.push(`conflict-${task.conflictSeverity}`);
+      classes.push(`is-conflict--${task.conflictSeverity}`);
     }
 
-    // Add conflict type class
+    // Add conflict type class (legacy retained)
     if (task.conflictType) {
       classes.push(`conflict-type-${task.conflictType}`);
     }
@@ -715,20 +713,16 @@ export class TimelineGrid {
    */
   getPriorityClasses(task) {
     const classes = [];
-    
-    // Add priority level class
+
+    // Add priority level class + tl-task alias
     if (task.priority !== undefined && task.priority !== null) {
-      if (task.priority >= 8) {
-        classes.push('priority-critical');
-      } else if (task.priority >= 6) {
-        classes.push('priority-high');
-      } else if (task.priority >= 4) {
-        classes.push('priority-medium');
-      } else if (task.priority >= 2) {
-        classes.push('priority-low');
-      } else {
-        classes.push('priority-minimal');
-      }
+      let tlLevel = 1;
+      if (task.priority >= 8) { tlLevel = 5; }
+      else if (task.priority >= 6) { tlLevel = 4; }
+      else if (task.priority >= 4) { tlLevel = 3; }
+      else if (task.priority >= 2) { tlLevel = 2; }
+
+      classes.push(`tl-task--priority-${tlLevel}`);
     }
 
     // Add mandatory class
@@ -755,7 +749,7 @@ export class TimelineGrid {
     const hour = parseInt(task.scheduledTime.split(':')[0]);
     const isInTimeBlock = this.isHourInTimeBlock(hour);
     
-    return isInTimeBlock ? 'task-highlighted' : 'task-dimmed';
+    return isInTimeBlock ? 'is-highlighted' : 'is-dimmed';
   }
 
   /**
@@ -956,7 +950,7 @@ export class TimelineGrid {
     event.dataTransfer.effectAllowed = 'move';
     
     taskBlock.style.cursor = 'grabbing';
-    taskBlock.classList.add('dragging');
+    taskBlock.classList.add('is-dragging');
     
     this.emitEvent('task-drag-start', { taskId, element: taskBlock });
   }
@@ -969,7 +963,7 @@ export class TimelineGrid {
     event.dataTransfer.dropEffect = 'move';
     
     const hourContent = event.currentTarget;
-    hourContent.classList.add('drag-over');
+    hourContent.classList.add('is-drop-target');
   }
 
   /**
@@ -983,10 +977,10 @@ export class TimelineGrid {
     const taskId = event.dataTransfer.getData('text/plain');
     
     // Clean up visual indicators
-    hourContent.classList.remove('drag-over');
-    const draggingTask = this.container.querySelector('.dragging');
+    hourContent.classList.remove('is-drop-target');
+    const draggingTask = this.container.querySelector('.is-dragging');
     if (draggingTask) {
-      draggingTask.classList.remove('dragging');
+      draggingTask.classList.remove('is-dragging');
       draggingTask.style.cursor = 'grab';
     }
     

@@ -72,7 +72,7 @@ export class TimelineDragDrop {
     if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
 
     taskBlock.style.cursor = 'grabbing';
-    taskBlock.classList.add('dragging');
+    taskBlock.classList.add('is-dragging');
 
     this.options.emit('task-drag-start', { taskId, element: taskBlock });
   }
@@ -82,7 +82,7 @@ export class TimelineDragDrop {
     if (!hourContent) return;
     event.preventDefault();
     if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
-    hourContent.classList.add('drag-over');
+    hourContent.classList.add('is-drop-target');
   }
 
   _onDrop(event) {
@@ -94,10 +94,10 @@ export class TimelineDragDrop {
     const taskId = event.dataTransfer?.getData?.('text/plain');
 
     // Cleanup visual indicators
-    hourContent.classList.remove('drag-over');
-    const draggingTask = this.rootEl.querySelector('.dragging');
+    hourContent.classList.remove('is-drop-target');
+    const draggingTask = this.rootEl.querySelector('.is-dragging');
     if (draggingTask) {
-      draggingTask.classList.remove('dragging');
+      draggingTask.classList.remove('is-dragging');
       draggingTask.style.cursor = 'grab';
     }
 
@@ -117,12 +117,11 @@ export class TimelineDragDrop {
 
     if (!this.rootEl) return;
     // Clear transient classes
-    this.rootEl.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-    const draggingTask = this.rootEl.querySelector('.dragging');
+    this.rootEl.querySelectorAll('.is-drop-target').forEach(el => el.classList.remove('is-drop-target'));
+    const draggingTask = this.rootEl.querySelector('.is-dragging');
     if (draggingTask) {
-      draggingTask.classList.remove('dragging');
+      draggingTask.classList.remove('is-dragging');
       draggingTask.style.cursor = '';
     }
   }
 }
-

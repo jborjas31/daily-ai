@@ -12,6 +12,9 @@ import { TIME_WINDOWS } from '../constants/timeWindows.js';
 import { TaskQuery } from '../logic/TaskQuery.js';
 import { SimpleErrorHandler } from '../utils/SimpleErrorHandler.js';
 import { SafeTimeout, SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
+import { TaskCard } from './TaskCard.js';
+import { TaskGrid } from './TaskGrid.js';
+import { TaskListToolbar } from './TaskListToolbar.js';
 
 /**
  * Task List Controller
@@ -25,6 +28,8 @@ export class TaskList {
     this.sortDirection = 'asc'; // 'asc', 'desc'
     this.searchQuery = '';
     this.selectedTasks = new Set();
+    this.cardById = new Map(); // Phase 4: keyed map of templateId -> HTMLElement
+    this.prevSignatures = new Map(); // Phase 4: templateId -> signature
     this.currentFilters = {
       priority: 'all',
       timeWindow: 'all',
@@ -46,6 +51,26 @@ export class TaskList {
     
     // Subscribe to state changes
     this.subscribeToStateChanges();
+  }
+
+  /**
+   * Build a stable, serializable query criteria object from current UI state.
+   * Note: This method does not change behavior; routing happens in Phase 1 Step 3.
+   */
+  buildCriteriaFromUI() {
+    const criteria = {
+      search: (this.searchQuery || '').trim(),
+      view: this.currentView, // 'library' | 'active' | 'inactive'
+      filters: { ...this.currentFilters },
+      sort: { field: this.currentSort, direction: this.sortDirection },
+      // paging is optional; left undefined for now to avoid behavior change
+    };
+
+    if (window && window.DEBUG_TASKLIST) {
+      try { console.log('[TaskList] buildCriteriaFromUI', criteria); } catch (_) {}
+    }
+
+    return criteria;
   }
 
   /**
@@ -107,6 +132,9 @@ export class TaskList {
     `;
     
     this.containerElement.innerHTML = html;
+    this.mountToolbar();
+    // Mount per-item cards using TaskCard to match markup and enable future reconciliation
+    this.mountTaskCards(templates);
   }
 
   /**
@@ -222,6 +250,30 @@ export class TaskList {
         </div>
       </div>
     `;
+  }
+
+  /**
+   * Mount the toolbar component by replacing the static markup.
+   * Keeps existing selectors/ids so legacy listeners continue to work.
+   */
+  mountToolbar() {
+    const host = this.containerElement.querySelector('.task-list-toolbar');
+    if (!host) return;
+    const toolbar = TaskListToolbar.create({
+      currentView: this.currentView,
+      currentCategory: this.currentCategory,
+      currentSort: this.currentSort,
+      sortDirection: this.sortDirection,
+      searchQuery: this.searchQuery
+    });
+    // Subscribe to semantic events from toolbar
+    toolbar.addEventListener('toolbar:view', (e) => this.handleViewSwitch(e.detail.view));
+    toolbar.addEventListener('toolbar:category', (e) => this.handleCategoryChange(e.detail.category));
+    toolbar.addEventListener('toolbar:search', (e) => this.handleSearchInput(e.detail.query));
+    toolbar.addEventListener('toolbar:sort-field', (e) => this.handleSortChange(e.detail.field));
+    toolbar.addEventListener('toolbar:sort-direction', (e) => { this.sortDirection = e.detail.direction; this.refreshView(); });
+    toolbar.addEventListener('toolbar:toggle-filters', () => this.handleToggleFilters());
+    host.replaceWith(toolbar);
   }
 
   /**
@@ -346,9 +398,7 @@ export class TaskList {
     }
     
     return `
-      <div class="task-grid">
-        ${templates.map(template => this.renderTaskCard(template)).join('')}
-      </div>
+      <div class="task-grid"></div>
     `;
   }
 
@@ -361,123 +411,193 @@ export class TaskList {
     return `
       <div class="categorized-grid">
         ${Object.entries(categorized).map(([category, templates]) => `
-          <div class="category-section">
+          <div class="category-section" data-category="${this.getCategoryDisplayName(category)}">
             <h3 class="category-header">
               ${this.getCategoryDisplayName(category)}
               <span class="category-count">${templates.length}</span>
             </h3>
-            <div class="task-grid">
-              ${templates.map(template => this.renderTaskCard(template)).join('')}
-            </div>
+            <div class="task-grid"></div>
           </div>
         `).join('')}
       </div>
     `;
   }
 
+  
+
   /**
-   * Render individual task card
+   * Mount TaskCard elements into the grid(s)
    */
-  renderTaskCard(template) {
-    const isSelected = this.selectedTasks.has(template.id);
-    const priorityIcon = this.getPriorityIcon(template.priority);
-    const statusIcon = template.isActive !== false ? '✅' : '⏸️';
-    const statusClass = template.isActive !== false ? 'active' : 'inactive';
-    const mandatoryIcon = template.isMandatory ? '🔒' : '📋';
-    const schedulingIcon = template.schedulingType === 'fixed' ? '🕒' : '🤖';
-    
-    return `
-      <div class="task-card ${statusClass} ${isSelected ? 'selected' : ''}" data-template-id="${template.id}">
-        <div class="task-card-header">
-          <div class="task-selection">
-            <input 
-              type="checkbox" 
-              class="task-checkbox" 
-              data-template-id="${template.id}"
-              ${isSelected ? 'checked' : ''}
-            />
-          </div>
-          <div class="task-status">
-            <span class="status-indicator" title="${template.isActive !== false ? 'Active' : 'Inactive'}">
-              ${statusIcon}
-            </span>
-          </div>
-          <div class="task-actions">
-            <button type="button" class="action-btn edit-btn" data-template-id="${template.id}" title="Edit">
-              ✏️
-            </button>
-            <button type="button" class="action-btn duplicate-btn" data-template-id="${template.id}" title="Duplicate">
-              📄
-            </button>
-            <button type="button" class="action-btn toggle-status-btn" data-template-id="${template.id}" title="Toggle Status">
-              ${template.isActive !== false ? '⏸️' : '✅'}
-            </button>
-          </div>
-        </div>
-        
-        <div class="task-card-body">
-          <h4 class="task-name">${this.escapeHtml(template.taskName)}</h4>
-          
-          ${template.description ? `
-            <p class="task-description">${this.escapeHtml(template.description)}</p>
-          ` : ''}
-          
-          <div class="task-meta">
-            <div class="meta-row">
-              <span class="meta-item">
-                ${priorityIcon} Priority ${template.priority}
-              </span>
-              <span class="meta-item">
-                ⏱️ ${template.durationMinutes}min
-              </span>
-            </div>
-            <div class="meta-row">
-              <span class="meta-item">
-                ${mandatoryIcon} ${template.isMandatory ? 'Mandatory' : 'Optional'}
-              </span>
-              <span class="meta-item">
-                ${schedulingIcon} ${template.schedulingType === 'fixed' ? 'Fixed' : 'Flexible'}
-              </span>
-            </div>
-            ${template.schedulingType === 'flexible' && template.timeWindow ? `
-              <div class="meta-row">
-                <span class="meta-item">
-                  🕐 ${TIME_WINDOWS[template.timeWindow]?.label || template.timeWindow}
-                </span>
-              </div>
-            ` : ''}
-            ${template.schedulingType === 'fixed' && template.defaultTime ? `
-              <div class="meta-row">
-                <span class="meta-item">
-                  🕒 ${template.defaultTime}
-                </span>
-              </div>
-            ` : ''}
-          </div>
-          
-          ${template.dependsOn && template.dependsOn.length > 0 ? `
-            <div class="task-dependencies">
-              <small>🔗 ${template.dependsOn.length} dependenc${template.dependsOn.length !== 1 ? 'ies' : 'y'}</small>
-            </div>
-          ` : ''}
-          
-          <div class="task-recurrence">
-            <small>🔄 ${this.getRecurrenceDisplay(template.recurrenceRule)}</small>
-          </div>
-        </div>
-        
-        <div class="task-card-footer">
-          <div class="task-timestamps">
-            ${template.createdAt ? `
-              <small class="created-at">Created: ${new Date(template.createdAt).toLocaleDateString()}</small>
-            ` : ''}
-            ${template.modifiedAt ? `
-              <small class="modified-at">Modified: ${new Date(template.modifiedAt).toLocaleDateString()}</small>
-            ` : ''}
-          </div>
-        </div>
-      </div>
-    `;
+  mountTaskCards(templates) {
+    if (!this.containerElement) return;
+    if (templates.length === 0) return;
+    // Optional simple windowing (experimental, disabled by default)
+    let renderItems = templates;
+    try {
+      const enabled = !!window.TASKLIST_WINDOWING_ENABLED;
+      const limit = Number(window.TASKLIST_WINDOW_SIZE || 400);
+      if (enabled && Number.isFinite(limit) && limit > 0 && templates.length > limit) {
+        renderItems = templates.slice(0, limit);
+        if (window.DEBUG_TASKLIST) {
+          console.log(`[TaskList] windowing enabled: showing ${limit}/${templates.length}`);
+        }
+      }
+    } catch (_) {}
+
+    // Phase 4 Step 2: compute additions/removals/changes via signatures
+    const prevCards = new Map(this.cardById);
+    const prevSigs = new Map(this.prevSignatures);
+    const nextSigs = new Map();
+    const prevIds = new Set(prevCards.keys());
+    const nextIds = new Set(renderItems.map(t => t.id));
+    const removed = [...prevIds].filter(id => !nextIds.has(id));
+    const added = renderItems.filter(t => !prevIds.has(t.id)).map(t => t.id);
+    const changed = [];
+    renderItems.forEach(t => {
+      const sig = this.computeTemplateSignature(t);
+      nextSigs.set(t.id, sig);
+      const prevSig = prevSigs.get(t.id);
+      if (prevSig && prevSig !== sig) changed.push(t.id);
+    });
+
+    if (window && window.DEBUG_TASKLIST) {
+      try {
+        console.log('[TaskList] reconcile plan', {
+          total: renderItems.length,
+          added: added.length,
+          removed: removed.length,
+          changed: changed.length
+        });
+      } catch (_) {}
+    }
+
+    const changedSet = new Set(changed);
+    const applyUpdates = () => {
+      const t0 = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+      const newCardById = new Map();
+      if (this.currentCategory === 'all') {
+        const grid = this.containerElement.querySelector('.task-grid');
+        if (grid) {
+          this.reconcileGrid(grid, renderItems, prevCards, changedSet, newCardById);
+        }
+      } else {
+        const categorized = this.categorizeTemplates(renderItems);
+        Object.entries(categorized).forEach(([category, items]) => {
+          const display = this.getCategoryDisplayName(category);
+          const section = this.containerElement.querySelector(`.category-section[data-category="${CSS.escape(display)}"]`);
+          const gridEl = section?.querySelector('.task-grid');
+          if (!gridEl) return;
+          this.reconcileGrid(gridEl, items, prevCards, changedSet, newCardById);
+        });
+      }
+      this.cardById = newCardById;
+      this.prevSignatures = nextSigs;
+      if (window && window.DEBUG_TASKLIST) {
+        try {
+          const t1 = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+          console.log(`[TaskList] reconcile done in ${(t1 - t0).toFixed(1)}ms, nodes: ${renderItems.length}`);
+        } catch (_) {}
+      }
+    };
+
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(applyUpdates);
+    } else {
+      applyUpdates();
+    }
+  }
+
+  /**
+   * Reconcile a grid container to match the desired templates order/content.
+   */
+  reconcileGrid(grid, items, prevCards, changedSet, outMap) {
+    const desiredElements = [];
+    const desiredSet = new Set();
+
+    // Preserve scroll position and focus
+    const prevScrollTop = grid.scrollTop;
+    let restoreFocus = null;
+    const active = document.activeElement;
+    if (active && grid.contains(active)) {
+      const cardEl = active.closest('.task-card');
+      const templateId = cardEl?.getAttribute('data-template-id');
+      if (templateId) {
+        let control = null;
+        if (active.classList.contains('task-checkbox')) control = '.task-checkbox';
+        else if (active.classList.contains('edit-btn')) control = '.edit-btn';
+        else if (active.classList.contains('duplicate-btn')) control = '.duplicate-btn';
+        else if (active.classList.contains('toggle-status-btn')) control = '.toggle-status-btn';
+        restoreFocus = { templateId, control };
+      }
+    }
+
+    // Build desired elements, reusing unchanged nodes when possible
+    items.forEach(t => {
+      let el = prevCards.get(t.id);
+      const needsReplace = !el || changedSet.has(t.id) || !grid.contains(el);
+      if (needsReplace) {
+        el = TaskCard.create({ template: t, isSelected: this.selectedTasks.has(t.id) });
+      }
+      desiredElements.push(el);
+      desiredSet.add(el);
+      outMap.set(t.id, el);
+    });
+
+    // Remove nodes that are no longer desired
+    Array.from(grid.children).forEach(child => {
+      if (!desiredSet.has(child)) {
+        grid.removeChild(child);
+      }
+    });
+
+    // Reorder/insert nodes to match desired order
+    let cursor = grid.firstChild;
+    desiredElements.forEach(el => {
+      if (cursor === el) {
+        cursor = cursor.nextSibling;
+      } else {
+        grid.insertBefore(el, cursor);
+      }
+    });
+
+    // Attempt to restore focus target if still present
+    if (restoreFocus) {
+      try {
+        const card = grid.querySelector(`.task-card[data-template-id="${CSS.escape(restoreFocus.templateId)}"]`);
+        let target = null;
+        if (card) {
+          target = restoreFocus.control ? card.querySelector(restoreFocus.control) : card;
+        }
+        if (target && typeof target.focus === 'function') {
+          try { target.focus({ preventScroll: true }); } catch (_) { target.focus(); }
+        }
+      } catch (_) {}
+    }
+
+    // Restore scroll position
+    grid.scrollTop = prevScrollTop;
+  }
+
+  /**
+   * Build a lightweight signature string to detect meaningful card changes.
+   * Include fields that affect card rendering and ordering.
+   */
+  computeTemplateSignature(t) {
+    return [
+      t.taskName || '',
+      t.description || '',
+      t.priority ?? '',
+      t.durationMinutes ?? '',
+      t.isMandatory ? '1' : '0',
+      t.isActive !== false ? '1' : '0',
+      t.schedulingType || '',
+      t.timeWindow || '',
+      t.defaultTime || '',
+      (t.dependsOn && t.dependsOn.length) || 0,
+      (t.recurrenceRule && t.recurrenceRule.frequency) || 'none',
+      this.currentSort,
+      this.sortDirection
+    ].join('|');
   }
 
   /**
@@ -526,102 +646,15 @@ export class TaskList {
    * Get filtered and sorted templates
    */
   getFilteredAndSortedTemplates() {
-    let templates = state.getTaskTemplates() || [];
-    
-    // Apply view filter
-    if (this.currentView === 'active') {
-      templates = templates.filter(t => t.isActive !== false);
-    } else if (this.currentView === 'inactive') {
-      templates = templates.filter(t => t.isActive === false);
-    }
-    
-    // Apply search filter using centralized TaskQuery
-    if (this.searchQuery) {
-      templates = TaskQuery.search(templates, this.searchQuery);
-    }
-    
-    // Apply detailed filters
-    templates = this.applyDetailedFilters(templates);
-    
-    // Apply sorting
-    templates = this.sortTemplates(templates);
-    
-    return templates;
+    const criteria = this.buildCriteriaFromUI();
+    const templates = state.getTaskTemplates() || [];
+    return TaskQuery.queryTemplates(criteria, templates);
   }
 
   /**
-   * Apply detailed filters
+   * (Removed) applyDetailedFilters and sortTemplates moved to TaskQuery.
+   * Source of truth: TaskQuery.queryTemplates(criteria).
    */
-  applyDetailedFilters(templates) {
-    return templates.filter(template => {
-      // Priority filter
-      if (this.currentFilters.priority !== 'all' && 
-          template.priority !== parseInt(this.currentFilters.priority)) {
-        return false;
-      }
-      
-      // Time window filter
-      if (this.currentFilters.timeWindow !== 'all' && 
-          template.timeWindow !== this.currentFilters.timeWindow) {
-        return false;
-      }
-      
-      // Scheduling type filter
-      if (this.currentFilters.schedulingType !== 'all' && 
-          template.schedulingType !== this.currentFilters.schedulingType) {
-        return false;
-      }
-      
-      // Mandatory filter
-      if (this.currentFilters.isMandatory !== 'all') {
-        const isMandatory = this.currentFilters.isMandatory === 'true';
-        if (!!template.isMandatory !== isMandatory) {
-          return false;
-        }
-      }
-      
-      // Active status filter
-      if (this.currentFilters.isActive !== 'all') {
-        const isActive = this.currentFilters.isActive === 'true';
-        const templateIsActive = template.isActive !== false;
-        if (templateIsActive !== isActive) {
-          return false;
-        }
-      }
-      
-      return true;
-    });
-  }
-
-  /**
-   * Sort templates by current criteria
-   */
-  sortTemplates(templates) {
-    const multiplier = this.sortDirection === 'asc' ? 1 : -1;
-    
-    return templates.sort((a, b) => {
-      let comparison = 0;
-      
-      switch (this.currentSort) {
-        case 'name':
-          comparison = a.taskName.localeCompare(b.taskName);
-          break;
-        case 'priority':
-          comparison = (b.priority || 3) - (a.priority || 3); // High priority first
-          break;
-        case 'created':
-          comparison = new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-          break;
-        case 'modified':
-          comparison = new Date(b.modifiedAt || 0) - new Date(a.modifiedAt || 0);
-          break;
-        default:
-          comparison = a.taskName.localeCompare(b.taskName);
-      }
-      
-      return comparison * multiplier;
-    });
-  }
 
   /**
    * Categorize templates based on current category setting
@@ -692,22 +725,7 @@ export class TaskList {
       // ['#import-templates-btn', 'click', () => this.handleImportTemplates()],
       // ['#export-templates-btn', 'click', () => this.handleExportTemplates()],
       
-      // === Toolbar Controls ===
-      
-      // View switcher buttons
-      ['.view-btn', 'click', (e) => this.handleViewSwitch(e.target.dataset.view)],
-      
-      // Category and sort controls
-      ['#category-select', 'change', (e) => this.handleCategoryChange(e.target.value)],
-      ['#sort-select', 'change', (e) => this.handleSortChange(e.target.value)],
-      ['#sort-direction-btn', 'click', () => this.handleSortDirectionToggle()],
-      
-      // Search functionality
-      ['#search-input', 'input', (e) => this.handleSearchInput(e.target.value)],
-      ['#clear-search-btn', 'click', () => this.handleClearSearch()],
-      
-      // Filters toggle
-      ['#toggle-filters-btn', 'click', () => this.handleToggleFilters()],
+      // Toolbar decoupled: events handled via TaskListToolbar semantic events
       
       // === Filters Panel ===
       
@@ -836,7 +854,7 @@ export class TaskList {
     
     this.searchTimeout = SafeTimeout.set(() => {
       this.refreshView();
-    }, 300, 'TaskList search debounce');
+    }, 150, 'TaskList search debounce');
     
     this.timeouts.push(this.searchTimeout);
   }
@@ -1263,19 +1281,6 @@ export class TaskList {
            this.currentFilters.isActive !== 'all';
   }
 
-  /**
-   * Get priority icon for display
-   */
-  getPriorityIcon(priority) {
-    const icons = {
-      1: '⚪',
-      2: '🔵', 
-      3: '🟡',
-      4: '🔴',
-      5: '🔥'
-    };
-    return icons[priority] || icons[3];
-  }
 
   /**
    * Get category display name
@@ -1292,41 +1297,8 @@ export class TaskList {
     return category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1');
   }
 
-  /**
-   * Get human-readable recurrence display
-   */
-  getRecurrenceDisplay(recurrenceRule) {
-    if (!recurrenceRule || recurrenceRule.frequency === 'none') {
-      return 'One-time task';
-    }
-    
-    const { frequency, interval } = recurrenceRule;
-    
-    switch (frequency) {
-      case 'daily':
-        return interval === 1 ? 'Daily' : `Every ${interval} days`;
-      case 'weekly':
-        return interval === 1 ? 'Weekly' : `Every ${interval} weeks`;
-      case 'monthly':
-        return interval === 1 ? 'Monthly' : `Every ${interval} months`;
-      case 'yearly':
-        return interval === 1 ? 'Yearly' : `Every ${interval} years`;
-      case 'custom':
-        return 'Custom pattern';
-      default:
-        return 'Unknown pattern';
-    }
-  }
 
-  /**
-   * HTML escape utility
-   */
-  escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
+  
 
   /**
    * Destroy the component and clean up resources
@@ -1355,6 +1327,8 @@ export class TaskList {
     
     // Clear data
     this.selectedTasks.clear();
+    this.cardById.clear();
+    this.prevSignatures.clear();
     
     // DO NOT call ComponentManager.unregister(this) here to prevent recursion
     // Memory manager handles unregistration externally via MemoryLeakPrevention.unregisterComponent()

@@ -7,6 +7,92 @@
 
 export const TaskQuery = {
   /**
+   * Query task templates using a single criteria object.
+   * Mirrors legacy TaskList filtering/sorting to preserve behavior.
+   *
+   * @param {Object} criteria - { search, view, filters, sort }
+   * @param {Array<Object>} templatesInput - Optional list of templates to query
+   * @returns {Array<Object>} resulting templates after filtering and sorting
+   */
+  queryTemplates(criteria = {}, templatesInput = []) {
+    let templates = Array.isArray(templatesInput) ? [...templatesInput] : [];
+
+    const search = (criteria.search || '').trim();
+    const view = criteria.view || 'library';
+    const filters = criteria.filters || {};
+    const sort = criteria.sort || { field: 'name', direction: 'asc' };
+
+    // Apply view filter first (active/inactive)
+    if (view === 'active') {
+      templates = templates.filter(t => t.isActive !== false);
+    } else if (view === 'inactive') {
+      templates = templates.filter(t => t.isActive === false);
+    }
+
+    // Apply search (centralized)
+    if (search) {
+      templates = this.search(templates, search);
+    }
+
+    // Apply detailed filters (replicates TaskList.applyDetailedFilters)
+    templates = templates.filter(template => {
+      // Priority filter
+      if (filters.priority && filters.priority !== 'all') {
+        if (template.priority !== parseInt(filters.priority)) return false;
+      }
+
+      // Time window filter
+      if (filters.timeWindow && filters.timeWindow !== 'all') {
+        if (template.timeWindow !== filters.timeWindow) return false;
+      }
+
+      // Scheduling type filter
+      if (filters.schedulingType && filters.schedulingType !== 'all') {
+        if (template.schedulingType !== filters.schedulingType) return false;
+      }
+
+      // Mandatory filter
+      if (filters.isMandatory && filters.isMandatory !== 'all') {
+        const isMandatory = filters.isMandatory === 'true';
+        if (!!template.isMandatory !== isMandatory) return false;
+      }
+
+      // Active status filter
+      if (filters.isActive && filters.isActive !== 'all') {
+        const isActive = filters.isActive === 'true';
+        const templateIsActive = template.isActive !== false;
+        if (templateIsActive !== isActive) return false;
+      }
+
+      return true;
+    });
+
+    // Apply sorting (replicates TaskList.sortTemplates)
+    const multiplier = (sort.direction === 'asc' ? 1 : -1);
+    templates.sort((a, b) => {
+      let comparison = 0;
+      switch (sort.field) {
+        case 'name':
+          comparison = (a.taskName || '').localeCompare(b.taskName || '');
+          break;
+        case 'priority':
+          comparison = (b.priority || 3) - (a.priority || 3); // High priority first
+          break;
+        case 'created':
+          comparison = new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+          break;
+        case 'modified':
+          comparison = new Date(b.modifiedAt || 0) - new Date(a.modifiedAt || 0);
+          break;
+        default:
+          comparison = (a.taskName || '').localeCompare(b.taskName || '');
+      }
+      return comparison * multiplier;
+    });
+
+    return templates;
+  },
+  /**
    * Filter tasks based on search query and filters
    */
   filterTasks(tasks, searchQuery, filters) {

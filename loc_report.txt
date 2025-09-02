@@ -1,10 +1,10 @@
 --- Line of Code Report ---
 
-     44 ./.firebase/hosting.cHVibGlj.cache
-      5 ./.firebaserc
-     19 ./.github/workflows/firebase-hosting-merge.yml
-     20 ./.github/workflows/firebase-hosting-pull-request.yml
-     69 ./.gitignore
+     78 ./firebase/hosting.cHVibGlj.cache
+      5 ./firebaserc
+     19 ./github/workflows/firebase-hosting-merge.yml
+     20 ./github/workflows/firebase-hosting-pull-request.yml
+     69 ./gitignore
     114 ./Archived/APP_CRITIQUE.md
     123 ./Archived/GEMINI_ANALYSIS_FINDINGS.md
     264 ./Archived/MISSING_FEATURES.md
@@ -13,6 +13,11 @@
     350 ./Archived/PHASE_2_TECHNICAL_HANDOFF.md
     581 ./Archived/PRE_PHASE_3_CRITICAL_FIXES.md
     199 ./Archived/SCRAPPED_PHASE_3_TIMELINE_INTERFACE_PLAN.md
+    111 ./Archived/SMOKE_TESTS_TASKLOGIC_MIGRATION.md
+    184 ./Archived/TASKLOGIC_API_MIGRATION_ACTION_PLAN.md
+    222 ./Archived/TODO_CLAUDE_tasklogic_api_migration.md
+     76 ./Archived/TODO_CLAUDE_tasklogic_compat_quickfix.md
+     58 ./Archived/TODO_CLAUDE_time_windows_long_term.md
      15 ./Archived/outdated_files_analysis.md
     534 ./Archived/test-templates.js
     227 ./Archived/user_requirements.md
@@ -36,14 +41,18 @@
     159 ./docs/REQUIREMENTS_QA.md
     227 ./docs/SAMPLE_DATA.md
     172 ./docs/SCHEDULING_SYSTEM_FIX_SUMMARY.md
-    111 ./docs/SMOKE_TESTS_TASKLOGIC_MIGRATION.md
-    184 ./docs/TASKLOGIC_API_MIGRATION_ACTION_PLAN.md
-    222 ./docs/TODO_CLAUDE_tasklogic_api_migration.md
-     76 ./docs/TODO_CLAUDE_tasklogic_compat_quickfix.md
-     58 ./docs/TODO_CLAUDE_time_windows_long_term.md
     358 ./docs/USER_FLOW.md
+    218 ./docs/refactoring/STATE_REFACTORING_ACTION_PLAN.md
+     74 ./docs/refactoring/STATE_REFACTORING_SMOKE_TEST.md
    1280 ./docs/refactoring/TASKLOGIC_REFACTORING_ACTION_PLAN.md
+     86 ./docs/refactoring/TASKMODAL_REFACTORING_ACTION_PLAN.md
+    274 ./docs/refactoring/TIMELINE_CSS_REFACTORING_PLAN.md
     259 ./docs/refactoring/TIMELINE_REFACTORING_ACTION_PLAN.md
+     76 ./docs/refactoring/notes/TASKMODAL_AUDIT.md
+     55 ./docs/refactoring/notes/TASKMODAL_QA_CHECKLIST.md
+    116 ./docs/review/CODE_REVIEW_PLAN.md
+     14 ./docs/review/REVIEW_TRACKER.md
+     49 ./docs/review/TEMPLATES/PER_FILE_REVIEW_TEMPLATE.md
     405 ./docs/specs/CIRCULAR_DEPENDENCY_DETECTION_SPEC.md
     331 ./docs/specs/CROSS_MIDNIGHT_TASKS_SPEC.md
     592 ./docs/specs/DST_MANUAL_ADJUSTMENT_SPEC.md
@@ -57,36 +66,40 @@
     411 ./docs/specs/SIMPLE_DEV_ENVIRONMENT_SPEC.md
     516 ./docs/specs/STORAGE_LIMITS_SPEC.md
      28 ./firebase.json
-     23 ./firebase/firestore.indexes.json
+    110 ./firebase/firestore.indexes.json
      32 ./firebase/firestore.rules
     151 ./gemini_suggestions.md
-    394 ./loc_report.txt
+    448 ./loc_report.txt
      33 ./public/404.html
     342 ./public/css/components.css
     392 ./public/css/main.css
     317 ./public/css/modern-features.css
     541 ./public/css/responsive-navigation.css
-   1517 ./public/css/timeline.css
+    866 ./public/css/timeline.css
     340 ./public/index.html
-    355 ./public/js/app.js
+    359 ./public/js/app.js
     583 ./public/js/components/TaskBlock.js
    1367 ./public/js/components/TaskList.js
     653 ./public/js/components/TaskModalContainer.js
-     82 ./public/js/components/taskModal/TemplateBasicsSection.js
-    107 ./public/js/components/taskModal/SchedulingSection.js
-    166 ./public/js/components/taskModal/RecurrenceSection.js
+    790 ./public/js/components/TimelineContainer.js
+   1100 ./public/js/components/TimelineGrid.js
+    271 ./public/js/components/TimelineHeader.js
+     34 ./public/js/components/index.js
+     67 ./public/js/components/taskModal/ActionsFooter.js
     140 ./public/js/components/taskModal/DependenciesSection.js
     143 ./public/js/components/taskModal/PreviewSection.js
-     67 ./public/js/components/taskModal/ActionsFooter.js
-    796 ./public/js/components/TimelineContainer.js
-   1106 ./public/js/components/TimelineGrid.js
-    271 ./public/js/components/TimelineHeader.js
-     36 ./public/js/components/index.js
+    166 ./public/js/components/taskModal/RecurrenceSection.js
+    107 ./public/js/components/taskModal/SchedulingSection.js
+     82 ./public/js/components/taskModal/TemplateBasicsSection.js
      39 ./public/js/constants/timeWindows.js
    1466 ./public/js/data.js
     376 ./public/js/dataOffline.js
+     55 ./public/js/features/AutosaveDraft.js
+     72 ./public/js/features/DirtyStateGuard.js
+    110 ./public/js/features/FocusTrap.js
+     40 ./public/js/features/KeyboardShortcuts.js
     209 ./public/js/features/TimelineContextMenu.js
-    128 ./public/js/features/TimelineDragDrop.js
+    127 ./public/js/features/TimelineDragDrop.js
     161 ./public/js/features/TimelineInlineEdit.js
      17 ./public/js/firebase-config.js
     231 ./public/js/firebase.js
@@ -96,17 +109,19 @@
      94 ./public/js/logic/TaskDisplayLogic.js
     621 ./public/js/logic/TaskInstanceManager.js
     169 ./public/js/logic/TaskQuery.js
+    100 ./public/js/logic/TaskTemplateFormService.js
     406 ./public/js/logic/TaskTemplateManager.js
+    128 ./public/js/logic/TaskTemplateValidation.js
     324 ./public/js/logic/TemplateDefaultsService.js
     503 ./public/js/logic/TemplateOperationsService.js
      22 ./public/js/logic/index.js
-   1252 ./public/js/state.js
-   274 ./public/js/state/Store.js
-   430 ./public/js/state/actions.templates.js
-   508 ./public/js/state/actions.instances.js
-    79 ./public/js/state/actions.app.js
-   135 ./public/js/state/actions.user.js
-   192 ./public/js/state/selectors.js
+   1251 ./public/js/state.js
+    274 ./public/js/state/Store.js
+     79 ./public/js/state/actions.app.js
+    508 ./public/js/state/actions.instances.js
+    430 ./public/js/state/actions.templates.js
+    135 ./public/js/state/actions.user.js
+    192 ./public/js/state/selectors.js
     113 ./public/js/taskLogic.js
     945 ./public/js/ui.js
     458 ./public/js/userSettings.js
@@ -151,298 +166,4 @@
     433 ./tests/scheduling_engine_unit_test.js
     146 ./tests/scheduling_test.js
     356 ./tests/validation/schedule_engine_integration.js
-  54563 total
-
-
---- Overall Analysis & Refactoring Strategy ---
-
-Conclusion: **✅ CRITICAL REFACTORING COMPLETE — TaskModal, taskLogic, and Timeline UI Successfully Transformed!** 
-**TaskModal refactor (V2) is complete; architecture is modular with a container + sections + feature modules and centralized logic. Timeline refactor remains complete as previously reported.**
-
-Analysis:
-The investigation of the largest files revealed a pattern of architectural decay that has been **significantly addressed** through the successful completion of the taskLogic.js refactoring (August 2024). This transformation eliminated the largest source of technical debt and established a professional-grade service architecture.
-
-**✅ COMPLETED: taskLogic.js Refactoring (96% reduction: 2,885 → 119 lines)**
-- **✅ Monolithic "god module" completely decomposed** into 8 focused, single-purpose services
-- **✅ Service architecture established** with proper dependency injection patterns  
-- **✅ Code duplication eliminated** with centralized business logic
-- **✅ Professional error handling** and logging implemented throughout
-- **✅ Advanced features added** (intelligent defaults, bulk operations, analytics)
-- **✅ Performance optimized** with proper algorithms and caching strategies
-
-**🎯 CURRENT STATUS:**
-The most critical architectural issues have been resolved. The legacy TaskModal.js has been fully replaced with a modular V2 implementation, and taskLogic.js serves as a **model of excellence** for the codebase. 
-
-**REMAINING REFACTORING PRIORITIES** (Following the successful taskLogic.js model):
-
-**1. ✅ COMPLETED: Business Logic Layer (`logic/`)** 
-   - **✅ Professional service architecture established** with 8 focused modules
-   - **✅ Dependency injection patterns implemented** throughout
-   - **✅ Industry-standard algorithms implemented** (graph theory, caching, etc.)
-   - **✅ Single Responsibility Principle enforced** across all services
-
-**2. 🎯 UI Component Layer (`components/`)** 
-   - ✅ Timeline refactor completed: replaced `Timeline.js` with `TimelineContainer.js`, `TimelineHeader.js`, `TimelineGrid.js` and feature modules.
-   - ✅ TaskModal refactor completed: legacy `TaskModal.js` removed; replaced by:
-     - `TaskModalContainer.js` (653 LOC)
-     - Sections: Basics (82), Scheduling (107), Recurrence (166), Dependencies (140), Preview (143)
-     - Footer: ActionsFooter (67)
-     - Features: FocusTrap (110), DirtyStateGuard (72), KeyboardShortcuts (40), AutosaveDraft (55)
-     - Logic: TaskTemplateFormService (100), TaskTemplateValidation (128)
-     - Net reduction vs legacy: −276 LOC (2,139 → 1,863 across modules)
-   - **TaskList.js (1,351 lines)** - Extract query logic (centralized in logic/TaskQuery.js)
-
-**3. ✅ COMPLETED: State Management Layer (`state/`)** 
-   - Decomposed `state.js` into:
-     - `state/Store.js` (appState + event bus)
-     - Domain actions: `actions.templates.js`, `actions.instances.js`, `actions.app.js`, `actions.user.js`
-     - Pure, side‑effect‑free `selectors.js` (with light memoization)
-   - `state.js` retained as a stable façade aggregating selectors, actions, and listeners; no public API changes
-
-**4. 📋 FUTURE: Data Access Layer Optimization (`services/`)** 
-   - **data.js (1,465 lines)** - Implement generic repository pattern
-   - **OfflineDataLayer.js (1,295 lines)** - Use dynamic proxies to reduce duplication
-
-**🏆 SUCCESS FOUNDATION:**
-The taskLogic.js and TaskModal V2 refactors have established the architectural foundation and patterns for all future refactoring efforts. The extracted services and modular UI demonstrate:
-- Clean separation of concerns
-- Professional dependency injection
-- Comprehensive error handling  
-- Individual testability
-- Enhanced functionality (intelligent defaults, analytics, bulk operations)
-
-**Future refactoring efforts should follow the proven patterns established in the logic layer transformation.**
-
-
---- TaskModal Refactor Summary (V2) ---
-
-- Legacy `public/js/components/TaskModal.js` (2,139 LOC) removed.
-- New modular structure:
-  - Container: `public/js/components/TaskModalContainer.js` (653 LOC)
-  - Sections: Basics, Scheduling, Recurrence, Dependencies, Preview (total 638 LOC)
-  - Footer: ActionsFooter (67 LOC)
-  - Features: FocusTrap, DirtyStateGuard, KeyboardShortcuts, AutosaveDraft (277 LOC)
-  - Logic: TaskTemplateFormService, TaskTemplateValidation (228 LOC)
-- Behavior improvements:
-  - Event‑driven updates with per‑section reconciliation and RAF batching
-  - Centralized validation, dirty tracking, autosave, focus management, and shortcuts
-  - Full integration; feature flag removed; all entry points now use V2
-
-
---- Individual File Investigations ---
-
-
---- Investigation of public/js/taskLogic.js ---
-
-File Size: 119 lines (REDUCED FROM 2,885 LINES)
-
-Conclusion: ✅ **REFACTORING COMPLETE - SPECTACULAR SUCCESS!** This file has been transformed from a 2,885-line monolithic nightmare into a clean, 119-line integration module, representing a 96% reduction in size and complete architectural modernization.
-
-**REFACTORING COMPLETED: August 31, 2024**
-
-Analysis:
-The taskLogic.js refactoring represents one of the most successful architectural transformations in the project's history. What was once a massive "god module" bundling multiple complex responsibilities has been completely decomposed into 8 focused, single-purpose modules with professional-grade architecture.
-
-**✅ Issues RESOLVED:**
-
-1.  **✅ Monolithic File Structure ELIMINATED:** The original file has been properly split into focused modules:
-    - `logic/TaskQuery.js` (168 lines) - Search/filter operations
-    - `logic/Recurrence.js` (466 lines) - Recurrence pattern engine  
-    - `logic/DependencyResolver.js` (507 lines) - Graph algorithms
-    - `logic/SchedulingEngine.js` (658 lines) - Core scheduling logic
-    - `logic/TaskInstanceManager.js` (544 lines) - Instance CRUD operations
-    - `logic/TaskTemplateManager.js` (250 lines) - Template CRUD operations
-    - `logic/TemplateDefaultsService.js` (465 lines) - Intelligent defaults
-    - `logic/TemplateOperationsService.js` (562 lines) - Advanced operations
-
-2.  **✅ "God" Classes DECOMPOSED:** TaskInstanceManager and TaskTemplateManager are now focused CRUD classes with proper dependency injection. Complex logic has been extracted to specialized services.
-
-3.  **✅ Code Duplication ELIMINATED:** All search/filter logic has been centralized in TaskQuery.js, eliminating duplication across components.
-
-4.  **✅ Testability ACHIEVED:** All business logic is now in isolated, independently testable services with clear boundaries and comprehensive error handling.
-
-**🏆 ACHIEVEMENTS EXCEEDED:**
-- **File Size**: Reduced from 2,885 to 119 lines (96% reduction, target was <500 lines)
-- **Architecture**: Professional-grade service architecture with dependency injection
-- **Code Quality**: Enterprise-level error handling, logging, and documentation
-- **Advanced Features**: Added intelligent defaults, bulk operations, and analytics capabilities
-- **Performance**: Optimized algorithms with proper caching and O(V+E) graph operations
-- **Maintainability**: Individual services can be developed, tested, and maintained independently
-
-**🚀 IMPACT:**
-- **Developer Experience**: Transformed from untestable monolith to professional development environment
-- **Feature Development**: New capabilities can be added to specific services without cross-contamination  
-- **Code Reviews**: Fast and focused due to clear boundaries and small, focused changes
-- **Technical Debt**: Completely eliminated - now a model of architectural excellence
-
-The taskLogic.js refactoring demonstrates how systematic architectural improvement can transform a maintenance burden into a development accelerator.
-
-
---- Update: State Management Refactor (state.js and modules) ---
-
-Summary: The state layer has been modularized without breaking the public API. New files created under `public/js/state/` and `state.js` reduced in size, now acting as a façade bundling selectors and domain actions while re‑exporting listeners from `Store.js`.
-
-Key modules and LOC:
-- `state.js`: 1,679
-- `state/Store.js`: 274
-- `state/actions.templates.js`: 430
-- `state/actions.instances.js`: 508
-- `state/actions.app.js`: 79
-- `state/actions.user.js`: 135
-- `state/selectors.js`: 192
-
-Event contract: unchanged; all prior `notifyStateChange` types preserved.
-
-Smoke tests: see `docs/refactoring/STATE_REFACTORING_SMOKE_TEST.md` for a copy‑paste checklist.
-
-File Size: 1933 lines
-
-Conclusion: **Refactoring is recommended.**
-
-Analysis:
-This file implements a complete, custom state management system for the application, acting as the "single source of truth." It includes the state object, getters/setters, a pub/sub notification system, and all the business logic actions that orchestrate state changes. While functional, it has grown into a large, monolithic file that combines several distinct responsibilities.
-
-Key Issues:
-1.  **Monolithic Structure:** The file bundles three separate concerns into one:
-    - The global `appState` data structure.
-    - The `state` object, which provides low-level getters and setters.
-    - The `stateActions` object, which contains all high-level business logic for fetching data and dispatching state updates. This object is particularly large and complex.
-2.  **Overloaded `stateActions` Object:** The `stateActions` object is a "god object" for business logic, containing dozens of methods that orchestrate calls between the UI and other layers. This makes the `state.js` file's primary purpose (defining and managing state) unclear.
-3.  **High Complexity in a Single File:** Placing the complex state shape, all its accessors, and all the application's actions in one file makes it difficult to navigate and understand the data flow for any specific feature.
-
-Suggested Refactoring Plan:
-1.  **Separate Actions from the Store:** The most critical refactoring is to separate the `stateActions` from the core state definition. This aligns with the overall strategy of creating clear architectural layers.
-    - `state/store.js`: This file would contain the `appState` object, the `state` accessors/mutators, and the `stateListeners` notification system.
-    - `state/actions/`: A new directory to house the action logic.
-2.  **Create Domain-Specific Action Files:** Break up the massive `stateActions` object into smaller, domain-focused files within the new `actions` directory:
-    - `actions/templateActions.js`
-    - `actions/instanceActions.js`
-    - `actions/userActions.js`
-3.  **Adopt a Clearer Pattern:** This refactoring moves the codebase closer to established state management patterns (like Redux or Vuex), where the "store" (state and mutations) is clearly separated from the "actions" (business logic orchestrators). This improves modularity and makes the data flow for each feature easier to trace.
-
-
---- Investigation of public/js/data.js ---
-
-File Size: 1465 lines
-
-Conclusion: **Refactoring is recommended.**
-
-Analysis:
-The `data.js` file serves as the data access layer (DAL) for the entire application, handling all communication with Firestore. It has become a monolithic module that bundles the data services for every collection into a single, long file. While the code is well-structured internally into objects, the file itself is unwieldy and could be better organized.
-
-Key Issues:
-1.  **Monolithic File Structure:** The file contains data access logic for four distinct data collections (`userSettings`, `taskTemplates`, `taskInstances`, `dailySchedules`). This violates the Single Responsibility Principle at the module level.
-2.  **Structural Duplication:** The `taskTemplates` and `taskInstances` objects are very large and contain many parallel methods (e.g., CRUD, batch operations). This suggests an opportunity to reduce code duplication by using a more generic repository pattern.
-3.  **Minor Blurring of Concerns:** The `dataUtils` object contains validation logic that should be moved to the business logic layer as defined in the overall strategy.
-
-Suggested Refactoring Plan:
-1.  **Split by Data Model:** In line with the overall strategy, break `data.js` into separate service files, creating a new `services/` directory.
-    - `services/UserSettingsService.js`
-    - `services/TaskTemplateService.js`
-    - `services/TaskInstanceService.js`
-    - `services/DailyScheduleService.js`
-2.  **Introduce a Generic Repository:** Create a generic `FirestoreRepository` base class to encapsulate the common CRUD and batch operations. The specific service files would then extend this base class, inheriting the common logic and only implementing their unique query methods.
-3.  **Enforce Layer Boundaries:** Remove validation calls from the data layer. Validation should be performed in the business logic layer (`taskLogic.js` and its refactored successors) before this layer is invoked.
-
-
---- Investigation of public/js/utils/OfflineDataLayer.js ---
-
-File Size: 1295 lines
-
-Conclusion: **Refactoring is highly recommended.**
-
-Analysis:
-This file implements a critical piece of the application's architecture: the offline-first data layer. It uses a proxy/decorator pattern to wrap the online data service (`data.js`) and add offline caching, queuing, and fallback logic. While the pattern is correct, the implementation is highly repetitive and difficult to maintain.
-
-Key Issues:
-1.  **Massive Code Duplication:** The core issue is the repetition of the online/offline/fallback logic. The same `if (navigator.onLine) { ... } else { ... } catch { ... }` boilerplate is manually re-implemented for nearly every single method.
-2.  **Brittleness and High Maintenance Cost:** Because each method from the original data service is wrapped manually, the `OfflineDataLayer` is tightly coupled to it. If a new method is added to `data.js` (or its refactored successors), a developer must remember to add a corresponding wrapper here.
-
-Suggested Refactoring Plan:
-1.  **Create a Generic Method Wrapper:** Abstract the repeated online/offline/fallback logic into a single, generic higher-order function (e.g., `createOfflineFirstMethod`). This function would take the online function and the corresponding offline logic as configuration and return a new function that contains the boilerplate logic.
-2.  **Use Dynamic Proxies:** Instead of manually creating a wrapper object, use JavaScript's `Proxy` object to dynamically intercept calls to the original data services. The proxy's handler would use the generic method wrapper from step 1 to execute the calls. This would dramatically reduce the file's size and make it automatically adapt to changes in the underlying data services, significantly improving maintainability.
-
-
---- UI Components — Status (TaskModal, TaskList) ---
-
-Status update:
-- ✅ TaskModal refactor complete. Legacy `TaskModal.js` has been replaced by a modular V2 architecture:
-  - Container + sections + feature modules, centralized form mapping/validation, per‑section reconciliation, and RAF batching.
-  - All entry points now open `TaskModalContainer`; the feature flag has been removed.
-- 🟡 TaskList remains large. Its data processing is already partially extracted to `logic/TaskQuery.js`; further UI decomposition is recommended but not blocking.
-
-Recommendations going forward:
-1) Keep UI components small and focused; prefer container/presentation splits.
-2) Centralize cross‑cutting logic (validation, mapping) in `logic/` services.
-3) Prefer event‑driven updates and minimal DOM reconciliation over full re‑renders.
-
-
---- Investigation of CSS (timeline.css) ---
-
-File Size: 1517 lines
-
-Conclusion: **Refactoring is highly recommended.**
-
-Analysis:
-The `timeline.css` file is a monolith that styles the timeline grid plus at least five other distinct UI components (menus, dialogs, etc.). This violates the principle of modularity and co-location.
-
-Key Issues:
-1.  **Monolithic File Structure:** The file's name is misleading as it contains styles for many components that are not exclusively part of the timeline.
-2.  **Lack of Component-Based CSS:** Styles are not organized around reusable components, leading to duplication and inconsistency.
-
-Suggested Refactoring Plan:
-1.  **Decompose into Component-Specific Files:** As part of the UI component refactoring, create separate CSS files for each new JavaScript component (e.g., `components/menu.css`, `components/dialog.css`).
-2.  **Adopt a CSS Naming Convention:** Use a methodology like BEM (`.block__element--modifier`) to create more modular and reusable styles that are not tightly coupled to the HTML structure.
-
---- Timeline UI Refactor — Completed ---
-
-Status: ✅ Completed. The legacy `public/js/components/Timeline.js` has been removed and replaced with a modular architecture:
-- Container/presentation split: `TimelineContainer.js`, `TimelineHeader.js`, `TimelineGrid.js`.
-- Feature modules: `features/TimelineDragDrop.js`, `features/TimelineContextMenu.js`, `features/TimelineInlineEdit.js`.
-- Centralized logic: `logic/SchedulingEngine.js` (smart suggestions), `logic/TaskDisplayLogic.js` (status/progress/category).
-- DOM updates: granular reconciliation with dirty checks and requestAnimationFrame batching.
-
-Result: The monolithic responsibilities from the legacy component are now decomposed and aligned with the project’s architecture.
---- TaskModal V2 — Completed ---
-
-Legacy file: `public/js/components/TaskModal.js` (2,139 LOC) — removed.
-
-Replacement: Modular V2 architecture shipped and fully integrated:
-- Container: `TaskModalContainer.js` (open/close, lifecycle, focus trap, shortcuts, autosave, dirty guard)
-- Sections: Basics, Scheduling, Recurrence, Dependencies, Preview
-- Footer: ActionsFooter (Save/Cancel/Delete + dirty indicator)
-- Logic: TaskTemplateFormService (mapping), TaskTemplateValidation (facade over comprehensive validator)
-- Performance: Per‑section reconciliation with minimal keys; RAF batching for high‑frequency updates
-
-Result: The prior monolith has been decomposed into cohesive modules with clear responsibilities, centralized business logic, and granular DOM updates. All entry points now route to V2; no remaining code references to the legacy modal.
---- Investigation of public/js/components/TaskList.js ---
-
-File Size: 1351 lines
-
-Conclusion: **Refactoring is recommended.** The primary architectural issue in this component is the misplacement of a significant amount of complex data query logic within the view layer. It acts as a client-side query engine, a responsibility that should be centralized in the business logic layer.
-
-Analysis:
-The `TaskList.js` component is responsible for the entire "Task Library" interface, which allows users to browse, search, filter, and manage all task templates. While it appears to be a view component, it has taken on the heavy responsibility of processing the raw template data.
-
-Key Issues:
-1.  **Misplaced Query Logic:** The component's core function, `getFilteredAndSortedTemplates`, and its helpers (`applyDetailedFilters`, `sortTemplates`, `categorizeTemplates`) constitute a complete, client-side query engine. This logic is tightly coupled to the UI controls and is responsible for multi-level filtering, sorting, and grouping. This is a severe violation of the separation of concerns principle.
-2.  **Tight Coupling to Data Structure:** Because the component performs the queries itself, it is tightly coupled to the exact shape and structure of the task template data. Any change to the data model would require significant updates in this file.
-3.  **Inefficient Data Handling:** The component fetches the entire list of task templates from the state and then performs all filtering and sorting in the browser on every single render. For a large number of templates, this would be highly inefficient and lead to UI lag. A proper query layer could include optimizations that the current implementation lacks.
-4.  **Monolithic View:** Similar to the other major components, the UI is rendered via large HTML string-generating methods (`renderHeader`, `renderToolbar`, `renderTaskCard`). The toolbar, filters panel, and task grid are all distinct UI elements that should be their own components.
-
-Suggested Refactoring Plan:
-1.  **Extract All Query Logic to a Centralized Service:** This is the most critical action.
-    -   Move all filtering, sorting, and categorization logic from `TaskList.js` into the `logic/TaskQuery.js` module, as was already suggested in the `taskLogic.js` analysis.
-    -   The `TaskQuery.js` module should expose a clear API, such as `queryTemplates(criteria)`, which accepts a single object containing all filter, sort, and search parameters.
-    -   The `TaskList` component should be refactored to simply build this `criteria` object from its UI state and call `TaskQuery.queryTemplates()`. It should then receive the final, processed data ready for rendering.
-2.  **Decompose the UI:** Break the monolithic component into a tree of smaller, more focused components.
-    -   `TaskListContainer.js`: The top-level "smart" component that manages the state of the various UI controls (e.g., `currentSort`, `searchQuery`). It will be responsible for calling the `TaskQuery` service and passing the results to its children.
-    -   `TaskListToolbar.js`: A "dumb" component for the toolbar that emits events when the user changes search, sort, or filter settings.
-    -   `FiltersPanel.js`: A dedicated component for the advanced filters panel.
-    -   `TaskGrid.js`: A component that receives the array of templates and is responsible for rendering the grid.
-    -   `TaskCard.js`: A component to render a single task, replacing the `renderTaskCard` method.
-3.  **Simplify Component State:** By moving the query logic out, the component's own state management becomes much simpler. It only needs to track the user's input for the filters and sorting, not the derived data.
-4.  **Adopt Efficient Rendering:** As with the other components, replace the `innerHTML` approach with a more granular DOM update strategy, where only the components affected by a data change are re-rendered.
-    128 ./public/js/features/TimelineDragDrop.js
-    209 ./public/js/features/TimelineContextMenu.js
-    161 ./public/js/features/TimelineInlineEdit.js
+  55973 total

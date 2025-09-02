@@ -51,7 +51,7 @@ export class TaskBlock {
    * Get CSS classes for task block
    */
   getBlockClasses() {
-    let classes = ['task-block', `task-block-${this.options.size}`];
+    let classes = ['tl-task', 'task-block', `task-block-${this.options.size}`];
     
     // Add status classes
     if (this.options.showStatus) {
