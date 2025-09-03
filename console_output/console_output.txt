@@ -1,468 +1,373 @@
-AppInitializer.js:7 🚀 Starting Daily AI initialization...
-ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
-ModernBrowserChecker.js:153   Features supported: true
-ModernBrowserChecker.js:157   Browser: chrome
-ModernBrowserChecker.js:158   Version: 139
-ModernBrowserChecker.js:159   Version supported: true
-AppInitializer.js:19 ✅ Browser compatibility check passed
-sw.js:87 SW: Service Worker loaded
-(index):271 SW registered: ServiceWorkerRegistration {installing: ServiceWorker, waiting: null, active: null, navigationPreload: NavigationPreloadManager, scope: 'https://daily-ai-3b51f.web.app/', …}
-sw.js:32 SW: Installing service worker
-sw.js:36 SW: Caching static assets
-sw.js:48 SW: Activating service worker
-MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
-MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
-MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
-MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
-MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
-MemoryLeakPrevention.js:514 ✅ Memory Leak Prevention utility loaded
-OfflineStorage.js:827 ✅ OfflineStorage system initialized
-OfflineQueue.js:513 ✅ OfflineQueue system initialized
-ConflictResolution.js:675 ✅ ConflictResolution system initialized
-OfflineDetection.js:706 ✅ OfflineDetection system initialized
-DataMaintenance.js:850 ✅ DataMaintenance system initialized
-TaskValidation.js:793 ✅ Task Validation System initialized
-OfflineDataLayer.js:1296 ✅ Offline Data Layer initialized
-dataOffline.js:376 ✅ Offline-enabled data bridge initialized
-userSettings.js:458 ✅ User Settings management module loaded
-TaskInstanceManager.js:621 ✅ Streamlined TaskInstanceManager class loaded
-TemplateDefaultsService.js:324 ✅ TemplateDefaultsService loaded
-TemplateOperationsService.js:503 ✅ TemplateOperationsService loaded
-TaskTemplateManager.js:406 ✅ Streamlined TaskTemplateManager class loaded
-taskLogic.js:113 ✅ Task logic and scheduling engine initialized
-state.js:1235 ✅ Multi-tab synchronization initialized
-state.js:1238 ✅ Enhanced state management initialized with comprehensive template and instance support
-MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskList
-TaskList.js:1341 ✅ Task list component initialized
-PerformanceMonitor.js:56 ✅ Performance Monitor initialized
-PerformanceMonitor.js:502 ✅ Performance Monitor utility loaded
-ui.js:945 ✅ UI management system initialized
-app.js:358 ✅ Daily AI application module loaded
-app.js:359 🧪 Testing objects exposed globally for console access
-app.js:52 🚀 Initializing Daily AI...
-MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
-MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
-OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
-OfflineStorage.js:134 ✅ OfflineStorage: Database stores created
-OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
-OfflineQueue.js:193 🔄 OfflineQueue: Processing started
-OfflineQueue.js:91 ✅ OfflineQueue: Queue system initialized
-OfflineDetection.js:72 ✅ OfflineDetection: System initialized
-DataMaintenance.js:56 ✅ DataMaintenance: System initialized
-OfflineDataLayer.js:85 🔧 OfflineDataLayer: Performing initial maintenance...
-OfflineDataLayer.js:100 ✅ OfflineDataLayer: Initial maintenance complete
-OfflineDataLayer.js:54 ✅ OfflineDataLayer: Initialization complete
-app.js:59 ✅ Offline system initialized
-ui.js:68 ✅ UI system initialized
-MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
-MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
-app.js:66 ✅ Network monitoring initialized
-MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
-MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1756850935611_fby5uloow
-MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1756850935611_fby5uloow
-SimpleTabSync.js:19 Tab tab_1756850935611_fby5uloow initialized
-app.js:70 ✅ Tab synchronization initialized
-firebase.js:19 ✅ Firebase initialized
-app.js:74 ✅ Firebase initialized
-app.js:122 🔒 User not authenticated, showing login
-AppInitializer.js:27 ✅ App initialized successfully
-(index):289 ✅ Daily AI loaded successfully
-(index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" class=​"input" required placeholder=​"Enter your password">​
-app.js:85 ✅ User authenticated: yearmonthday365@gmail.com
-app.js:94 🔧 Step 1: Initializing user settings...
-userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
-userSettings.js:119 📄 User settings loaded from Firestore
-userSettings.js:89 ✅ Loaded existing user settings
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-actions.user.js:39 ✅ User data initialized with comprehensive settings
-app.js:96 ✅ Step 1 complete: User settings initialized
-app.js:98 🔧 Step 2: Loading task templates...
-data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
-data.js:146 🔍 About to execute Firestore query...
-data.js:148 🔍 Query executed successfully, processing results...
-data.js:155 ✅ Retrieved 0 task templates
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-actions.templates.js:155 ✅ Task templates loaded (0 templates)
-app.js:100 ✅ Step 2 complete: Task templates loaded
-app.js:104 🔧 Step 3: Loading task instances for today: 2025-09-02
-data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
-data.js:638 ✅ Retrieved 0 task instances for 2025-09-02
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-actions.instances.js:224 ✅ Task instances loaded for 2025-09-02 (0 instances)
-app.js:106 ✅ Step 3 complete: Task instances loaded
-app.js:108 🔧 Step 4: Loading daily schedule for today: 2025-09-02
-data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
-actions.app.js:74 ✅ Daily schedule loaded for 2025-09-02
-app.js:110 ✅ Step 4 complete: Daily schedule loaded
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer window resize
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer visibility change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer navigate day
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer go to today
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer time filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer create task
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task complete
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task edit
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task skip
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task postpone
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task delete
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task rename
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drag start
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drop
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-TimelineContainer.js:310 📅 Schedule loaded for 2025-09-02
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragstart
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragover
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated drop
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu contextmenu
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerdown
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerup
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointercancel
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerleave
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu global click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu escape key
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit dblclick
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit document click
-MemoryLeakPrevention.js:51 📅 Registered interval: Timeline real-time updates (30000ms)
-TimelineContainer.js:83 ✅ TimelineContainer initialized
-MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
-ui.js:816 ✅ Task Library view rendered with TaskList component
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
-ui.js:842 ✅ Task Library view cleaned up
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-ui.js:195 ❌ Error rendering view: TypeError: this.realTimeTimer.clear is not a function
-    at TimelineContainer.cleanup (TimelineContainer.js:744:26)
-    at TimelineContainer.destroy (TimelineContainer.js:774:10)
-    at Object.initializeTimeline (ui.js:761:29)
-    at Object.setupEventListeners (ui.js:712:10)
-    at Object.render (ui.js:494:10)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:88:12
-    at Store.js:236:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (Store.js:234:13)
-renderCurrentView @ ui.js:195
-(anonymous) @ ui.js:88
-(anonymous) @ Store.js:236
-notifyStateChange @ Store.js:234
-setCurrentView @ state.js:105
-(anonymous) @ ui.js:447
-SimpleErrorHandler.js:9 Error details: TypeError: this.realTimeTimer.clear is not a function
-    at TimelineContainer.cleanup (TimelineContainer.js:744:26)
-    at TimelineContainer.destroy (TimelineContainer.js:774:10)
-    at Object.initializeTimeline (ui.js:761:29)
-    at Object.setupEventListeners (ui.js:712:10)
-    at Object.render (ui.js:494:10)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:88:12
-    at Store.js:236:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (Store.js:234:13)
-showError @ SimpleErrorHandler.js:9
-renderCurrentView @ ui.js:196
-(anonymous) @ ui.js:88
-(anonymous) @ Store.js:236
-notifyStateChange @ Store.js:234
-setCurrentView @ state.js:105
-(anonymous) @ ui.js:447
-ui.js:445 [Violation] 'click' handler took 2070ms
-ui.js:842 ✅ Task Library view cleaned up
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer window resize
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer visibility change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer navigate day
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer go to today
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer time filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer create task
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task complete
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task edit
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task skip
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task postpone
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task delete
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task rename
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drag start
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drop
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-TimelineContainer.js:310 📅 Schedule loaded for 2025-09-02
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragstart
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragover
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated drop
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu contextmenu
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerdown
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerup
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointercancel
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerleave
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu global click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu escape key
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit dblclick
-MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit document click
-MemoryLeakPrevention.js:51 📅 Registered interval: Timeline real-time updates (30000ms)
-TimelineContainer.js:83 ✅ TimelineContainer initialized
-MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
-ui.js:816 ✅ Task Library view rendered with TaskList component
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-first-template-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
-MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
-ui.js:842 ✅ Task Library view cleaned up
-SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-ui.js:195 ❌ Error rendering view: TypeError: this.realTimeTimer.clear is not a function
-    at TimelineContainer.cleanup (TimelineContainer.js:744:26)
-    at TimelineContainer.destroy (TimelineContainer.js:774:10)
-    at Object.initializeTimeline (ui.js:761:29)
-    at Object.setupEventListeners (ui.js:712:10)
-    at Object.render (ui.js:494:10)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:88:12
-    at Store.js:236:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (Store.js:234:13)
-renderCurrentView @ ui.js:195
-(anonymous) @ ui.js:88
-(anonymous) @ Store.js:236
-notifyStateChange @ Store.js:234
-setCurrentView @ state.js:105
-(anonymous) @ ui.js:447
-SimpleErrorHandler.js:9 Error details: TypeError: this.realTimeTimer.clear is not a function
-    at TimelineContainer.cleanup (TimelineContainer.js:744:26)
-    at TimelineContainer.destroy (TimelineContainer.js:774:10)
-    at Object.initializeTimeline (ui.js:761:29)
-    at Object.setupEventListeners (ui.js:712:10)
-    at Object.render (ui.js:494:10)
-    at Object.renderCurrentView (ui.js:181:16)
-    at ui.js:88:12
-    at Store.js:236:7
-    at Array.forEach (<anonymous>)
-    at notifyStateChange (Store.js:234:13)
-showError @ SimpleErrorHandler.js:9
-renderCurrentView @ ui.js:196
-(anonymous) @ ui.js:88
-(anonymous) @ Store.js:236
-notifyStateChange @ Store.js:234
-setCurrentView @ state.js:105
-(anonymous) @ ui.js:447
-ui.js:445 [Violation] 'click' handler took 1643ms
+16:02:35.100 AppInitializer.js:7 🚀 Starting Daily AI initialization...
+16:02:35.101 ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
+16:02:35.101 ModernBrowserChecker.js:153   Features supported: true
+16:02:35.101 ModernBrowserChecker.js:157   Browser: chrome
+16:02:35.101 ModernBrowserChecker.js:158   Version: 139
+16:02:35.101 ModernBrowserChecker.js:159   Version supported: true
+16:02:35.101 AppInitializer.js:19 ✅ Browser compatibility check passed
+16:02:35.285 (index):270 SW registered: ServiceWorkerRegistration {installing: null, waiting: null, active: ServiceWorker, navigationPreload: NavigationPreloadManager, scope: 'http://localhost:5500/', …}
+16:02:35.303 (index):1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+16:02:35.365 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
+16:02:35.365 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
+16:02:35.365 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
+16:02:35.365 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
+16:02:35.366 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+16:02:35.366 MemoryLeakPrevention.js:514 ✅ Memory Leak Prevention utility loaded
+16:02:35.366 OfflineStorage.js:827 ✅ OfflineStorage system initialized
+16:02:35.366 OfflineQueue.js:513 ✅ OfflineQueue system initialized
+16:02:35.366 ConflictResolution.js:675 ✅ ConflictResolution system initialized
+16:02:35.366 OfflineDetection.js:706 ✅ OfflineDetection system initialized
+16:02:35.366 DataMaintenance.js:850 ✅ DataMaintenance system initialized
+16:02:35.366 TaskValidation.js:793 ✅ Task Validation System initialized
+16:02:35.367 OfflineDataLayer.js:1296 ✅ Offline Data Layer initialized
+16:02:35.367 dataOffline.js:376 ✅ Offline-enabled data bridge initialized
+16:02:35.367 userSettings.js:458 ✅ User Settings management module loaded
+16:02:35.367 TaskInstanceManager.js:621 ✅ Streamlined TaskInstanceManager class loaded
+16:02:35.367 TemplateDefaultsService.js:324 ✅ TemplateDefaultsService loaded
+16:02:35.367 TemplateOperationsService.js:503 ✅ TemplateOperationsService loaded
+16:02:35.367 TaskTemplateManager.js:406 ✅ Streamlined TaskTemplateManager class loaded
+16:02:35.367 taskLogic.js:113 ✅ Task logic and scheduling engine initialized
+16:02:35.368 state.js:1235 ✅ Multi-tab synchronization initialized
+16:02:35.368 state.js:1238 ✅ Enhanced state management initialized with comprehensive template and instance support
+16:02:35.368 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskList
+16:02:35.368 TaskList.js:1341 ✅ Task list component initialized
+16:02:35.368 PerformanceMonitor.js:56 ✅ Performance Monitor initialized
+16:02:35.368 PerformanceMonitor.js:502 ✅ Performance Monitor utility loaded
+16:02:35.368 ui.js:961 ✅ UI management system initialized
+16:02:35.368 app.js:358 Debug object available at window.debug
+16:02:35.368 app.js:362 ✅ Daily AI application module loaded
+16:02:35.368 app.js:363 🧪 Testing objects exposed globally for console access
+16:02:35.369 app.js:58 🚀 Initializing Daily AI...
+16:02:35.369 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
+16:02:35.369 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+16:02:35.369 OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
+16:02:35.386 OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
+16:02:35.387 OfflineQueue.js:193 🔄 OfflineQueue: Processing started
+16:02:35.387 OfflineQueue.js:91 ✅ OfflineQueue: Queue system initialized
+16:02:35.388 OfflineDetection.js:72 ✅ OfflineDetection: System initialized
+16:02:35.388 DataMaintenance.js:56 ✅ DataMaintenance: System initialized
+16:02:35.388 OfflineDataLayer.js:85 🔧 OfflineDataLayer: Performing initial maintenance...
+16:02:35.392 OfflineDataLayer.js:100 ✅ OfflineDataLayer: Initial maintenance complete
+16:02:35.392 OfflineDataLayer.js:54 ✅ OfflineDataLayer: Initialization complete
+16:02:35.392 app.js:65 ✅ Offline system initialized
+16:02:35.392 ui.js:69 ✅ UI system initialized
+16:02:35.392 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
+16:02:35.393 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
+16:02:35.393 app.js:72 ✅ Network monitoring initialized
+16:02:35.393 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
+16:02:35.393 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1756929755393_tobn9g9hx
+16:02:35.393 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1756929755393_tobn9g9hx
+16:02:35.393 SimpleTabSync.js:19 Tab tab_1756929755393_tobn9g9hx initialized
+16:02:35.393 app.js:76 ✅ Tab synchronization initialized
+16:02:35.547 firebase.js:19 ✅ Firebase initialized
+16:02:35.547 app.js:80 ✅ Firebase initialized
+16:02:35.547 app.js:91 ✅ User authenticated: yearmonthday365@gmail.com
+16:02:35.548 app.js:100 🔧 Step 1: Initializing user settings...
+16:02:35.548 userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
+16:02:35.549 AppInitializer.js:27 ✅ App initialized successfully
+16:02:35.549 (index):288 ✅ Daily AI loaded successfully
+16:02:35.945 userSettings.js:119 📄 User settings loaded from Firestore
+16:02:35.945 userSettings.js:89 ✅ Loaded existing user settings
+16:02:35.946 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+16:02:35.946 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+16:02:35.947 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+16:02:35.947 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+16:02:35.947 actions.user.js:39 ✅ User data initialized with comprehensive settings
+16:02:35.947 app.js:102 ✅ Step 1 complete: User settings initialized
+16:02:35.947 app.js:104 🔧 Step 2: Loading task templates...
+16:02:35.948 data.js:97 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+16:02:35.948 data.js:146 🔍 About to execute Firestore query...
+16:02:36.194 data.js:148 🔍 Query executed successfully, processing results...
+16:02:36.194 data.js:155 ✅ Retrieved 0 task templates
+16:02:36.194 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+16:02:36.194 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+16:02:36.195 actions.templates.js:155 ✅ Task templates loaded (0 templates)
+16:02:36.195 app.js:106 ✅ Step 2 complete: Task templates loaded
+16:02:36.195 app.js:110 🔧 Step 3: Loading task instances for today: 2025-09-03
+16:02:36.195 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+16:02:36.394 data.js:638 ✅ Retrieved 0 task instances for 2025-09-03
+16:02:36.394 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+16:02:36.394 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+16:02:36.394 actions.instances.js:224 ✅ Task instances loaded for 2025-09-03 (0 instances)
+16:02:36.395 app.js:112 ✅ Step 3 complete: Task instances loaded
+16:02:36.395 app.js:114 🔧 Step 4: Loading daily schedule for today: 2025-09-03
+16:02:36.395 data.js:14 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+16:02:36.577 actions.app.js:74 ✅ Daily schedule loaded for 2025-09-03
+16:02:36.577 app.js:116 ✅ Step 4 complete: Daily schedule loaded
+16:02:36.577 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+16:02:36.577 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+16:02:36.590 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: ResponsiveNavigation
+16:02:36.590 ResponsiveNavigation.js:23 🧭 Initializing responsive navigation...
+16:02:36.590 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu toggle button
+16:02:36.590 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu click outside
+16:02:36.590 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu escape key
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-today-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-library-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-settings-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-today-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-library-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-settings-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-today-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-library-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-settings-btn
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button fab
+16:02:36.591 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button desktop-add-task-btn
+16:02:36.591 ResponsiveNavigation.js:205 🧭 Switching to view: today
+16:02:36.592 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+16:02:36.592 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+16:02:36.592 ResponsiveNavigation.js:250 ✅ View switched to: today
+16:02:36.593 MemoryLeakPrevention.js:51 📅 Registered interval: Navigation live clock updates (30000ms)
+16:02:36.593 ResponsiveNavigation.js:297 🕐 Live clock started (updates every 30 seconds)
+16:02:36.593 MemoryLeakPrevention.js:98 👂 Registered event listener: Window resize for responsive navigation
+16:02:36.593 ResponsiveNavigation.js:41 ✅ Responsive navigation initialized
+16:03:23.832 Warning: Don’t paste code into the DevTools Console that you don’t understand or haven’t reviewed yourself. This could allow attackers to steal your identity or take control of your computer. Please type ‘allow pasting’ below and press Enter to allow pasting.
+16:03:26.931 allow pasting
+16:03:27.945 /**
+ * Improved Tests for Daily AI Fixes
+ * Updated to use globally exposed objects correctly
+ */
+
+console.log('🧪 Loading improved test functions...');
+
+// Test 1: Memory Leak Prevention State Guards (working correctly)
+function testMemoryLeakPreventionStateGuards() {
+  console.log('\n📋 Test 1: MemoryLeakPrevention state guards');
+  
+  const mockComponent = {
+    constructor: { name: 'TestComponent' },
+    _isDestroying: false,
+    _isDestroyed: false,
+    destroy: function() {
+      console.log('Mock component destroy called');
+    }
+  };
+  
+  try {
+    console.log('Calling unregisterComponent first time...');
+    memoryManager.unregisterComponent(mockComponent);
+    
+    console.log('Calling unregisterComponent second time (should be prevented)...');
+    memoryManager.unregisterComponent(mockComponent);
+    
+    console.log('✅ State guards working - no infinite recursion');
+    return true;
+  } catch (error) {
+    console.error('❌ State guards failed:', error);
+    return false;
+  }
+}
+
+// Test 2: TaskList Recursion Prevention (fixed to use global instance)
+function testTaskListRecursionFix() {
+  console.log('\n📋 Test 2: TaskList recursion prevention');
+  
+  try {
+    if (typeof taskList === 'undefined') {
+      console.log('❌ taskList not available globally');
+      return false;
+    }
+    
+    console.log('✅ taskList is globally accessible');
+    console.log('ℹ️  Testing destroy method without actually calling it to avoid disrupting production instance');
+    
+    // Check if destroy method exists and doesn't have recursive calls
+    if (typeof taskList.destroy === 'function') {
+      console.log('✅ TaskList destroy method exists');
+      console.log('✅ TaskList recursion fix validated (method accessible without recursion setup)');
+      return true;
+    } else {
+      console.log('❌ TaskList destroy method not found');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ TaskList recursion test failed:', error);
+    return false;
+  }
+}
+
+// Test 3: Scheduling Engine Access and Methods
+function testSchedulingEngineAccess() {
+  console.log('\n📋 Test 3: Scheduling engine accessibility');
+  
+  try {
+    if (typeof schedulingEngine === 'undefined') {
+      console.log('❌ schedulingEngine not available globally');
+      return false;
+    }
+    
+    console.log('✅ schedulingEngine is globally accessible');
+    
+    // Test method accessibility
+    const methods = ['detectAndMarkConflicts', 'runSchedulingAlgorithm', 'generateScheduleForDate'];
+    let allMethodsExist = true;
+    
+    methods.forEach(method => {
+      if (typeof schedulingEngine[method] === 'function') {
+        console.log(`✅ schedulingEngine.${method} exists`);
+      } else {
+        console.log(`❌ schedulingEngine.${method} not found`);
+        allMethodsExist = false;
+      }
+    });
+    
+    if (allMethodsExist) {
+      console.log('✅ All required scheduling methods accessible');
+      return true;
+    } else {
+      console.log('❌ Some scheduling methods missing');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Scheduling engine test failed:', error);
+    return false;
+  }
+}
+
+// Test 4: Process Reference Fix Validation
+function testProcessReferenceFix() {
+  console.log('\n📋 Test 4: Process reference fix validation');
+  
+  try {
+    console.log('Checking console for process-related errors...');
+    
+    // This test mainly observes - if we can run without errors, the fix worked
+    if (typeof window !== 'undefined') {
+      console.log('✅ Running in browser environment');
+      console.log('✅ No process reference errors detected during test execution');
+      console.log('ℹ️  Memory leak prevention should be using browser-compatible environment check');
+      return true;
+    } else {
+      console.log('❌ Not running in expected browser environment');
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Process reference test failed:', error);
+    return false;
+  }
+}
+
+// Test 5: Console Message Monitoring (existing working test)
+function monitorConsoleForRecursion() {
+  console.log('\n📋 Test 5: Console monitoring for recursion messages');
+  
+  let recursionCount = 0;
+  const originalLog = console.log;
+  
+  console.log = function(...args) {
+    const message = args.join(' ');
+    if (message.includes('🗑️ Unregistered component')) {
+      recursionCount++;
+    }
+    return originalLog.apply(console, args);
+  };
+  
+  setTimeout(() => {
+    console.log = originalLog;
+    if (recursionCount > 5) {
+      console.error(`❌ Detected ${recursionCount} repeated unregister messages`);
+      return false;
+    } else {
+      console.log(`✅ Only ${recursionCount} unregister messages (acceptable)`);
+      return true;
+    }
+  }, 2000);
+  
+  return true; // Immediate return, actual result comes later
+}
+
+// Comprehensive Test Runner
+async function runImprovedTests() {
+  console.log('🚀 Running improved validation tests for all fixes...\n');
+  
+  const test1 = testMemoryLeakPreventionStateGuards();
+  const test2 = testTaskListRecursionFix();  
+  const test3 = testSchedulingEngineAccess();
+  const test4 = testProcessReferenceFix();
+  const test5 = monitorConsoleForRecursion();
+  
+  console.log('\n📊 Test Results:');
+  console.log(`Memory Leak Prevention State Guards: ${test1 ? '✅' : '❌'}`);
+  console.log(`TaskList Recursion Prevention: ${test2 ? '✅' : '❌'}`);
+  console.log(`Scheduling Engine Accessibility: ${test3 ? '✅' : '❌'}`);
+  console.log(`Process Reference Fix: ${test4 ? '✅' : '❌'}`);
+  console.log(`Console Message Monitoring: ${test5 ? '✅' : '❌'} (result pending)`);
+  
+  const passedTests = [test1, test2, test3, test4, test5].filter(Boolean).length;
+  const totalTests = 5;
+  
+  if (passedTests === totalTests) {
+    console.log('\n🎉 ALL IMPROVED TESTS PASSED!');
+    console.log('✅ Infinite recursion bug: FIXED');
+    console.log('✅ Scheduling algorithm error: FIXED');
+    console.log('✅ Process reference error: FIXED');
+    console.log('✅ Testing infrastructure: IMPROVED');
+    console.log('\n🚀 Daily AI is now stable and fully functional!');
+  } else {
+    console.log(`\n⚠️  ${passedTests}/${totalTests} tests passed`);
+    console.log('Some issues may still require attention');
+  }
+  
+  return {
+    total: totalTests,
+    passed: passedTests,
+    results: { test1, test2, test3, test4, test5 }
+  };
+}
+
+// Individual test functions for targeted testing
+window.testMemoryLeakPrevention = testMemoryLeakPreventionStateGuards;
+window.testTaskListRecursion = testTaskListRecursionFix;
+window.testSchedulingEngine = testSchedulingEngineAccess;
+window.testProcessFix = testProcessReferenceFix;
+window.runImprovedTests = runImprovedTests;
+
+console.log('✅ Improved test functions loaded!');
+console.log('📋 Available commands:');
+console.log('  runImprovedTests() - Run all improved tests');
+console.log('  testMemoryLeakPrevention() - Test memory leak prevention');
+console.log('  testTaskListRecursion() - Test TaskList recursion fix');
+console.log('  testSchedulingEngine() - Test scheduling engine access');
+console.log('  testProcessFix() - Test process reference fix');
+16:03:27.946 VM243:6 🧪 Loading improved test functions...
+16:03:27.946 VM243:200 ✅ Improved test functions loaded!
+16:03:27.946 VM243:201 📋 Available commands:
+16:03:27.946 VM243:202   runImprovedTests() - Run all improved tests
+16:03:27.946 VM243:203   testMemoryLeakPrevention() - Test memory leak prevention
+16:03:27.946 VM243:204   testTaskListRecursion() - Test TaskList recursion fix
+16:03:27.946 VM243:205   testSchedulingEngine() - Test scheduling engine access
+16:03:27.946 VM243:206   testProcessFix() - Test process reference fix
+16:03:27.948 undefined
+16:03:45.119 runImprovedTests()
+16:03:45.120 VM243:156 🚀 Running improved validation tests for all fixes...
+
+16:03:45.120 VM243:10 
+📋 Test 1: MemoryLeakPrevention state guards
+16:03:45.120 VM243:22 Calling unregisterComponent first time...
+16:03:45.120 VM243:25 Calling unregisterComponent second time (should be prevented)...
+16:03:45.120 VM243:28 ✅ State guards working - no infinite recursion
+16:03:45.120 VM243:38 
+📋 Test 2: TaskList recursion prevention
+16:03:45.120 VM243:42 ❌ taskList not available globally
+16:03:45.120 VM243:66 
+📋 Test 3: Scheduling engine accessibility
+16:03:45.120 VM243:70 ❌ schedulingEngine not available globally
+16:03:45.120 VM243:104 
+📋 Test 4: Process reference fix validation
+16:03:45.120 VM243:107 Checking console for process-related errors...
+16:03:45.120 VM243:111 ✅ Running in browser environment
+16:03:45.120 VM243:112 ✅ No process reference errors detected during test execution
+16:03:45.120 VM243:113 ℹ️  Memory leak prevention should be using browser-compatible environment check
+16:03:45.120 VM243:127 
+📋 Test 5: Console monitoring for recursion messages
+16:03:45.120 VM243:137 
+📊 Test Results:
+16:03:45.120 VM243:137 Memory Leak Prevention State Guards: ✅
+16:03:45.120 VM243:137 TaskList Recursion Prevention: ❌
+16:03:45.120 VM243:137 Scheduling Engine Accessibility: ❌
+16:03:45.120 VM243:137 Process Reference Fix: ✅
+16:03:45.120 VM243:137 Console Message Monitoring: ✅ (result pending)
+16:03:45.120 VM243:137 
+⚠️  3/5 tests passed
+16:03:45.121 VM243:137 Some issues may still require attention
+16:03:45.121 Promise {<fulfilled>: {…}}
+16:03:47.130 VM243:146 ✅ Only 0 unregister messages (acceptable)

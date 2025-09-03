@@ -9,7 +9,8 @@
 
 import { state } from '../state.js';
 import { schedulingEngine, realTimeTaskLogic, taskInstanceManager } from '../taskLogic.js';
-// Legacy TaskModal removed; use global container
+import { taskModal } from '../app.js';
+import { toggleTaskCompletion } from '../logic/TaskActions.js';
 import { dataUtils } from '../dataOffline.js';
 import { SafeInterval, SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
 import { performanceMonitor } from '../utils/PerformanceMonitor.js';
@@ -493,7 +494,7 @@ export class TimelineContainer {
    */
   handleCreateTask({ scheduledTime, hour, clickPosition }) {
     const payload = { schedulingType: 'fixed', defaultTime: scheduledTime };
-    window.taskModal.showCreate(payload, () => this.refresh());
+    taskModal.showCreate(payload, () => this.refresh());
   }
 
   /**
@@ -509,7 +510,7 @@ export class TimelineContainer {
    */
   async handleTaskComplete({ taskId }) {
     try {
-      await window.toggleTaskCompletion(taskId);
+      await toggleTaskCompletion(taskId);
       this.refresh();
     } catch (error) {
       console.error('Error toggling task completion:', error);
@@ -524,7 +525,7 @@ export class TimelineContainer {
     const task = taskTemplates.find(t => t.id === taskId);
     
     if (task) {
-      window.taskModal.showEdit(task, () => this.refresh());
+      taskModal.showEdit(task, () => this.refresh());
     }
   }
 

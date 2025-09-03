@@ -8,7 +8,7 @@
 import { state } from '../state.js';
 import { taskTemplateManager } from '../taskLogic.js';
 import { TIME_WINDOWS } from '../constants/timeWindows.js';
-// Legacy TaskModal removed; use global container
+import { taskModal } from '../app.js';
 import { TaskQuery } from '../logic/TaskQuery.js';
 import { SimpleErrorHandler } from '../utils/SimpleErrorHandler.js';
 import { SafeTimeout, SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
@@ -800,7 +800,7 @@ export class TaskList {
    * Handle create template button
    */
   handleCreateTemplate() {
-    window.taskModal.showCreate({}, (newTemplate) => {
+    taskModal.showCreate({}, (newTemplate) => {
       if (newTemplate) {
         SimpleErrorHandler.showSuccess('Template created successfully!');
         this.refreshView();
@@ -1049,7 +1049,7 @@ export class TaskList {
       return;
     }
     
-    window.taskModal.showEdit(template, (updatedTemplate) => {
+    taskModal.showEdit(template, (updatedTemplate) => {
       if (updatedTemplate) {
         SimpleErrorHandler.showSuccess('Template updated successfully!');
         this.refreshView();

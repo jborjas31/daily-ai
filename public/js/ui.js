@@ -6,12 +6,13 @@
  */
 
 import { state, stateListeners } from './state.js';
-import { schedulingEngine, taskTemplateManager, taskInstanceManager } from './taskLogic.js';
+import { schedulingEngine } from './taskLogic.js';
 import { SimpleErrorHandler } from './utils/SimpleErrorHandler.js';
 import { dataUtils } from './dataOffline.js';
 import { taskList } from './components/TaskList.js';
 import { TimelineContainer } from './components/TimelineContainer.js';
 import { ComponentManager } from './utils/MemoryLeakPrevention.js';
+import { taskModal } from './app.js';
 
 /**
  * UI State Management
@@ -454,8 +455,8 @@ export const mainAppUI = {
    */
   showAddTaskModal() {
     try {
-      if (window.taskModal && typeof window.taskModal.showCreate === 'function') {
-        window.taskModal.showCreate({}, (savedTask) => {
+      if (taskModal && typeof taskModal.showCreate === 'function') {
+        taskModal.showCreate({}, (savedTask) => {
           // UI updates propagate via state listeners
           console.log('Task created:', savedTask);
         });
@@ -669,10 +670,10 @@ export const todayViewUI = {
           </div>
         </div>
         <div class="task-actions">
-          <button class="btn btn-sm btn-secondary" onclick="editTask('${task.id}')">
+          <button class="btn btn-sm btn-secondary" data-action="edit-task" data-task-id="${task.id}">
             Edit
           </button>
-          <button class="btn btn-sm btn-primary" onclick="toggleTaskCompletion('${task.id}')">
+          <button class="btn btn-sm btn-primary" data-action="toggle-task-completion" data-task-id="${task.id}">
             ✓ Complete
           </button>
         </div>
@@ -956,39 +957,5 @@ uiController.renderTodayView = todayViewUI.render.bind(todayViewUI);
 uiController.renderTaskLibraryView = taskLibraryUI.render.bind(taskLibraryUI);
 uiController.renderSettingsView = settingsUI.render.bind(settingsUI);
 
-/**
- * Global UI functions (for backwards compatibility with existing onclick handlers)
- */
-window.editTask = (taskId) => {
-  console.log('Edit task:', taskId);
-  import('./utils/Toast.js').then(({ Toast }) => Toast.info('Task editing modal will be implemented in Phase 4.', { duration: 2500 })).catch(() => {});
-  // TODO: Implement task editing modal in Phase 4
-};
-
-window.duplicateTask = async (taskId) => {
-  try {
-    const uid = state.getUser()?.uid;
-    if (!uid) {
-      SimpleErrorHandler.showError('Please sign in to duplicate tasks.');
-      return;
-    }
-    await taskTemplateManager.duplicate(uid, taskId);
-    SimpleErrorHandler.showSuccess('Task duplicated successfully!');
-  } catch (error) {
-    console.error('Error duplicating task:', error);
-    SimpleErrorHandler.showError('Failed to duplicate task. Please try again.', error);
-  }
-};
-
-window.toggleTaskCompletion = async (taskId) => {
-  try {
-    const currentDate = state.getCurrentDate();
-    await taskInstanceManager.toggleByTemplateAndDate(taskId, currentDate);
-    SimpleErrorHandler.showSuccess('Task status updated!');
-  } catch (error) {
-    console.error('Error toggling task completion:', error);
-    SimpleErrorHandler.showError('Failed to update task status. Please try again.', error);
-  }
-};
 
 console.log('✅ UI management system initialized');

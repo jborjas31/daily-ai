@@ -8,6 +8,7 @@
 import { state } from '../state.js';
 import { taskInstanceManager } from '../taskLogic.js';
 import { SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
+import { editTask, duplicateTask } from '../logic/TaskActions.js';
 
 /**
  * Task Block Component Class
@@ -358,10 +359,8 @@ export class TaskBlock {
   handleEdit() {
     this.emitEvent('task-edit', { task: this.task });
     
-    // Call global edit function if available
-    if (typeof window.editTask === 'function') {
-      window.editTask(this.task.id);
-    }
+    // Call edit function
+    editTask(this.task.id);
   }
 
   /**
@@ -388,9 +387,7 @@ export class TaskBlock {
   handleMoreAction(action) {
     switch (action) {
       case 'Copy Task':
-        if (typeof window.duplicateTask === 'function') {
-          window.duplicateTask(this.task.id);
-        }
+        duplicateTask(this.task.id);
         break;
       case 'Skip Today':
         this.handleSkipToday();

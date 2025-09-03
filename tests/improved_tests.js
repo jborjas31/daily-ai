@@ -33,21 +33,22 @@ function testMemoryLeakPreventionStateGuards() {
   }
 }
 
-// Test 2: TaskList Recursion Prevention (fixed to use global instance)
+// Test 2: TaskList Recursion Prevention (updated for debug object)
 function testTaskListRecursionFix() {
   console.log('\n📋 Test 2: TaskList recursion prevention');
   
   try {
-    if (typeof taskList === 'undefined') {
-      console.log('❌ taskList not available globally');
+    if (!window.debug || typeof window.debug.taskList === 'undefined') {
+      console.log('❌ taskList not available in debug object');
+      console.log('ℹ️  taskList should be accessible via window.debug.taskList after global scope cleanup');
       return false;
     }
     
-    console.log('✅ taskList is globally accessible');
+    console.log('✅ taskList is accessible via debug object');
     console.log('ℹ️  Testing destroy method without actually calling it to avoid disrupting production instance');
     
     // Check if destroy method exists and doesn't have recursive calls
-    if (typeof taskList.destroy === 'function') {
+    if (typeof window.debug.taskList.destroy === 'function') {
       console.log('✅ TaskList destroy method exists');
       console.log('✅ TaskList recursion fix validated (method accessible without recursion setup)');
       return true;
@@ -61,24 +62,25 @@ function testTaskListRecursionFix() {
   }
 }
 
-// Test 3: Scheduling Engine Access and Methods
+// Test 3: Scheduling Engine Access and Methods (updated for debug object)
 function testSchedulingEngineAccess() {
   console.log('\n📋 Test 3: Scheduling engine accessibility');
   
   try {
-    if (typeof schedulingEngine === 'undefined') {
-      console.log('❌ schedulingEngine not available globally');
+    if (!window.debug || typeof window.debug.schedulingEngine === 'undefined') {
+      console.log('❌ schedulingEngine not available in debug object');
+      console.log('ℹ️  schedulingEngine should be accessible via window.debug.schedulingEngine after global scope cleanup');
       return false;
     }
     
-    console.log('✅ schedulingEngine is globally accessible');
+    console.log('✅ schedulingEngine is accessible via debug object');
     
     // Test method accessibility
     const methods = ['detectAndMarkConflicts', 'runSchedulingAlgorithm', 'generateScheduleForDate'];
     let allMethodsExist = true;
     
     methods.forEach(method => {
-      if (typeof schedulingEngine[method] === 'function') {
+      if (typeof window.debug.schedulingEngine[method] === 'function') {
         console.log(`✅ schedulingEngine.${method} exists`);
       } else {
         console.log(`❌ schedulingEngine.${method} not found`);

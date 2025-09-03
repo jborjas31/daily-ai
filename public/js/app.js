@@ -22,7 +22,7 @@ import { dataUtils } from './dataOffline.js';
 import { userSettingsManager } from './userSettings.js';
 
 // Import task logic and scheduling
-import { taskTemplateManager, schedulingEngine, taskInstanceManager } from './taskLogic.js';
+import { schedulingEngine, taskTemplateManager, taskInstanceManager } from './taskLogic.js';
 
 // Import UI management system
 import { uiController, authUI, mainAppUI } from './ui.js';
@@ -42,6 +42,12 @@ import { SafeEventListener, initMemoryLeakPrevention } from './utils/MemoryLeakP
 // Import offline functionality
 import { offlineDataLayer } from './utils/OfflineDataLayer.js';
 import { offlineDetection } from './utils/OfflineDetection.js';
+
+// Import task actions
+import { editTask, duplicateTask, toggleTaskCompletion } from './logic/TaskActions.js';
+
+// Create task modal instance
+export const taskModal = new TaskModalContainer();
 
 /**
  * Application initialization
@@ -144,6 +150,37 @@ export async function initApp() {
   }
 }
 
+/**
+ * Setup event delegation for task actions
+ */
+function setupTaskActionDelegation() {
+  // Event delegation for task actions
+  document.addEventListener('click', (e) => {
+    const action = e.target.dataset.action;
+    const taskId = e.target.dataset.taskId;
+    
+    if (!action || !taskId) return;
+    
+    switch (action) {
+      case 'edit-task':
+        editTask(taskId);
+        break;
+      case 'duplicate-task':
+        duplicateTask(taskId);
+        break;
+      case 'toggle-task-completion':
+        toggleTaskCompletion(taskId);
+        break;
+    }
+  });
+}
+
+// Initialize event delegation when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupTaskActionDelegation);
+} else {
+  setupTaskActionDelegation();
+}
 
 /**
  * Setup authentication event listeners
@@ -263,7 +300,7 @@ function setupAuthEventListeners() {
 function handleAddTaskAction() {
   console.log('🚀 Opening task creation modal...');
   
-  window.taskModal.showCreate({}, (savedTask) => {
+  taskModal.showCreate({}, (savedTask) => {
     console.log('Task created:', savedTask);
     // The UI will automatically update via state listeners
   });
@@ -301,66 +338,26 @@ function showErrorMessage(message) {
   }
 }
 
-// Global functions for backwards compatibility
-window.editTask = (taskId) => {
-  const taskTemplates = state.getTaskTemplates();
-  const task = taskTemplates.find(t => t.id === taskId);
-  
-  if (task) {
-    window.taskModal.showEdit(task, (savedTask) => {
-      console.log('Task updated:', savedTask);
-      // UI will update automatically via state listeners
-    });
-  }
-};
-
-window.duplicateTask = async (taskId) => {
-  try {
-    const uid = state.getUser()?.uid;
-    if (!uid) {
-      SimpleErrorHandler.showError('Please sign in to duplicate tasks.');
-      return;
-    }
-    await taskTemplateManager.duplicate(uid, taskId);
-    SimpleErrorHandler.showSuccess('Task duplicated successfully!');
-  } catch (error) {
-    console.error('Error duplicating task:', error);
-    SimpleErrorHandler.showError('Failed to duplicate task. Please try again.', error);
-  }
-};
-
-window.toggleTaskCompletion = async (taskId) => {
-  try {
-    const currentDate = state.getCurrentDate();
-    await taskInstanceManager.toggleByTemplateAndDate(taskId, currentDate);
-    SimpleErrorHandler.showSuccess('Task status updated!');
-  } catch (error) {
-    console.error('Error toggling task completion:', error);
-    SimpleErrorHandler.showError('Failed to update task status. Please try again.', error);
-  }
-};
 
 // Note: App initialization now handled by AppInitializer.js
 // document.addEventListener('DOMContentLoaded', initApp);
 
 // Expose objects globally for testing purposes
 // This allows the comprehensive test script to access required modules
-window.taskTemplateManager = taskTemplateManager;
-window.taskList = taskList;
-window.schedulingEngine = schedulingEngine;
-window.getState = () => state;
-window.stateActions = stateActions;
 
-// Expose Firebase auth helper for testing
-window.getCurrentFirebaseUser = () => {
-  if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth()) {
-    return firebase.auth().currentUser;
-  }
-  return null;
-};
+// Create a single global object for debugging (localhost only)
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  window.debug = {
+    taskList,
+    taskTemplateManager,
+    schedulingEngine,
+    taskInstanceManager,
+    state,
+    stateActions,
+  };
+  console.log('Debug object available at window.debug');
+}
 
-// Initialize Task Modal container globally
-window.taskModal = new TaskModalContainer();
 
 console.log('✅ Daily AI application module loaded');
 console.log('🧪 Testing objects exposed globally for console access');
