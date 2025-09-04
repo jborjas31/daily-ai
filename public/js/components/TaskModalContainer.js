@@ -5,7 +5,7 @@
  * This minimal container exposes no-op APIs so it can be safely
  * imported and wired behind a feature flag without behavior changes.
  */
-import { state } from '../state.js';
+import { state, stateActions } from '../state.js';
 import { SimpleErrorHandler } from '../utils/SimpleErrorHandler.js';
 import { TemplateBasicsSection } from './taskModal/TemplateBasicsSection.js';
 import { SchedulingSection } from './taskModal/SchedulingSection.js';
@@ -542,10 +542,18 @@ export class TaskModalContainer {
           };
           result = await state.overrideTaskInstanceForDate(this._formModel.id, editDate, instUpdates);
         } else {
-          result = await state.updateTaskTemplate(this._formModel.id, this._formModel);
+          const updateFn = (state && typeof state.updateTaskTemplate === 'function')
+            ? state.updateTaskTemplate
+            : (stateActions && typeof stateActions.updateTaskTemplate === 'function' ? stateActions.updateTaskTemplate : null);
+          if (!updateFn) throw new Error('Update API not available');
+          result = await updateFn(this._formModel.id, this._formModel);
         }
       } else {
-        result = await state.createTaskTemplate(this._formModel);
+        const createFn = (state && typeof state.createTaskTemplate === 'function')
+          ? state.createTaskTemplate
+          : (stateActions && typeof stateActions.createTaskTemplate === 'function' ? stateActions.createTaskTemplate : null);
+        if (!createFn) throw new Error('Create API not available');
+        result = await createFn(this._formModel);
       }
 
       SimpleErrorHandler.showSuccess(this._mode === 'edit' ? 'Template updated!' : 'Template created!');
@@ -606,7 +614,11 @@ export class TaskModalContainer {
     try {
       deleteBtn.disabled = true;
       deleteBtn.textContent = 'Deleting...';
-      await state.deleteTaskTemplate(this._formModel.id);
+      const delFn = (state && typeof state.deleteTaskTemplate === 'function')
+        ? state.deleteTaskTemplate
+        : (stateActions && typeof stateActions.deleteTaskTemplate === 'function' ? stateActions.deleteTaskTemplate : null);
+      if (!delFn) throw new Error('Delete API not available');
+      await delFn(this._formModel.id);
       SimpleErrorHandler.showSuccess('Template deleted.');
       this._isDirty = false;
       this.close();

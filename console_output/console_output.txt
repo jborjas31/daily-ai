@@ -1,205 +1,215 @@
-16:49:30.768 AppInitializer.js:7 🚀 Starting Daily AI initialization...
-16:49:30.769 ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
-16:49:30.769 ModernBrowserChecker.js:153   Features supported: true
-16:49:30.769 ModernBrowserChecker.js:157   Browser: chrome
-16:49:30.769 ModernBrowserChecker.js:158   Version: 139
-16:49:30.769 ModernBrowserChecker.js:159   Version supported: true
-16:49:30.770 AppInitializer.js:19 ✅ Browser compatibility check passed
-16:49:30.791 /favicon.ico:1  Failed to load resource: the server responded with a status of 404 ()
-16:49:30.929 sw.js:87 SW: Service Worker loaded
-16:49:30.930 (index):270 SW registered: ServiceWorkerRegistration
-16:49:30.930 sw.js:32 SW: Installing service worker
-16:49:30.930 sw.js:36 SW: Caching static assets
-16:49:31.328 sw.js:48 SW: Activating service worker
-16:49:31.376 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
-16:49:31.376 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
-16:49:31.376 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
-16:49:31.376 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
-16:49:31.377 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
-16:49:31.377 MemoryLeakPrevention.js:514 ✅ Memory Leak Prevention utility loaded
-16:49:31.377 OfflineStorage.js:827 ✅ OfflineStorage system initialized
-16:49:31.377 OfflineQueue.js:513 ✅ OfflineQueue system initialized
-16:49:31.378 ConflictResolution.js:675 ✅ ConflictResolution system initialized
-16:49:31.378 OfflineDetection.js:706 ✅ OfflineDetection system initialized
-16:49:31.378 DataMaintenance.js:850 ✅ DataMaintenance system initialized
-16:49:31.379 TaskValidation.js:793 ✅ Task Validation System initialized
-16:49:31.379 OfflineDataLayer.js:1296 ✅ Offline Data Layer initialized
-16:49:31.379 dataOffline.js:375 ✅ Offline-enabled data bridge initialized
-16:49:31.380 userSettings.js:458 ✅ User Settings management module loaded
-16:49:31.380 TaskInstanceManager.js:621 ✅ Streamlined TaskInstanceManager class loaded
-16:49:31.380 TemplateDefaultsService.js:343 ✅ TemplateDefaultsService loaded
-16:49:31.380 TemplateOperationsService.js:564 ✅ TemplateOperationsService loaded
-16:49:31.380 TaskTemplateManager.js:406 ✅ Streamlined TaskTemplateManager class loaded
-16:49:31.380 taskLogic.js:113 ✅ Task logic and scheduling engine initialized
-16:49:31.381 state.js:1267 ✅ Multi-tab synchronization initialized
-16:49:31.381 state.js:1270 ✅ Enhanced state management initialized with comprehensive template and instance support
-16:49:31.381 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskList
-16:49:31.382 TaskList.js:1341 ✅ Task list component initialized
-16:49:31.382 PerformanceMonitor.js:56 ✅ Performance Monitor initialized
-16:49:31.383 PerformanceMonitor.js:502 ✅ Performance Monitor utility loaded
-16:49:31.383 ui.js:961 ✅ UI management system initialized
-16:49:31.384 app.js:393 ✅ Daily AI application module loaded
-16:49:31.384 app.js:394 🧪 Testing objects exposed globally for console access
-16:49:31.384 app.js:59 🚀 Initializing Daily AI...
-16:49:31.384 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
-16:49:31.384 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
-16:49:31.384 OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
-16:49:31.386 OfflineStorage.js:134 ✅ OfflineStorage: Database stores created
-16:49:31.388 OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
-16:49:31.388 OfflineQueue.js:193 🔄 OfflineQueue: Processing started
-16:49:31.388 OfflineQueue.js:91 ✅ OfflineQueue: Queue system initialized
-16:49:31.389 OfflineDetection.js:72 ✅ OfflineDetection: System initialized
-16:49:31.389 DataMaintenance.js:56 ✅ DataMaintenance: System initialized
-16:49:31.389 OfflineDataLayer.js:85 🔧 OfflineDataLayer: Performing initial maintenance...
-16:49:31.391 OfflineDataLayer.js:100 ✅ OfflineDataLayer: Initial maintenance complete
-16:49:31.391 OfflineDataLayer.js:54 ✅ OfflineDataLayer: Initialization complete
-16:49:31.391 app.js:66 ✅ Offline system initialized
-16:49:31.391 ui.js:69 ✅ UI system initialized
-16:49:31.391 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
-16:49:31.391 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
-16:49:31.391 app.js:73 ✅ Network monitoring initialized
-16:49:31.391 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
-16:49:31.391 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1757018971391_ua0tktpel
-16:49:31.391 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1757018971391_ua0tktpel
-16:49:31.391 SimpleTabSync.js:19 Tab tab_1757018971391_ua0tktpel initialized
-16:49:31.391 app.js:77 ✅ Tab synchronization initialized
-16:49:31.458 firebase.js:19 ✅ Firebase initialized
-16:49:31.458 app.js:81 ✅ Firebase initialized
-16:49:31.458 app.js:136 🔒 User not authenticated, showing login
-16:49:31.459 AppInitializer.js:27 ✅ App initialized successfully
-16:49:31.459 (index):288 ✅ Daily AI loaded successfully
-16:49:31.563 (index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" class=​"input" required placeholder=​"Enter your password">​
-16:49:45.402 app.js:92 ✅ User authenticated: yearmonthday365@gmail.com
-16:49:45.403 app.js:101 🔧 Step 1: Initializing user settings...
-16:49:45.403 userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
-16:49:45.831 userSettings.js:119 📄 User settings loaded from Firestore
-16:49:45.831 userSettings.js:89 ✅ Loaded existing user settings
-16:49:45.831 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-16:49:45.831 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-16:49:45.843 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-16:49:45.843 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-16:49:45.843 actions.user.js:39 ✅ User data initialized with comprehensive settings
-16:49:45.843 app.js:103 ✅ Step 1 complete: User settings initialized
-16:49:45.843 app.js:105 🔧 Step 2: Loading task templates...
-16:49:45.843 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
-16:49:46.175 data.js:87 ✅ Retrieved 0 task templates
-16:49:46.175 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-16:49:46.175 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-16:49:46.176 actions.templates.js:155 ✅ Task templates loaded (0 templates)
-16:49:46.176 app.js:107 ✅ Step 2 complete: Task templates loaded
-16:49:46.176 app.js:111 🔧 Step 3: Loading task instances for today: 2025-09-04
-16:49:46.297 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-16:49:46.297 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-16:49:46.297 actions.instances.js:224 ✅ Task instances loaded for 2025-09-04 (0 instances)
-16:49:46.297 app.js:113 ✅ Step 3 complete: Task instances loaded
-16:49:46.297 app.js:115 🔧 Step 4: Loading daily schedule for today: 2025-09-04
-16:49:46.297 data.js:21 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
-16:49:46.419 actions.app.js:74 ✅ Daily schedule loaded for 2025-09-04
-16:49:46.419 app.js:117 ✅ Step 4 complete: Daily schedule loaded
-16:49:46.419 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-16:49:46.419 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-16:49:46.440 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: ResponsiveNavigation
-16:49:46.440 ResponsiveNavigation.js:23 🧭 Initializing responsive navigation...
-16:49:46.440 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu toggle button
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu click outside
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu escape key
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-today-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-library-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-settings-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-today-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-library-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-settings-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-today-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-library-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-settings-btn
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button fab
-16:49:46.441 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button desktop-add-task-btn
-16:49:46.441 ResponsiveNavigation.js:205 🧭 Switching to view: today
-16:49:46.442 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-16:49:46.442 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-16:49:46.442 ResponsiveNavigation.js:250 ✅ View switched to: today
-16:49:46.443 MemoryLeakPrevention.js:51 📅 Registered interval: Navigation live clock updates (30000ms)
-16:49:46.443 ResponsiveNavigation.js:297 🕐 Live clock started (updates every 30 seconds)
-16:49:46.443 MemoryLeakPrevention.js:98 👂 Registered event listener: Window resize for responsive navigation
-16:49:46.443 ResponsiveNavigation.js:41 ✅ Responsive navigation initialized
-16:49:53.685 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
-16:49:53.690 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
-16:49:53.690 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
-16:49:54.773 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'T'}
-16:49:54.773 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
-16:49:54.897 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Te'}
-16:49:54.972 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Tes'}
-16:49:55.047 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test'}
-16:49:55.485 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test '}
-16:49:55.672 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test T'}
-16:49:55.860 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Ta'}
-16:49:55.935 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Tas'}
-16:49:56.672 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task'}
-16:49:58.985 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'T'}
-16:49:59.110 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Te'}
-16:49:59.160 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Tes'}
-16:49:59.247 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test'}
-16:49:59.372 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
-16:49:59.773 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test D'}
-16:50:00.098 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
-16:50:01.073 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test D'}
-16:50:01.460 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test De'}
-16:50:01.672 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Des'}
-16:50:01.822 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Desc'}
-16:50:02.010 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Descr'}
-16:50:02.073 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Descri'}
-16:50:02.148 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Descrip'}
-16:50:02.223 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Descript'}
-16:50:02.272 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Descripti'}
-16:50:02.323 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Descriptio'}
-16:50:02.385 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Description'}
-16:50:03.722 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'T'}
-16:50:03.847 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Te'}
-16:50:03.922 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Tes'}
-16:50:03.997 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test'}
-16:50:04.147 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test '}
-16:50:04.435 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test C'}
-16:50:04.597 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Ca'}
-16:50:04.685 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Car'}
-16:50:05.872 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Car\\'}
-16:50:06.860 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Car'}
-16:50:06.985 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Ca'}
-16:50:07.135 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cat'}
-16:50:07.210 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cate'}
-16:50:07.422 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categ'}
-16:50:08.335 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Catego'}
-16:50:08.535 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categor'}
-16:50:08.647 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Category'}
-16:50:12.121 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {timeWindow: 'evening'}
-16:50:20.895 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
-16:50:25.493 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {schedulingType: 'fixed'}
-16:50:28.359 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {defaultTime: '01:30'}
-16:50:28.796 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {defaultTime: '18:30'}
-16:50:34.485 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
-16:51:01.050 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {schedulingType: 'flexible'}
-16:51:09.038 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {timeWindow: 'anytime'}
-16:51:14.099 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
-16:51:31.087 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
-16:51:32.145 ActionsFooter.js:34 [Violation] 'click' handler took 1058ms
-16:51:33.021 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
-16:51:33.024 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
-16:51:33.024 TaskModalContainer.js:80 [TaskModalContainer] draft restored (create) {taskName: 'Test Task', description: 'Test Description', category: 'Test Category', durationMinutes: 30, minDurationMinutes: 15, …}
-16:51:33.025 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: 'Test Task', description: 'Test Description', category: 'Test Category', durationMinutes: 30, minDurationMinutes: 15, …}
-16:51:36.067 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {schedulingType: 'fixed'}
-16:51:36.067 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
-16:51:53.459 ui.js:158 📱 Updating responsive elements
-16:51:53.459 MemoryLeakPrevention.js:75 ⏰ Registered timeout: Responsive visibility update debounce (100ms)
-16:52:00.307 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {recurrenceRule: {…}}
-16:52:01.792 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {recurrenceRule: {…}}
-16:52:09.583 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
-16:52:29.675 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
-16:52:33.861 TaskModalContainer.js:326 [Violation] 'click' handler took 4185ms
-16:52:35.533 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
-16:52:36.314 ActionsFooter.js:34 [Violation] 'click' handler took 781ms
-16:52:37.588 ResponsiveNavigation.js:365 ➕ Add task button clicked
-16:52:37.588 app.js:332 🚀 Opening task creation modal... {source: 'navigation', currentView: 'today'}
-16:52:37.588 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
-16:52:37.590 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
-16:52:37.590 TaskModalContainer.js:80 [TaskModalContainer] draft restored (create) {taskName: 'Test Task', description: 'Test Description', category: 'Test Category', durationMinutes: 30, minDurationMinutes: 15, …}
-16:52:37.590 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: 'Test Task', description: 'Test Description', category: 'Test Category', durationMinutes: 30, minDurationMinutes: 15, …}
-16:52:41.443 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
+18:35:39.524 AppInitializer.js:7 🚀 Starting Daily AI initialization...
+18:35:39.525 ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
+18:35:39.525 ModernBrowserChecker.js:153   Features supported: true
+18:35:39.525 ModernBrowserChecker.js:157   Browser: chrome
+18:35:39.525 ModernBrowserChecker.js:158   Version: 139
+18:35:39.525 ModernBrowserChecker.js:159   Version supported: true
+18:35:39.525 AppInitializer.js:19 ✅ Browser compatibility check passed
+18:35:39.645 sw.js:87 SW: Service Worker loaded
+18:35:39.646 sw.js:32 SW: Installing service worker
+18:35:39.646 (index):270 SW registered: ServiceWorkerRegistration {installing: ServiceWorker, waiting: null, active: null, navigationPreload: NavigationPreloadManager, scope: 'https://daily-ai-3b51f.web.app/', …}
+18:35:39.646 sw.js:36 SW: Caching static assets
+18:35:40.166 sw.js:48 SW: Activating service worker
+18:35:40.211 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
+18:35:40.212 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
+18:35:40.212 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
+18:35:40.212 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
+18:35:40.212 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+18:35:40.212 MemoryLeakPrevention.js:514 ✅ Memory Leak Prevention utility loaded
+18:35:40.212 OfflineStorage.js:827 ✅ OfflineStorage system initialized
+18:35:40.212 OfflineQueue.js:513 ✅ OfflineQueue system initialized
+18:35:40.212 ConflictResolution.js:675 ✅ ConflictResolution system initialized
+18:35:40.213 OfflineDetection.js:706 ✅ OfflineDetection system initialized
+18:35:40.213 DataMaintenance.js:850 ✅ DataMaintenance system initialized
+18:35:40.213 TaskValidation.js:802 ✅ Task Validation System initialized
+18:35:40.213 OfflineDataLayer.js:1296 ✅ Offline Data Layer initialized
+18:35:40.214 dataOffline.js:375 ✅ Offline-enabled data bridge initialized
+18:35:40.214 userSettings.js:458 ✅ User Settings management module loaded
+18:35:40.214 TaskInstanceManager.js:621 ✅ Streamlined TaskInstanceManager class loaded
+18:35:40.214 TemplateDefaultsService.js:343 ✅ TemplateDefaultsService loaded
+18:35:40.214 TemplateOperationsService.js:564 ✅ TemplateOperationsService loaded
+18:35:40.214 TaskTemplateManager.js:406 ✅ Streamlined TaskTemplateManager class loaded
+18:35:40.214 taskLogic.js:113 ✅ Task logic and scheduling engine initialized
+18:35:40.215 state.js:1267 ✅ Multi-tab synchronization initialized
+18:35:40.215 state.js:1270 ✅ Enhanced state management initialized with comprehensive template and instance support
+18:35:40.215 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskList
+18:35:40.215 TaskList.js:1341 ✅ Task list component initialized
+18:35:40.215 PerformanceMonitor.js:56 ✅ Performance Monitor initialized
+18:35:40.215 PerformanceMonitor.js:502 ✅ Performance Monitor utility loaded
+18:35:40.215 ui.js:961 ✅ UI management system initialized
+18:35:40.216 app.js:393 ✅ Daily AI application module loaded
+18:35:40.216 app.js:394 🧪 Testing objects exposed globally for console access
+18:35:40.216 app.js:59 🚀 Initializing Daily AI...
+18:35:40.216 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
+18:35:40.216 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+18:35:40.216 OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
+18:35:40.219 OfflineStorage.js:134 ✅ OfflineStorage: Database stores created
+18:35:40.221 OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
+18:35:40.221 OfflineQueue.js:193 🔄 OfflineQueue: Processing started
+18:35:40.221 OfflineQueue.js:91 ✅ OfflineQueue: Queue system initialized
+18:35:40.222 OfflineDetection.js:72 ✅ OfflineDetection: System initialized
+18:35:40.222 DataMaintenance.js:56 ✅ DataMaintenance: System initialized
+18:35:40.222 OfflineDataLayer.js:85 🔧 OfflineDataLayer: Performing initial maintenance...
+18:35:40.224 OfflineDataLayer.js:100 ✅ OfflineDataLayer: Initial maintenance complete
+18:35:40.224 OfflineDataLayer.js:54 ✅ OfflineDataLayer: Initialization complete
+18:35:40.224 app.js:66 ✅ Offline system initialized
+18:35:40.224 ui.js:69 ✅ UI system initialized
+18:35:40.224 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
+18:35:40.224 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
+18:35:40.224 app.js:73 ✅ Network monitoring initialized
+18:35:40.225 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
+18:35:40.225 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1757025340225_hlkx1ld7u
+18:35:40.225 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1757025340225_hlkx1ld7u
+18:35:40.225 SimpleTabSync.js:19 Tab tab_1757025340225_hlkx1ld7u initialized
+18:35:40.225 app.js:77 ✅ Tab synchronization initialized
+18:35:40.298 firebase.js:19 ✅ Firebase initialized
+18:35:40.298 app.js:81 ✅ Firebase initialized
+18:35:40.298 app.js:136 🔒 User not authenticated, showing login
+18:35:40.299 AppInitializer.js:27 ✅ App initialized successfully
+18:35:40.299 (index):288 ✅ Daily AI loaded successfully
+18:35:40.411 (index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" class=​"input" required placeholder=​"Enter your password">​
+18:35:51.397 app.js:92 ✅ User authenticated: yearmonthday365@gmail.com
+18:35:51.397 app.js:101 🔧 Step 1: Initializing user settings...
+18:35:51.398 userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:35:51.698 userSettings.js:119 📄 User settings loaded from Firestore
+18:35:51.698 userSettings.js:89 ✅ Loaded existing user settings
+18:35:51.699 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:35:51.699 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:35:51.710 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:35:51.710 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:35:51.710 actions.user.js:39 ✅ User data initialized with comprehensive settings
+18:35:51.710 app.js:103 ✅ Step 1 complete: User settings initialized
+18:35:51.710 app.js:105 🔧 Step 2: Loading task templates...
+18:35:51.711 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:35:51.963 data.js:87 ✅ Retrieved 0 task templates
+18:35:51.963 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:35:51.964 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:35:51.964 actions.templates.js:155 ✅ Task templates loaded (0 templates)
+18:35:51.964 app.js:107 ✅ Step 2 complete: Task templates loaded
+18:35:51.964 app.js:111 🔧 Step 3: Loading task instances for today: 2025-09-04
+18:35:52.071 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:35:52.071 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:35:52.071 actions.instances.js:224 ✅ Task instances loaded for 2025-09-04 (0 instances)
+18:35:52.071 app.js:113 ✅ Step 3 complete: Task instances loaded
+18:35:52.071 app.js:115 🔧 Step 4: Loading daily schedule for today: 2025-09-04
+18:35:52.071 data.js:21 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:35:52.176 actions.app.js:74 ✅ Daily schedule loaded for 2025-09-04
+18:35:52.176 app.js:117 ✅ Step 4 complete: Daily schedule loaded
+18:35:52.177 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:35:52.177 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:35:52.198 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: ResponsiveNavigation
+18:35:52.198 ResponsiveNavigation.js:23 🧭 Initializing responsive navigation...
+18:35:52.198 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu toggle button
+18:35:52.198 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu click outside
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu escape key
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-today-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-library-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-settings-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-today-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-library-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-settings-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-today-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-library-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-settings-btn
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button fab
+18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button desktop-add-task-btn
+18:35:52.199 ResponsiveNavigation.js:205 🧭 Switching to view: today
+18:35:52.200 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:35:52.200 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:35:52.201 ResponsiveNavigation.js:250 ✅ View switched to: today
+18:35:52.201 MemoryLeakPrevention.js:51 📅 Registered interval: Navigation live clock updates (30000ms)
+18:35:52.201 ResponsiveNavigation.js:297 🕐 Live clock started (updates every 30 seconds)
+18:35:52.201 MemoryLeakPrevention.js:98 👂 Registered event listener: Window resize for responsive navigation
+18:35:52.201 ResponsiveNavigation.js:41 ✅ Responsive navigation initialized
+18:35:55.134 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
+18:35:55.138 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:35:55.138 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:35:56.193 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'T'}
+18:35:56.194 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
+18:35:56.305 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Te'}
+18:35:56.381 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Tes'}
+18:35:56.430 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test'}
+18:35:56.518 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test '}
+18:35:56.980 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test T'}
+18:35:57.118 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Ta'}
+18:35:57.193 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Tas'}
+18:35:57.280 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task'}
+18:35:57.380 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task '}
+18:35:57.593 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task N'}
+18:35:57.718 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Na'}
+18:35:57.780 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Nam'}
+18:35:57.881 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Name'}
+18:35:58.793 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'T'}
+18:35:58.930 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Te'}
+18:35:58.993 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Tes'}
+18:35:59.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test'}
+18:35:59.131 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
+18:35:59.293 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test T'}
+18:35:59.455 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Ta'}
+18:35:59.493 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Tas'}
+18:35:59.605 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task'}
+18:35:59.693 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task '}
+18:36:00.080 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task D'}
+18:36:00.255 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task De'}
+18:36:00.318 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Des'}
+18:36:00.480 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Desc'}
+18:36:00.643 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descr'}
+18:36:00.730 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descri'}
+18:36:00.805 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrip'}
+18:36:00.955 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descript'}
+18:36:01.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descripti'}
+18:36:01.105 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descriptio'}
+18:36:01.143 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Description'}
+18:36:02.943 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'T'}
+18:36:03.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Te'}
+18:36:03.117 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Tes'}
+18:36:03.193 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test'}
+18:36:03.305 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test '}
+18:36:03.568 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test C'}
+18:36:03.730 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Ca'}
+18:36:03.868 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cat'}
+18:36:04.055 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cate'}
+18:36:04.144 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categ'}
+18:36:04.268 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Catego'}
+18:36:04.355 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categor'}
+18:36:04.443 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Category'}
+18:36:06.954 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {timeWindow: 'evening'}
+18:36:11.843 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
+18:36:11.844 TaskModalContainer.js:560 [TaskModalContainer] save failed TypeError: state.createTaskTemplate is not a function
+    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
+    at _boundSubmitHandler (TaskModalContainer.js:367:12)
+    at TaskModalContainer._dispatch (TaskModalContainer.js:239:25)
+    at TaskModalContainer.requestSubmit (TaskModalContainer.js:209:10)
+    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
+_handleSave @ TaskModalContainer.js:560
+_boundSubmitHandler @ TaskModalContainer.js:367
+_dispatch @ TaskModalContainer.js:239
+requestSubmit @ TaskModalContainer.js:209
+(anonymous) @ ActionsFooter.js:60
+18:36:11.844 SimpleErrorHandler.js:11 Error details: TypeError: state.createTaskTemplate is not a function
+    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
+    at _boundSubmitHandler (TaskModalContainer.js:367:12)
+    at TaskModalContainer._dispatch (TaskModalContainer.js:239:25)
+    at TaskModalContainer.requestSubmit (TaskModalContainer.js:209:10)
+    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
+showError @ SimpleErrorHandler.js:11
+_handleSave @ TaskModalContainer.js:561
+_boundSubmitHandler @ TaskModalContainer.js:367
+_dispatch @ TaskModalContainer.js:239
+requestSubmit @ TaskModalContainer.js:209
+(anonymous) @ ActionsFooter.js:60
+18:36:11.845 TaskModalContainer.js:560 [TaskModalContainer] save failed TypeError: state.createTaskTemplate is not a function
+    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
+    at TaskModalContainer.requestSubmit (TaskModalContainer.js:213:12)
+    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
+_handleSave @ TaskModalContainer.js:560
+requestSubmit @ TaskModalContainer.js:213
+(anonymous) @ ActionsFooter.js:60
+18:36:11.845 SimpleErrorHandler.js:11 Error details: TypeError: state.createTaskTemplate is not a function
+    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
+    at TaskModalContainer.requestSubmit (TaskModalContainer.js:213:12)
+    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
+showError @ SimpleErrorHandler.js:11
+_handleSave @ TaskModalContainer.js:561
+requestSubmit @ TaskModalContainer.js:213
+(anonymous) @ ActionsFooter.js:60
