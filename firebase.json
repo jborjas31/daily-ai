@@ -26,9 +26,15 @@
         ]
       },
       {
-        "source": "**/*.@(css|js|png|jpg|jpeg|gif|svg|webp|json|woff|woff2|ttf)",
+        "source": "**/*.@(css|png|jpg|jpeg|gif|svg|webp|json|woff|woff2|ttf)",
         "headers": [
           { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        ]
+      },
+      {
+        "source": "**/*.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
         ]
       }
     ]
