@@ -404,18 +404,18 @@ export class SchedulingEngine {
       });
     });
     
-    // Build dependency relationships
+    // Build dependency relationships (supports multiple dependencies)
     tasks.forEach(task => {
-      if (task.dependsOn) {
-        const node = dependencyGraph.get(task.id);
-        if (taskMap.has(task.dependsOn)) {
-          node.dependencies.push(task.dependsOn);
-          const depNode = dependencyGraph.get(task.dependsOn);
-          if (depNode) {
-            depNode.dependents.push(task.id);
-          }
+      if (!task.dependsOn) return;
+      const node = dependencyGraph.get(task.id);
+      const deps = Array.isArray(task.dependsOn) ? task.dependsOn : [task.dependsOn];
+      deps.forEach(depId => {
+        if (taskMap.has(depId)) {
+          node.dependencies.push(depId);
+          const depNode = dependencyGraph.get(depId);
+          if (depNode) depNode.dependents.push(task.id);
         }
-      }
+      });
     });
     
     // Perform topological sort using Kahn's algorithm
@@ -488,11 +488,12 @@ export class SchedulingEngine {
     // Create lookup map for all tasks
     tasks.forEach(task => taskMap.set(task.id, task));
     
-    // Build dependency map for quick lookups
+    // Build dependency map for quick lookups (taskId -> string[])
     const dependencyMap = new Map();
     orderedTasks.forEach(task => {
       if (task.dependsOn) {
-        dependencyMap.set(task.id, task.dependsOn);
+        const deps = Array.isArray(task.dependsOn) ? task.dependsOn : [task.dependsOn];
+        if (deps.length > 0) dependencyMap.set(task.id, deps);
       }
     });
     
@@ -551,26 +552,22 @@ export class SchedulingEngine {
    * @returns {string|null} Earliest start time in HH:MM format, or null if no dependencies
    */
   calculateEarliestStartTime(task, schedule, dependencyMap) {
-    if (!dependencyMap.has(task.id)) {
-      return null; // No dependencies, can start anytime
-    }
-    
-    const dependencyId = dependencyMap.get(task.id);
-    const dependency = schedule.find(t => t.id === dependencyId);
-    
-    if (!dependency || !dependency.scheduledTime) {
-      return null; // Dependency not scheduled yet
-    }
-    
-    // Calculate when dependency ends
-    const depStartMinutes = this.timeStringToMinutes(dependency.scheduledTime);
-    const depDurationMinutes = dependency.durationMinutes || 30;
-    const depEndMinutes = depStartMinutes + depDurationMinutes;
-    
-    // Add 5-minute buffer after dependency completion
-    const earliestStartMinutes = depEndMinutes + 5;
-    
-    return this.minutesToTimeString(earliestStartMinutes);
+    if (!dependencyMap.has(task.id)) return null; // No dependencies
+
+    const depIds = dependencyMap.get(task.id) || [];
+    let maxEnd = null;
+    depIds.forEach(depId => {
+      const dep = schedule.find(t => t.id === depId);
+      if (!dep || !dep.scheduledTime) return;
+      const start = this.timeStringToMinutes(dep.scheduledTime);
+      const end = start + (dep.durationMinutes || 30);
+      if (maxEnd === null || end > maxEnd) maxEnd = end;
+    });
+
+    if (maxEnd === null) return null; // Dependencies not scheduled yet
+
+    // Add 5-minute buffer after the latest dependency completes
+    return this.minutesToTimeString(maxEnd + 5);
   }
 
   /**
@@ -637,23 +634,20 @@ export class SchedulingEngine {
    * @returns {boolean} True if dependency constraints are satisfied
    */
   validateDependencyConstraints(scheduledTask, schedule, dependencyMap) {
-    if (!dependencyMap.has(scheduledTask.id)) {
-      return true; // No dependencies to validate
+    if (!dependencyMap.has(scheduledTask.id)) return true; // No dependencies to validate
+
+    const depIds = dependencyMap.get(scheduledTask.id) || [];
+    const taskStart = this.timeStringToMinutes(scheduledTask.scheduledTime);
+
+    // All dependencies must be scheduled and completed before this task starts
+    for (const depId of depIds) {
+      const dep = schedule.find(t => t.id === depId);
+      if (!dep || !dep.scheduledTime) return false;
+      const depStart = this.timeStringToMinutes(dep.scheduledTime);
+      const depEnd = depStart + (dep.durationMinutes || 30);
+      if (taskStart < depEnd) return false;
     }
-    
-    const dependencyId = dependencyMap.get(scheduledTask.id);
-    const dependency = schedule.find(t => t.id === dependencyId);
-    
-    if (!dependency || !dependency.scheduledTime) {
-      return false; // Dependency not found or not scheduled
-    }
-    
-    const taskStartMinutes = this.timeStringToMinutes(scheduledTask.scheduledTime);
-    const depStartMinutes = this.timeStringToMinutes(dependency.scheduledTime);
-    const depEndMinutes = depStartMinutes + (dependency.durationMinutes || 30);
-    
-    // Task should start after dependency ends (with small buffer)
-    return taskStartMinutes >= depEndMinutes;
+    return true;
   }
 
   /**
@@ -747,34 +741,34 @@ export class SchedulingEngine {
         }
       }
 
-      // Check for dependency conflicts
+      // Check for dependency conflicts (support multiple dependencies)
       if (taskA.dependsOn) {
-        const dependency = taskMap.get(taskA.dependsOn);
-        if (dependency && dependency.scheduledTime) {
-          const depStart = this.timeStringToMinutes(dependency.scheduledTime);
-          const depEnd = depStart + (dependency.durationMinutes || 30);
-          
-          // Check if task starts before dependency ends
-          if (taskAStart < depEnd) {
+        const deps = Array.isArray(taskA.dependsOn) ? taskA.dependsOn : [taskA.dependsOn];
+        deps.forEach(depId => {
+          const dependency = taskMap.get(depId);
+          if (dependency && dependency.scheduledTime) {
+            const depStart = this.timeStringToMinutes(dependency.scheduledTime);
+            const depEnd = depStart + (dependency.durationMinutes || 30);
+            if (taskAStart < depEnd) {
+              dependencyConflicts.push({
+                type: 'dependency_violation',
+                conflictWith: dependency.id,
+                conflictWithName: dependency.taskName,
+                issue: 'Task starts before dependency completes',
+                taskStart: taskA.scheduledTime,
+                dependencyEnd: this.minutesToTimeString(depEnd),
+                violationMinutes: depEnd - taskAStart
+              });
+            }
+          } else {
             dependencyConflicts.push({
-              type: 'dependency_violation',
-              conflictWith: dependency.id,
-              conflictWithName: dependency.taskName,
-              issue: 'Task starts before dependency completes',
-              taskStart: taskA.scheduledTime,
-              dependencyEnd: this.minutesToTimeString(depEnd),
-              violationMinutes: depEnd - taskAStart
+              type: 'missing_dependency',
+              conflictWith: depId,
+              conflictWithName: 'Unknown Task',
+              issue: 'Required dependency not scheduled'
             });
           }
-        } else if (!dependency) {
-          // Dependency not found in schedule
-          dependencyConflicts.push({
-            type: 'missing_dependency',
-            conflictWith: taskA.dependsOn,
-            conflictWithName: 'Unknown Task',
-            issue: 'Required dependency not scheduled'
-          });
-        }
+        });
       }
 
       // Combine all conflicts

@@ -379,41 +379,45 @@ export class TaskTemplateValidator {
   validateDependencies(templateData, existingTemplates = []) {
     const result = new ValidationResult();
 
-    if (!templateData.dependsOn) {
+    // Treat missing or empty dependencies as valid (optional field)
+    if (!templateData.dependsOn || (Array.isArray(templateData.dependsOn) && templateData.dependsOn.length === 0)) {
       return result;
     }
 
-    // Check if dependency exists
-    const dependencyExists = existingTemplates.some(template => template.id === templateData.dependsOn);
-    if (!dependencyExists) {
-      result.addError(`Dependency task not found: ${templateData.dependsOn}`, 'dependsOn');
+    // Normalize to array for consistent handling
+    const depIds = Array.isArray(templateData.dependsOn) ? templateData.dependsOn : [templateData.dependsOn];
+
+    // Existence check for each dependency id
+    const missing = depIds.filter(id => !existingTemplates.some(t => t.id === id));
+    if (missing.length > 0) {
+      // Report each missing dependency
+      missing.forEach(id => result.addError(`Dependency task not found: ${id}`, 'dependsOn'));
       return result;
     }
 
-    // Get the dependency template
-    const dependencyTemplate = existingTemplates.find(template => template.id === templateData.dependsOn);
-    
-    // Check for self-dependency
-    if (templateData.id && templateData.dependsOn === templateData.id) {
+    // Self-dependency check
+    if (templateData.id && depIds.includes(templateData.id)) {
       result.addError('Task cannot depend on itself', 'dependsOn');
       return result;
     }
 
-    // Check for circular dependencies
+    // Circular dependency detection (supports multiple dependencies)
     const circularCheck = this.detectCircularDependencies(templateData, existingTemplates);
     if (circularCheck.hasCircularDependency) {
       result.addError(`Circular dependency detected: ${circularCheck.path.join(' → ')}`, 'dependsOn');
     }
 
-    // Validate dependency makes logical sense
-    if (dependencyTemplate) {
+    // Logical consistency warnings for each dependency
+    const dependencyTemplates = depIds
+      .map(id => existingTemplates.find(t => t.id === id))
+      .filter(Boolean);
+
+    for (const dependencyTemplate of dependencyTemplates) {
       // Warning if both tasks are fixed-time and dependency is scheduled later
       if (templateData.schedulingType === 'fixed' && dependencyTemplate.schedulingType === 'fixed' &&
           templateData.defaultTime && dependencyTemplate.defaultTime) {
-        
         const taskTime = this.timeStringToMinutes(templateData.defaultTime);
         const depTime = this.timeStringToMinutes(dependencyTemplate.defaultTime);
-        
         if (taskTime <= depTime) {
           result.addWarning('Task is scheduled before or at same time as its dependency', 'dependsOn');
         }
@@ -439,36 +443,41 @@ export class TaskTemplateValidator {
    * Detect circular dependencies using depth-first search
    */
   detectCircularDependencies(templateData, existingTemplates, visited = new Set(), path = []) {
-    if (!templateData.dependsOn) {
+    // No dependencies
+    if (!templateData.dependsOn || (Array.isArray(templateData.dependsOn) && templateData.dependsOn.length === 0)) {
       return { hasCircularDependency: false, path: [] };
     }
 
     const currentId = templateData.id || 'new-task';
-    const dependencyId = templateData.dependsOn;
+    const dependencyIds = Array.isArray(templateData.dependsOn) ? templateData.dependsOn : [templateData.dependsOn];
 
-    // Add current task to path
+    // Add current to path
     const currentPath = [...path, currentId];
 
-    // Check if we've found a cycle
-    if (visited.has(dependencyId)) {
-      const cycleStartIndex = currentPath.indexOf(dependencyId);
-      if (cycleStartIndex !== -1) {
-        return { 
-          hasCircularDependency: true, 
-          path: [...currentPath.slice(cycleStartIndex), dependencyId] 
-        };
+    // Explore each dependency
+    for (const dependencyId of dependencyIds) {
+      // Cycle check
+      if (visited.has(dependencyId)) {
+        const cycleStartIndex = currentPath.indexOf(dependencyId);
+        if (cycleStartIndex !== -1) {
+          return {
+            hasCircularDependency: true,
+            path: [...currentPath.slice(cycleStartIndex), dependencyId]
+          };
+        }
       }
+
+      const dependencyTemplate = existingTemplates.find(t => t.id === dependencyId);
+      if (!dependencyTemplate) continue;
+
+      // Continue DFS
+      const nextVisited = new Set(visited);
+      nextVisited.add(currentId);
+      const check = this.detectCircularDependencies(dependencyTemplate, existingTemplates, nextVisited, currentPath);
+      if (check.hasCircularDependency) return check;
     }
 
-    // Find the dependency template
-    const dependencyTemplate = existingTemplates.find(template => template.id === dependencyId);
-    if (!dependencyTemplate) {
-      return { hasCircularDependency: false, path: [] };
-    }
-
-    // Continue the search
-    visited.add(currentId);
-    return this.detectCircularDependencies(dependencyTemplate, existingTemplates, visited, currentPath);
+    return { hasCircularDependency: false, path: [] };
   }
 
   /**

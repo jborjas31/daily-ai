@@ -138,12 +138,10 @@ export class TaskBlock {
       metaItems.push(`🕐 ${this.task.timeWindow}`);
     }
     
-    // Dependencies
+    // Dependencies (support multiple)
     if (this.task.dependsOn) {
-      const dependentTask = this.getDependentTaskName();
-      if (dependentTask) {
-        metaItems.push(`🔗 After: ${dependentTask}`);
-      }
+      const depLabel = this.getDependencyLabel();
+      if (depLabel) metaItems.push(`🔗 After: ${depLabel}`);
     }
     
     // Recurrence
@@ -221,14 +219,23 @@ export class TaskBlock {
   }
 
   /**
-   * Get dependent task name for display
+   * Get dependency label for display (handles arrays or single id)
    */
-  getDependentTaskName() {
+  getDependencyLabel() {
     if (!this.task.dependsOn) return null;
-    
+    const ids = Array.isArray(this.task.dependsOn) ? this.task.dependsOn : [this.task.dependsOn];
+    if (ids.length === 0) return null;
+    const names = this.getDependencyNames(ids);
+    if (names.length === 0) return null;
+    // Join names; for many deps, show up to 3 for brevity
+    if (names.length <= 3) return names.join(', ');
+    return `${names.slice(0, 3).join(', ')} +${names.length - 3} more`;
+  }
+
+  getDependencyNames(ids) {
     const allTasks = state.getTaskTemplates();
-    const dependentTask = allTasks.find(t => t.id === this.task.dependsOn);
-    return dependentTask ? dependentTask.taskName : 'Unknown Task';
+    const byId = new Map(allTasks.map(t => [t.id, t.taskName]));
+    return ids.map(id => byId.get(id) || 'Unknown Task');
   }
 
   /**
