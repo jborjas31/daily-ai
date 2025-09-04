@@ -13,8 +13,10 @@ export class RecurrenceEngine {
    * @returns {boolean} - True if an instance should be generated
    */
   shouldGenerateForDate(template, date) {
+    // Treat templates with no recurrence (or 'none') as eligible for today's schedule.
+    // This ensures new tasks appear on the timeline by default unless a rule restricts them.
     if (!template.recurrenceRule || template.recurrenceRule.frequency === 'none') {
-      return false; // One-time tasks don't auto-generate
+      return true;
     }
 
     const targetDate = new Date(date);
