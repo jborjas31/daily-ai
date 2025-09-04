@@ -46,6 +46,16 @@ export class TemplateBasicsSection {
           </select>
           <div class="validation-error" id="tmv2-priority-error"></div>
         </div>
+
+        <div class="form-group">
+          <label class="label">Requirement</label>
+          <label class="checkbox-label" style="display:flex;align-items:center;gap:8px;">
+            <input type="checkbox" id="tmv2-mandatory" ${m.isMandatory ? 'checked' : ''} />
+            <span>${m.isMandatory ? '🔒 Mandatory (must complete)' : '📝 Optional (can skip)'}</span>
+          </label>
+          <small class="form-help">Mandatory tasks are prioritized and treated as required.</small>
+          <div class="validation-error" id="tmv2-mandatory-error"></div>
+        </div>
       </div>
     `;
 
@@ -54,11 +64,13 @@ export class TemplateBasicsSection {
     const descEl = targetEl.querySelector('#tmv2-task-desc');
     const catEl = targetEl.querySelector('#tmv2-task-category');
     const priEl = targetEl.querySelector('#tmv2-priority');
+    const mandEl = targetEl.querySelector('#tmv2-mandatory');
 
     if (nameEl) nameEl.addEventListener('input', () => this._emit({ taskName: nameEl.value }));
     if (descEl) descEl.addEventListener('input', () => this._emit({ description: descEl.value }));
     if (catEl) catEl.addEventListener('input', () => this._emit({ category: catEl.value }));
     if (priEl) priEl.addEventListener('change', () => this._emit({ priority: parseInt(priEl.value) || 3 }));
+    if (mandEl) mandEl.addEventListener('change', () => this._emit({ isMandatory: !!mandEl.checked }));
   }
 
   _emit(patch) {
@@ -79,4 +91,3 @@ export class TemplateBasicsSection {
       .replace(/'/g, '&#39;');
   }
 }
-
