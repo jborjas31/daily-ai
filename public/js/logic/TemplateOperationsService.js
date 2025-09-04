@@ -49,6 +49,67 @@ export class TemplateOperationsService {
   }
 
   /**
+   * Split a recurring template at a given date and create a new template
+   * starting from that date with the provided updates.
+   * - Original template endDate is set to (date - 1 day)
+   * - New template inherits original fields + updates and starts at `date`
+   * @param {string} templateId
+   * @param {string} date YYYY-MM-DD
+   * @param {object} updates Full or partial template payload for the new template
+   * @returns {Promise<{ original: object, created: object }>} updated original and new template
+   */
+  async splitAndCreateFromDate(templateId, date, updates = {}) {
+    try {
+      if (!templateId || !date) {
+        throw new Error('templateId and date are required');
+      }
+
+      // Load original
+      const original = await this.templateManager.get(templateId);
+      if (!original) throw new Error(`Template not found: ${templateId}`);
+
+      // Compute end date (date - 1 day)
+      const { dataUtils } = await import('../dataOffline.js');
+      const prevDay = dataUtils.formatDateString(dataUtils.addDaysToDate(date, -1));
+
+      // Update original to end one day before the split date
+      const updatedOriginal = await this.templateManager.update(templateId, {
+        recurrenceRule: {
+          ...(original.recurrenceRule || {}),
+          endDate: prevDay
+        }
+      });
+
+      // Build the new template payload: inherit original, apply updates, set startDate to split date and clear endDate
+      const newPayload = {
+        ...original,
+        ...updates,
+        id: undefined,
+        createdAt: undefined,
+        updatedAt: undefined,
+        deletedAt: undefined,
+        recurrenceRule: {
+          ...(original.recurrenceRule || {}),
+          ...((updates && updates.recurrenceRule) || {}),
+          startDate: date,
+          endDate: (updates && updates.recurrenceRule && updates.recurrenceRule.endDate) ? updates.recurrenceRule.endDate : null
+        }
+      };
+
+      // Create new template under current user
+      const { state } = await import('../state.js');
+      const user = state.getUser();
+      if (!user || !user.uid) throw new Error('No authenticated user');
+      const created = await this.templateManager.create(user.uid, newPayload);
+
+      return { original: updatedOriginal, created };
+    } catch (error) {
+      console.error('❌ Error in splitAndCreateFromDate:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Bulk deactivate multiple templates
    */
   async bulkDeactivate(templateIds) {

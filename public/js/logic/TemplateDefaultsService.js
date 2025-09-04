@@ -6,6 +6,8 @@
  * based on creation context, user patterns, and time-of-day heuristics.
  */
 
+import { TIME_WINDOWS } from '../constants/timeWindows.js';
+
 export class TemplateDefaultsService {
   constructor() {
     this.timeWindowThresholds = {
@@ -21,6 +23,10 @@ export class TemplateDefaultsService {
   applySmartDefaults(taskData) {
     const currentTimeContext = this.getCurrentTimeContext();
     
+    // Resolve time window first so it can inform defaultTime
+    const resolvedWindow = this.determineTimeWindow(taskData, currentTimeContext);
+    const resolvedDefaultTime = this.resolveDefaultTime(taskData, resolvedWindow);
+
     return {
       // Task basics
       taskName: taskData.taskName || '',
@@ -36,8 +42,8 @@ export class TemplateDefaultsService {
       
       // Scheduling with context-aware defaults
       schedulingType: taskData.schedulingType || 'flexible',
-      defaultTime: taskData.defaultTime || null,
-      timeWindow: this.determineTimeWindow(taskData, currentTimeContext),
+      defaultTime: resolvedDefaultTime,
+      timeWindow: resolvedWindow,
       
       // Dependencies
       dependsOn: taskData.dependsOn || null,
@@ -48,6 +54,19 @@ export class TemplateDefaultsService {
       // Status
       isActive: taskData.isActive !== undefined ? taskData.isActive : true
     };
+  }
+
+  /**
+   * Determine a sensible default time based on explicit input or window
+   * If scheduling is fixed and no explicit time, choose the start of the timeWindow.
+   */
+  resolveDefaultTime(taskData, timeWindow) {
+    if (taskData && taskData.defaultTime) return taskData.defaultTime;
+    const isFixed = taskData && taskData.schedulingType === 'fixed';
+    if (!isFixed) return null;
+    // Choose start of the window when known; fallback to 09:00
+    const start = (TIME_WINDOWS[timeWindow]?.start) || '09:00';
+    return start;
   }
 
   /**

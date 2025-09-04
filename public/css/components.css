@@ -33,6 +33,24 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Danger variant (used in confirm dialog) */
+.btn-danger {
+  background: linear-gradient(135deg, var(--error) 0%, #b91c1c 100%);
+  color: #fff;
+  padding: var(--space-3) var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-danger:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
 .btn-secondary {
   background: var(--neutral-100);
   color: var(--neutral-900);
@@ -55,6 +73,28 @@
   .btn {
     min-height: 44px; /* Touch target */
   }
+}
+
+/* Visible focus styles (accessibility) */
+.btn:focus-visible,
+.action-btn:focus-visible,
+.task-action-btn:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* Inputs and selects */
+.input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Links */
+a:focus-visible {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
 }
 
 /* Floating Action Button (Mobile) */
@@ -182,10 +222,33 @@
   box-shadow: var(--shadow-xl);
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
-  max-width: 500px;
+  max-width: 560px;
   max-height: 90vh;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: var(--space-6);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0; /* allow flex child to shrink for scroll */
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 @media (max-width: 767px) {
@@ -195,8 +258,21 @@
     border-radius: 0;
     max-width: none;
     max-height: none;
+    height: 100vh; /* full-screen mobile */
   }
+  .modal-overlay { padding: 0; }
 }
+
+@media (min-width: 768px) {
+  .modal { max-width: 640px; }
+}
+
+/* Confirm dialog tweaks */
+.confirm-modal { max-width: 420px; padding: var(--space-5); }
+.confirm-header h3 { font-size: var(--text-xl); margin: 0; }
+.confirm-body { padding-top: var(--space-2); }
+.confirm-message { color: var(--neutral-600); line-height: 1.5; }
+.confirm-actions { gap: var(--space-3); justify-content: flex-end; }
 
 /* Toast notifications */
 .toast-container {

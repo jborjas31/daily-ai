@@ -44,7 +44,8 @@ import { offlineDataLayer } from './utils/OfflineDataLayer.js';
 import { offlineDetection } from './utils/OfflineDetection.js';
 
 // Import task actions
-import { editTask, duplicateTask, toggleTaskCompletion } from './logic/TaskActions.js';
+import { editTask, duplicateTask, toggleTaskCompletion, skipTask, postponeTask, softDeleteTask } from './logic/TaskActions.js';
+import { ConfirmDialog } from './components/ConfirmDialog.js';
 
 // Create task modal instance
 export const taskModal = new TaskModalContainer();
@@ -166,10 +167,39 @@ function setupTaskActionDelegation() {
         editTask(taskId);
         break;
       case 'duplicate-task':
-        duplicateTask(taskId);
+        (async () => {
+          const ok = await ConfirmDialog.show({
+            title: 'Duplicate this task?',
+            message: 'Creates a copy in your library.',
+            confirmText: 'Duplicate',
+            cancelText: 'Cancel',
+            dangerous: false,
+            defaultFocus: 'cancel'
+          });
+          if (ok) duplicateTask(taskId);
+        })();
         break;
       case 'toggle-task-completion':
         toggleTaskCompletion(taskId);
+        break;
+      case 'skip-task':
+        skipTask(taskId);
+        break;
+      case 'postpone-task':
+        postponeTask(taskId, 30);
+        break;
+      case 'soft-delete-task':
+        (async () => {
+          const ok = await ConfirmDialog.show({
+            title: 'Delete this task?',
+            message: 'This removes it from active views. You can restore later.',
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+            dangerous: true,
+            defaultFocus: 'cancel'
+          });
+          if (ok) softDeleteTask(taskId);
+        })();
         break;
     }
   });
@@ -297,10 +327,11 @@ function setupAuthEventListeners() {
 /**
  * Handle add task action from navigation
  */
-function handleAddTaskAction() {
-  console.log('🚀 Opening task creation modal...');
+function handleAddTaskAction(event) {
+  const initialData = (event && event.detail && typeof event.detail === 'object') ? event.detail : {};
+  console.log('🚀 Opening task creation modal...', initialData);
   
-  taskModal.showCreate({}, (savedTask) => {
+  taskModal.showCreate(initialData, (savedTask) => {
     console.log('Task created:', savedTask);
     // The UI will automatically update via state listeners
   });

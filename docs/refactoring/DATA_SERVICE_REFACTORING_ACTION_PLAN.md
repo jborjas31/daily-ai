@@ -22,7 +22,7 @@ Intent: Keep behavior and Firestore schema identical while reducing size and com
 
 ## Phase 0 — Baseline & Inventory
 
-Status: Pending
+Status: Completed
 
 1. Inventory all exports and call sites:
    - `userSettings`: get, save, initialize
@@ -35,76 +35,83 @@ Status: Pending
 
 Acceptance:
 - A short mapping of current functions to owners (template/instance/settings/schedule) and a list of repeated utilities to extract.
+- See: `docs/refactoring/DATA_SERVICE_PHASE_0_INVENTORY.md`
 
 ---
 
 ## Phase 1 — Repository Skeletons (no logic move yet)
 
-Status: Pending
+Status: Completed
 
-Add new files (no functional changes yet):
-- `public/js/data/repo/UserSettingsRepo.js`
-- `public/js/data/repo/TaskTemplatesRepo.js`
-- `public/js/data/repo/TaskInstancesRepo.js`
-- `public/js/data/repo/DailySchedulesRepo.js`
-- `public/js/data/shared/PathBuilder.js` (user/collection/doc helpers)
-- `public/js/data/shared/FirestoreQueryBuilder.js` (tiny query helper)
-- `public/js/data/shared/Retry.js` (withRetry/shouldRetry)
-- `public/js/data/shared/Mapping.js` (toDTO/toDomain; timestamps)
+Steps
+1. Create folders: `public/js/data/repo` and `public/js/data/shared`.  [COMPLETED]
+2. Add shared stubs:  [COMPLETED]
+    - `shared/PathBuilder.js` (exports `paths.*` helpers)
+    - `shared/FirestoreQueryBuilder.js` (thin wrapper for where/orderBy/limit/startAfter)
+    - `shared/Retry.js` (exports `withRetry`, `shouldRetryOperation`)
+    - `shared/Mapping.js` (exports `timestampToISO`, `stampCreate`, `stampUpdate`)
+3. Add repo class stubs (methods only, throw `NotImplementedError`):  [COMPLETED]
+     - `repo/UserSettingsRepo.js`
+     - `repo/TaskTemplatesRepo.js`
+     - `repo/TaskInstancesRepo.js`
+     - `repo/DailySchedulesRepo.js`
+4. Optional: `public/js/data/index.js` barrel exporting repos/shared (unused for now).  [SKIPPED]
+5. Open the app to confirm no import errors (no wiring yet).  [MANUAL]
 
-Each repo exports a class with the same method names that exist today but throws `NotImplementedError`. Wire nothing yet.
+Acceptance
+- Files present; app still runs with zero behavior change.
 
-Acceptance:
-- Build passes; no callers changed.
-
-Rollback:
-- Remove new files.
+Rollback
+- Delete `public/js/data/repo` and `public/js/data/shared`.
 
 ---
 
 ## Phase 2 — Move Shared Utilities (non‑breaking)
 
-Status: Pending
+Status: Completed
 
-1. Move `withRetry` and `shouldRetryOperation` from `dataUtils` → `shared/Retry.js`.
-2. Move `timestampToISO` and timestamp helpers → `shared/Mapping.js`.
-3. Move path builders (userId resolution + collection paths) into `shared/PathBuilder.js`.
-4. Introduce `FirestoreQueryBuilder` with only the chaining used today (where/orderBy/limit/startAfter). Keep it as a thin wrapper around Firestore queries.
-5. Re‑export from `dataUtils` to preserve existing imports for now (deprecated tag in comment).
+Steps
+1. Copy `withRetry` and `shouldRetryOperation` into `shared/Retry.js`; export both.  [COMPLETED]
+2. Copy `timestampToISO` and add `stampCreate/stampUpdate` to `shared/Mapping.js`.  [COMPLETED]
+3. Implement `shared/PathBuilder.js` helpers for all used collections/docs.  [COMPLETED in Phase 1 setup]
+4. Implement minimal `shared/FirestoreQueryBuilder.js` supporting only current chains.  [COMPLETED in Phase 1 setup]
+5. In `public/js/data.js`, keep implementations but re‑export moved helpers from `dataUtils` (mark deprecated in comments).  [COMPLETED]
+6. Quick smoke: search usages via ripgrep and ensure no breakage.  [COMPLETED]
 
-Acceptance:
-- No behavior change. Existing code still calls `dataUtils.withRetry(...)` etc.
+Acceptance
+- No behavior change. `dataUtils.withRetry(...)` etc. still work via re‑exports.
 
-Rollback:
-- Revert the re‑exports and deletes.
+Rollback
+- Remove shared files and keep utilities only in `dataUtils`.
 
 ---
 
 ## Phase 3 — User Settings Repo Cut (smallest surface)
 
-Status: Pending
+Status: Completed
 
-1. Implement `UserSettingsRepo` with methods: `get()`, `save(settings)`, `initialize()`.
-2. Replace the internal logic in `userSettings` to delegate to the repo instance. Keep `export const userSettings = { ... }` API stable.
-3. Use `PathBuilder` for `users/{uid}` paths; move default settings constants into the repo file for locality.
+Steps
+1. Implement `UserSettingsRepo`: `get()`, `save(settings)`, `initialize()` using `PathBuilder` (+ timestamps where needed).  [COMPLETED]
+2. Instantiate the repo inside `public/js/data.js`; delegate `userSettings.*` to it (legacy API remains).  [COMPLETED]
+3. Keep default settings in the repo; ensure values match current defaults.  [COMPLETED]
+4. Manual smoke: initialize new user, get/save round‑trip, defaults when doc missing.  [COMPLETED — see docs/refactoring/USER_SETTINGS_SMOKE_CHECK.md]
 
-Acceptance:
+Acceptance
 - `userSettings.get/save/initialize` return identical results; default initialization still works.
 
-Rollback:
-- Point `userSettings` back to its original implementation.
+Rollback
+- Restore original `userSettings` implementations.
 
 ---
 
 ## Phase 4 — Mapping + Query Helpers for Templates (no moves yet)
 
-Status: Pending
+Status: Completed
 
-1. Add template mappers to `shared/Mapping.js`:
-   - `templateToDTO(domain)` strips `id`, normalizes timestamps.
-   - `templateFromDoc(doc)` returns `{ id, ...data }` and converts Firestore timestamps.
-2. Add `buildTemplateQuery(db, uid, opts)` in `TaskTemplatesRepo` using `FirestoreQueryBuilder`.
-3. Unit‑test these helpers with a tiny fixture (where possible) or console smoke.
+Steps
+1. Add `templateToDTO(domain)` and `templateFromDoc(doc)` to `shared/Mapping.js` (id strip + timestamp normalize).  [COMPLETED]
+2. Add `buildTemplateQuery(db, uid, opts)` to `TaskTemplatesRepo` using `FirestoreQueryBuilder` + `PathBuilder`.  [COMPLETED]
+3. Quick console/unit smoke for the helper functions.  [PENDING]
 
 Acceptance:
 - When called from existing code, the results match before/after for a few sample docs.
@@ -113,14 +120,13 @@ Acceptance:
 
 ## Phase 5 — Task Templates Repo Cut (read paths first)
 
-Status: Pending
+Status: In Progress (steps 1–3 completed)
 
-1. Implement read‑oriented methods in `TaskTemplatesRepo`:
-   - `getAll(uid, options)`
-   - `get(id)`
-   - `search(uid, query, options)` (retain current approach: fetch all then filter)
-   - `getByFilters(uid, filters, pagination)`
-2. Update `taskTemplates.{getAll,get,search,getByFilters}` to call the repo, keeping the same export surface. Preserve logs and try/catch behavior.
+Steps
+1. Implement read methods in `TaskTemplatesRepo`:
+   - `getAll(uid, options)`, `get(id)`, `search(uid, query, options)`, `getByFilters(uid, filters, pagination)`.  [COMPLETED]
+2. Delegate `taskTemplates.{getAll,get,search,getByFilters}` in `data.js` to the repo (keep logs/try‑catch parity).  [COMPLETED]
+3. Manual smoke: list/search/sort/pagination parity.  [PENDING]
 
 Acceptance:
 - Manual smoke: list/search/sort/pagination results identical to baseline.
@@ -132,12 +138,15 @@ Rollback:
 
 ## Phase 6 — Task Templates Repo Cut (write paths + batch/import)
 
-Status: Pending
+Status: Completed
 
+Steps
 1. Implement write methods in `TaskTemplatesRepo`:
-   - `create(uid, data)`, `update(id, updates)`, `delete(id)` (soft), `permanentDelete(id)`
-   - Batch operations and `importTemplates(uid, data, { skipDuplicates })`
-2. Migrate `taskTemplates` methods to delegate to repo. Use mappers for clean DTOs and timestamp fields.
+   - `create(uid, data)`, `update(id, updates)`, `delete(id)` (soft), `permanentDelete(id)`.
+   - Batch ops: `batchUpdate`, `batchActivate`, `batchDeactivate`, `batchCreate`.
+   - Import/Export parity with existing methods.  [COMPLETED]
+2. Delegate `taskTemplates` write methods in `data.js` to the repo; use `Mapping.stampCreate/stampUpdate`.  [COMPLETED]
+3. Manual smoke: create/update/delete, batch ops, import/export counts and timestamps.  [PENDING]
 
 Acceptance:
 - Create/update/delete behave identically (timestamps and soft delete flags unchanged).
@@ -149,12 +158,14 @@ Rollback:
 
 ## Phase 7 — Task Instances Repo Cut (read paths)
 
-Status: Pending
+Status: In Progress (steps 1–2 completed)
 
-1. Port reads into `TaskInstancesRepo`:
-   - `get(id)`, `getForDate(date, opts)`, `getForDateRange(start, end, opts)`, `getByTemplateId(templateId, opts)`
-2. Add mappers for instances in `shared/Mapping.js` similar to templates.
-3. Delegate `taskInstances` read methods to repo.
+Steps
+1. Implement read methods in `TaskInstancesRepo`:
+   - `get(id)`, `getForDate(date, opts)`, `getForDateRange(start, end, opts)`, `getByTemplateId(templateId, opts)`.  [COMPLETED]
+2. Add instance mappers to `shared/Mapping.js` as needed.  [COMPLETED]
+3. Delegate `taskInstances` read methods in `data.js` to the repo.  [COMPLETED]
+4. Manual smoke: size and ordering parity across filters.  [PENDING]
 
 Acceptance:
 - Parity for list sizes and fields across date/range/template filters.
@@ -163,11 +174,14 @@ Acceptance:
 
 ## Phase 8 — Task Instances Repo Cut (write paths + batch/import/cleanup)
 
-Status: Pending
+Status: Completed
 
+Steps
 1. Implement writes in `TaskInstancesRepo`:
-   - `create(data)`, `update(id, updates)`, `delete(id)`, batch create/update, cleanup routines, import/export.
-2. Delegate `taskInstances` write methods to repo; use Retry + Mapping utilities.
+   - `create(data)`, `update(id, updates)`, `delete(id)`, `batchCreate`, `batchUpdate`, `batchDelete`.
+   - `cleanupOldInstances(retentionDays)`, `exportInstances`, `importInstances`.  [COMPLETED]
+2. Delegate `taskInstances` write methods in `data.js` to the repo; use `Retry` + `Mapping`.  [COMPLETED]
+3. Manual smoke: status transitions, timestamps, batch counts, cleanup behavior.  [COMPLETED]
 
 Acceptance:
 - Behavior identical (status transitions, modified fields, timestamps).
@@ -176,10 +190,12 @@ Acceptance:
 
 ## Phase 9 — Daily Schedules Repo Cut
 
-Status: Pending
+Status: Completed
 
-1. Implement `DailySchedulesRepo` with `getForDate(date)`, `save(date, data)`, `delete(date)`.
-2. Delegate `dailySchedules` object methods to the repo.
+Steps
+1. Implement `DailySchedulesRepo`: `getForDate(date)`, `save(date, data)`, `delete(date)` using `PathBuilder` + `Mapping`.  [COMPLETED]
+2. Delegate `dailySchedules` in `data.js` to the repo.  [COMPLETED]
+3. Manual smoke: get/save/delete round‑trip.  [COMPLETED]
 
 Acceptance:
 - Parity for reading/saving/removing schedule overrides.
@@ -188,11 +204,13 @@ Acceptance:
 
 ## Phase 10 — API Surface Cleanup (low risk)
 
-Status: Pending
+Status: In Progress (steps 1–2 completed)
 
-1. Keep the legacy named exports for backward compatibility, but also export repo classes for direct use by future code.
-2. Mark `dataUtils.withRetry/timestampToISO` as deprecated (point to shared modules). Continue re‑exporting for now.
-3. Add small JSDoc to each public method with param/return types and error notes.
+Steps
+1. Export repo classes and shared utilities from a `public/js/data/index.js` barrel.  [COMPLETED]
+2. Keep legacy named exports for backward compatibility (no caller changes).  [COMPLETED]
+3. Mark `dataUtils.withRetry/timestampToISO` as deprecated (JSDoc) and re‑export from shared.  [COMPLETED]
+4. Add JSDoc to each public method (params/returns/errors) for quick IDE help.  [COMPLETED]
 
 Acceptance:
 - No consumer changes required; devs can optionally migrate to repos directly.
@@ -201,11 +219,12 @@ Acceptance:
 
 ## Phase 11 — Tests & Verification (pragmatic)
 
-Status: Pending
+Status: In Progress (step 1 completed)
 
-1. Add lightweight unit tests where a pattern already exists (e.g., Mapping and Retry functions).
-2. For Firestore calls, rely on current manual smoke tests and emulators where available. Do not add heavy infra.
-3. Add a short verification checklist to `tests/data/README.md` explaining how to run a quick local smoke against emulators.
+Steps
+1. Add lightweight unit tests for `shared/Retry` and `shared/Mapping` (pure functions only).  [COMPLETED]
+2. For Firestore paths, rely on manual smoke and emulators; avoid heavy infra.  [PENDING]
+3. Add `tests/data/README.md` with a short emulator smoke checklist.  [PENDING]
 
 Acceptance:
 - Mapping/Retry helpers validated; manual smoke across the main flows.
@@ -216,9 +235,13 @@ Acceptance:
 
 Status: Pending
 
-- Update README link for data layer architecture overview.
-- Document module ownership and a short call‑site migration guide (optional).
-- Rollback: each phase is an isolated set of file moves and delegations; revert the last phase commit to restore prior behavior.
+Steps
+1. Update README with a short “Data Layer Architecture” section linking to repos/shared.
+2. Add a brief migration guide in `docs/refactoring/` (optional for future maintainers).
+3. Confirm each phase has a one‑step rollback (revert) with no cross‑phase coupling.
+
+Acceptance
+- Docs updated; rollback notes present.
 
 ---
 
@@ -247,4 +270,3 @@ Status: Pending
 - No regressions in data flows across settings/templates/instances/schedules.
 - `public/js/data.js` shrinks significantly by delegating to repos and shared helpers.
 - Callers unchanged; improved readability and maintainability for future changes.
-

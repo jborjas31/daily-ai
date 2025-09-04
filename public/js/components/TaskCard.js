@@ -47,9 +47,10 @@ export function createTaskCard({ template, isSelected = false, handlers = {} }) 
         </span>
       </div>
       <div class="task-actions">
-        <button type="button" class="action-btn edit-btn" data-template-id="${template.id}" title="Edit">✏️</button>
-        <button type="button" class="action-btn duplicate-btn" data-template-id="${template.id}" title="Duplicate">📄</button>
+        <button type="button" class="action-btn edit-btn" data-action="edit-task" data-task-id="${template.id}" data-template-id="${template.id}" title="Edit">✏️</button>
+        <button type="button" class="action-btn duplicate-btn" data-action="duplicate-task" data-task-id="${template.id}" data-template-id="${template.id}" title="Duplicate">📄</button>
         <button type="button" class="action-btn toggle-status-btn" data-template-id="${template.id}" title="Toggle Status">${template.isActive !== false ? '⏸️' : '✅'}</button>
+        <button type="button" class="action-btn delete-btn" data-action="soft-delete-task" data-task-id="${template.id}" data-template-id="${template.id}" title="Delete">🗑️</button>
       </div>
     </div>
     <div class="task-card-body">
@@ -151,4 +152,3 @@ function escapeHtml(text) {
 }
 
 export const TaskCard = { create: createTaskCard };
-

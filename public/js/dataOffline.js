@@ -7,6 +7,7 @@
  */
 
 import { offlineDataLayer } from './utils/OfflineDataLayer.js';
+import { auth } from './firebase.js';
 
 // Wait for offline data layer to be initialized
 let isInitialized = false;
@@ -250,9 +251,7 @@ export const taskInstances = {
  */
 export const dataUtils = {
   getCurrentUserId() {
-    // Import the original function - this doesn't need offline support
-    const { auth } = require('./firebase.js');
-    const user = auth.currentUser;
+    const user = auth?.currentUser;
     if (!user) {
       throw new Error('No authenticated user');
     }

@@ -3,7 +3,7 @@
  * Provides basic offline support and caching
  */
 
-const CACHE_NAME = 'daily-ai-v2';
+const CACHE_NAME = 'daily-ai-v3';
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',

@@ -5,7 +5,7 @@
 
 import { taskTemplates, dataUtils } from './dataOffline.js';
 import { userSettingsManager } from './userSettings.js';
-import { taskTemplateManager } from './taskLogic.js';
+import { taskTemplateManager, taskInstanceManager } from './taskLogic.js';
 import { appState as appStateFromStore, notifyStateChange, stateListeners } from './state/Store.js';
 import * as templateActions from './state/actions.templates.js';
 import * as instanceActions from './state/actions.instances.js';
@@ -850,6 +850,22 @@ export const stateActions = {
     }
   },
 
+  // Override a single occurrence by applying updates to its instance for a given date
+  async overrideTaskInstanceForDate(templateId, date, updates, reason = 'Scoped edit: only this occurrence') {
+    try {
+      state.setLoading('saving', true);
+      const instance = await taskInstanceManager.resolveInstanceByTemplateAndDate(templateId, date);
+      if (!instance) throw new Error('Unable to resolve task instance for scoped edit');
+      const updated = await taskInstanceManager.update(instance.id, updates, reason);
+      return updated;
+    } catch (error) {
+      console.error('❌ Error overriding task instance for date:', error);
+      throw error;
+    } finally {
+      state.setLoading('saving', false);
+    }
+  },
+
   // Duplicate task template
   async duplicateTaskTemplate(templateId, customName = null) {
     try {
@@ -877,6 +893,22 @@ export const stateActions = {
         });
       }
       
+      throw error;
+    } finally {
+      state.setLoading('saving', false);
+    }
+  },
+
+  // Split recurring template at date and create a new future template with updates
+  async splitTemplateFromDate(templateId, date, updates) {
+    try {
+      state.setLoading('saving', true);
+      const ops = taskTemplateManager.getBulkOperations();
+      const result = await ops.splitAndCreateFromDate(templateId, date, updates);
+      // The manager.update/create calls inside ops already update state via state.updateTaskTemplate
+      return result;
+    } catch (error) {
+      console.error('❌ Error splitting template from date:', error);
       throw error;
     } finally {
       state.setLoading('saving', false);

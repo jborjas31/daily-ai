@@ -19,6 +19,7 @@ export class DependenciesSection {
     targetEl.innerHTML = `
       <div class="form-section">
         <h3>🔗 Dependencies</h3>
+        <label for="tmv2-dep-select" class="label">Add Dependency</label>
         <div class="dependency-selector" style="display:flex;align-items:center;gap:8px;">
           <select id="tmv2-dep-select" class="input" style="flex:1;">
             <option value="">Select a task to add as dependency...</option>
@@ -137,4 +138,3 @@ export class DependenciesSection {
       .replace(/'/g, '&#39;');
   }
 }
-

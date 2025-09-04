@@ -8,6 +8,7 @@
 import { state } from '../state.js';
 import { taskInstanceManager } from '../taskLogic.js';
 import { SafeEventListener, ComponentManager } from '../utils/MemoryLeakPrevention.js';
+import { SimpleErrorHandler } from '../utils/SimpleErrorHandler.js';
 import { editTask, duplicateTask } from '../logic/TaskActions.js';
 
 /**
@@ -103,17 +104,14 @@ export class TaskBlock {
    * Render action buttons
    */
   renderActions() {
+    const id = this.task.id;
     return `
       <div class="task-actions">
-        <button class="task-action-btn complete-btn" title="Toggle completion" aria-label="Mark complete">
-          ✓
-        </button>
-        <button class="task-action-btn edit-btn" title="Edit task" aria-label="Edit task">
-          ✏️
-        </button>
-        <button class="task-action-btn more-btn" title="More actions" aria-label="More actions">
-          ⋯
-        </button>
+        <button class="task-action-btn complete-btn" data-action="toggle-task-completion" data-task-id="${id}" title="Toggle completion" aria-label="Mark complete">✓</button>
+        <button class="task-action-btn edit-btn" data-action="edit-task" data-task-id="${id}" title="Edit task" aria-label="Edit task">✏️</button>
+        <button class="task-action-btn skip-btn" data-action="skip-task" data-task-id="${id}" title="Skip today" aria-label="Skip today">⏭️</button>
+        <button class="task-action-btn postpone-btn" data-action="postpone-task" data-task-id="${id}" title="Postpone" aria-label="Postpone">⏰</button>
+        <button class="task-action-btn delete-btn" data-action="soft-delete-task" data-task-id="${id}" title="Delete" aria-label="Delete">🗑️</button>
       </div>
     `;
   }
@@ -346,10 +344,12 @@ export class TaskBlock {
       
       // Emit custom event for external listeners
       this.emitEvent('task-completed', { task: this.task });
+      SimpleErrorHandler.showSuccess('Task status updated!');
       
     } catch (error) {
       console.error('Error toggling task completion:', error);
       this.emitEvent('task-error', { task: this.task, error });
+      SimpleErrorHandler.showError('Failed to update task status. Please try again.', error);
     }
   }
 

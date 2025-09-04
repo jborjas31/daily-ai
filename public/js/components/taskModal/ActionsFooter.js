@@ -56,7 +56,7 @@ export class ActionsFooter {
     saveBtn.className = 'btn btn-primary';
     saveBtn.dataset.role = 'save';
     saveBtn.textContent = mode === 'edit' ? 'Save Changes' : 'Create Template';
-    saveBtn.disabled = !isValid;
+    // Keep enabled to trigger validation and focus first invalid on click
     saveBtn.addEventListener('click', () => this.container?.requestSubmit());
     right.appendChild(saveBtn);
 
@@ -64,4 +64,3 @@ export class ActionsFooter {
     targetEl.appendChild(right);
   }
 }
-

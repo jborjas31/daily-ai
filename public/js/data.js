@@ -5,6 +5,13 @@
 
 import { auth, db } from './firebase.js';
 import { taskValidation } from './utils/TaskValidation.js';
+import { UserSettingsRepo } from './data/repo/UserSettingsRepo.js';
+import { TaskTemplatesRepo } from './data/repo/TaskTemplatesRepo.js';
+import { TaskInstancesRepo } from './data/repo/TaskInstancesRepo.js';
+import { DailySchedulesRepo } from './data/repo/DailySchedulesRepo.js';
+// Phase 2: shared utilities (re-export via dataUtils for backward compatibility)
+import { withRetry as __sharedWithRetry, shouldRetryOperation as __sharedShouldRetry } from './data/shared/Retry.js';
+import { timestampToISO as __sharedTimestampToISO } from './data/shared/Mapping.js';
 
 /**
  * Get current user ID
@@ -21,23 +28,18 @@ function getCurrentUserId() {
 /**
  * User Settings Operations
  */
+// Phase 3: delegate userSettings operations to repo (legacy API preserved)
+const __userSettingsRepo = new UserSettingsRepo();
+const __templatesRepo = new TaskTemplatesRepo();
+const __instancesRepo = new TaskInstancesRepo();
+const __schedulesRepo = new DailySchedulesRepo();
+
 export const userSettings = {
   // Get user settings (with defaults)
   async get() {
     try {
       const userId = getCurrentUserId();
-      const userDoc = await db.collection('users').doc(userId).get();
-      
-      if (userDoc.exists) {
-        return userDoc.data();
-      } else {
-        // Return default settings if user document doesn't exist
-        return {
-          desiredSleepDuration: 7.5,
-          defaultWakeTime: "06:30",
-          defaultSleepTime: "23:00"
-        };
-      }
+      return await __userSettingsRepo.get(userId);
     } catch (error) {
       console.error('Error getting user settings:', error);
       throw error;
@@ -48,9 +50,9 @@ export const userSettings = {
   async save(settings) {
     try {
       const userId = getCurrentUserId();
-      await db.collection('users').doc(userId).set(settings, { merge: true });
+      const result = await __userSettingsRepo.save(userId, settings);
       console.log('✅ User settings saved');
-      return settings;
+      return result;
     } catch (error) {
       console.error('❌ Error saving user settings:', error);
       throw error;
@@ -61,23 +63,9 @@ export const userSettings = {
   async initialize() {
     try {
       const userId = getCurrentUserId();
-      const userDoc = await db.collection('users').doc(userId).get();
-      
-      if (!userDoc.exists) {
-        const defaultSettings = {
-          desiredSleepDuration: 7.5,
-          defaultWakeTime: "06:30",
-          defaultSleepTime: "23:00",
-          createdAt: new Date().toISOString(),
-          lastUpdated: new Date().toISOString()
-        };
-        
-        await db.collection('users').doc(userId).set(defaultSettings);
-        console.log('✅ Default user settings initialized');
-        return defaultSettings;
-      }
-      
-      return userDoc.data();
+      const result = await __userSettingsRepo.initialize(userId);
+      console.log('✅ Default user settings initialized');
+      return result;
     } catch (error) {
       console.error('❌ Error initializing user settings:', error);
       throw error;
@@ -95,65 +83,9 @@ export const taskTemplates = {
     try {
       const uid = userId || getCurrentUserId();
       console.log('🔍 taskTemplates.getAll - Using userId:', uid);
-      const {
-        includeInactive = false,
-        limit = null,
-        orderBy = 'priority',
-        orderDirection = 'desc',
-        filters = {}
-      } = options;
-      
-      let query = db
-        .collection('users')
-        .doc(uid)
-        .collection('tasks');
-      
-      // Apply active filter unless includeInactive is true
-      if (!includeInactive) {
-        query = query.where('isActive', '==', true);
-      }
-      
-      // Apply additional filters
-      if (filters.timeWindow) {
-        query = query.where('timeWindow', '==', filters.timeWindow);
-      }
-      
-      if (filters.isMandatory !== undefined) {
-        query = query.where('isMandatory', '==', filters.isMandatory);
-      }
-      
-      if (filters.schedulingType) {
-        query = query.where('schedulingType', '==', filters.schedulingType);
-      }
-      
-      if (filters.priority) {
-        query = query.where('priority', '==', filters.priority);
-      }
-      
-      // Apply ordering
-      query = query.orderBy(orderBy, orderDirection);
-      
-      // Add secondary sort by taskName for consistency
-      if (orderBy !== 'taskName') {
-        query = query.orderBy('taskName');
-      }
-      
-      // Apply limit if specified
-      if (limit) {
-        query = query.limit(limit);
-      }
-      
-      console.log('🔍 About to execute Firestore query...');
-      const snapshot = await query.get();
-      console.log('🔍 Query executed successfully, processing results...');
-      
-      const tasks = [];
-      snapshot.forEach(doc => {
-        tasks.push({ id: doc.id, ...doc.data() });
-      });
-      
-      console.log(`✅ Retrieved ${tasks.length} task templates${includeInactive ? ' (including inactive)' : ''}`);
-      return tasks;
+      const results = await __templatesRepo.getAll(uid, options);
+      console.log(`✅ Retrieved ${results.length} task templates${options.includeInactive ? ' (including inactive)' : ''}`);
+      return results;
     } catch (error) {
       console.error('❌ Error getting task templates:', error);
       console.error('❌ Error details:', error.message, error.code);
@@ -164,19 +96,8 @@ export const taskTemplates = {
   // Get single task template by ID
   async get(templateId) {
     try {
-      const userId = getCurrentUserId();
-      const doc = await db
-        .collection('users')
-        .doc(userId)
-        .collection('tasks')
-        .doc(templateId)
-        .get();
-      
-      if (doc.exists) {
-        return { id: doc.id, ...doc.data() };
-      } else {
-        throw new Error(`Task template not found: ${templateId}`);
-      }
+      const result = await __templatesRepo.get(templateId);
+      return result;
     } catch (error) {
       console.error('❌ Error getting task template:', error);
       throw error;
@@ -187,19 +108,9 @@ export const taskTemplates = {
   async search(userId = null, searchQuery, options = {}) {
     try {
       const uid = userId || getCurrentUserId();
-      
-      // Get all templates first (Firestore doesn't support text search natively)
-      const allTemplates = await this.getAll(uid, options);
-      
-      // Filter by search query
-      const query = searchQuery.toLowerCase().trim();
-      const filteredTemplates = allTemplates.filter(template => 
-        template.taskName.toLowerCase().includes(query) ||
-        (template.description && template.description.toLowerCase().includes(query))
-      );
-      
-      console.log(`✅ Found ${filteredTemplates.length} templates matching "${searchQuery}"`);
-      return filteredTemplates;
+      const results = await __templatesRepo.search(uid, searchQuery, options);
+      console.log(`✅ Found ${results.length} templates matching "${searchQuery}"`);
+      return results;
     } catch (error) {
       console.error('❌ Error searching task templates:', error);
       throw error;
@@ -210,46 +121,8 @@ export const taskTemplates = {
   async getByFilters(userId = null, filters = {}, pagination = {}) {
     try {
       const uid = userId || getCurrentUserId();
-      const { limit = 50, startAfter = null } = pagination;
-      
-      let query = db
-        .collection('users')
-        .doc(uid)
-        .collection('tasks');
-      
-      // Apply filters
-      Object.entries(filters).forEach(([field, value]) => {
-        if (value !== null && value !== undefined) {
-          query = query.where(field, '==', value);
-        }
-      });
-      
-      // Add ordering for pagination
-      query = query.orderBy('createdAt', 'desc');
-      
-      // Add pagination
-      if (startAfter) {
-        query = query.startAfter(startAfter);
-      }
-      
-      query = query.limit(limit);
-      
-      const snapshot = await query.get();
-      
-      const templates = [];
-      let lastDoc = null;
-      
-      snapshot.forEach(doc => {
-        templates.push({ id: doc.id, ...doc.data() });
-        lastDoc = doc;
-      });
-      
-      return {
-        templates,
-        hasMore: snapshot.size === limit,
-        lastDoc,
-        total: snapshot.size
-      };
+      const result = await __templatesRepo.getByFilters(uid, filters, pagination);
+      return result;
     } catch (error) {
       console.error('❌ Error getting filtered templates:', error);
       throw error;
@@ -260,28 +133,9 @@ export const taskTemplates = {
   async create(userId, templateData) {
     try {
       const uid = userId || getCurrentUserId();
-      
-      // Remove any existing ID and metadata
-      const cleanData = { ...templateData };
-      delete cleanData.id;
-      delete cleanData.createdAt;
-      delete cleanData.updatedAt;
-      
-      const task = {
-        ...cleanData,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      
-      const docRef = await db
-        .collection('users')
-        .doc(uid)
-        .collection('tasks')
-        .add(task);
-      
-      const createdTemplate = { id: docRef.id, ...task };
-      console.log('✅ Task template created:', docRef.id);
-      return createdTemplate;
+      const created = await __templatesRepo.create(uid, templateData);
+      console.log('✅ Task template created:', created.id);
+      return created;
     } catch (error) {
       console.error('❌ Error creating task template:', error);
       throw error;
@@ -291,29 +145,9 @@ export const taskTemplates = {
   // Update task template
   async update(templateId, updates) {
     try {
-      const userId = getCurrentUserId();
-      
-      // Remove ID from updates and add timestamp
-      const cleanUpdates = { ...updates };
-      delete cleanUpdates.id;
-      
-      const updateData = {
-        ...cleanUpdates,
-        updatedAt: new Date().toISOString()
-      };
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('tasks')
-        .doc(templateId)
-        .update(updateData);
-      
-      // Get the updated template to return
-      const updatedTemplate = await this.get(templateId);
-      
+      const updated = await __templatesRepo.update(templateId, updates);
       console.log('✅ Task template updated:', templateId);
-      return updatedTemplate;
+      return updated;
     } catch (error) {
       console.error('❌ Error updating task template:', error);
       throw error;
@@ -323,19 +157,7 @@ export const taskTemplates = {
   // Soft delete task template
   async delete(templateId) {
     try {
-      const userId = getCurrentUserId();
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('tasks')
-        .doc(templateId)
-        .update({
-          isActive: false,
-          deletedAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        });
-      
+      await __templatesRepo.delete(templateId);
       console.log('✅ Task template soft deleted:', templateId);
     } catch (error) {
       console.error('❌ Error deleting task template:', error);
@@ -346,15 +168,7 @@ export const taskTemplates = {
   // Permanently delete task template
   async permanentDelete(templateId) {
     try {
-      const userId = getCurrentUserId();
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('tasks')
-        .doc(templateId)
-        .delete();
-      
+      await __templatesRepo.permanentDelete(templateId);
       console.log('✅ Task template permanently deleted:', templateId);
     } catch (error) {
       console.error('❌ Error permanently deleting task template:', error);
@@ -365,28 +179,9 @@ export const taskTemplates = {
   // Batch operations for multiple templates
   async batchUpdate(templateIds, updates) {
     try {
-      const userId = getCurrentUserId();
-      const batch = db.batch();
-      
-      const updateData = {
-        ...updates,
-        updatedAt: new Date().toISOString()
-      };
-      
-      templateIds.forEach(templateId => {
-        const templateRef = db
-          .collection('users')
-          .doc(userId)
-          .collection('tasks')
-          .doc(templateId);
-        
-        batch.update(templateRef, updateData);
-      });
-      
-      await batch.commit();
-      
+      const result = await __templatesRepo.batchUpdate(templateIds, updates);
       console.log(`✅ Batch updated ${templateIds.length} templates`);
-      return { updatedCount: templateIds.length, updates: updateData };
+      return result;
     } catch (error) {
       console.error('❌ Error in batch update:', error);
       throw error;
@@ -396,10 +191,7 @@ export const taskTemplates = {
   // Batch activate templates
   async batchActivate(templateIds) {
     try {
-      return await this.batchUpdate(templateIds, { 
-        isActive: true, 
-        deletedAt: null 
-      });
+      return await __templatesRepo.batchActivate(templateIds);
     } catch (error) {
       console.error('❌ Error in batch activate:', error);
       throw error;
@@ -409,10 +201,7 @@ export const taskTemplates = {
   // Batch deactivate templates
   async batchDeactivate(templateIds) {
     try {
-      return await this.batchUpdate(templateIds, { 
-        isActive: false, 
-        deactivatedAt: new Date().toISOString() 
-      });
+      return await __templatesRepo.batchDeactivate(templateIds);
     } catch (error) {
       console.error('❌ Error in batch deactivate:', error);
       throw error;
@@ -423,33 +212,9 @@ export const taskTemplates = {
   async batchCreate(userId, templatesData) {
     try {
       const uid = userId || getCurrentUserId();
-      const batch = db.batch();
-      const createdTemplates = [];
-      
-      templatesData.forEach(templateData => {
-        const templateRef = db
-          .collection('users')
-          .doc(uid)
-          .collection('tasks')
-          .doc(); // Auto-generate ID
-        
-        const cleanData = { ...templateData };
-        delete cleanData.id;
-        
-        const task = {
-          ...cleanData,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        };
-        
-        batch.set(templateRef, task);
-        createdTemplates.push({ id: templateRef.id, ...task });
-      });
-      
-      await batch.commit();
-      
-      console.log(`✅ Batch created ${createdTemplates.length} templates`);
-      return createdTemplates;
+      const created = await __templatesRepo.batchCreate(uid, templatesData);
+      console.log(`✅ Batch created ${created.length} templates`);
+      return created;
     } catch (error) {
       console.error('❌ Error in batch create:', error);
       throw error;
@@ -501,18 +266,9 @@ export const taskTemplates = {
   async exportTemplates(userId = null, includeInactive = false) {
     try {
       const uid = userId || getCurrentUserId();
-      const templates = await this.getAll(uid, { includeInactive });
-      
-      const exportData = {
-        exportedAt: new Date().toISOString(),
-        userId: uid,
-        templateCount: templates.length,
-        includeInactive,
-        templates
-      };
-      
-      console.log(`✅ Exported ${templates.length} templates`);
-      return exportData;
+      const data = await __templatesRepo.exportTemplates(uid, includeInactive);
+      console.log(`✅ Exported ${data.templateCount} templates`);
+      return data;
     } catch (error) {
       console.error('❌ Error exporting templates:', error);
       throw error;
@@ -523,48 +279,9 @@ export const taskTemplates = {
   async importTemplates(userId, importData, options = {}) {
     try {
       const uid = userId || getCurrentUserId();
-      const { overwriteExisting = false, skipDuplicates = true } = options;
-      
-      if (!importData.templates || !Array.isArray(importData.templates)) {
-        throw new Error('Invalid import data: templates array is required');
-      }
-      
-      let importedCount = 0;
-      let skippedCount = 0;
-      
-      // Get existing templates for duplicate checking
-      const existingTemplates = skipDuplicates 
-        ? await this.getAll(uid, { includeInactive: true })
-        : [];
-      
-      const existingNames = new Set(existingTemplates.map(t => t.taskName));
-      
-      const templatesToImport = [];
-      
-      for (const template of importData.templates) {
-        const templateName = template.taskName;
-        
-        if (skipDuplicates && existingNames.has(templateName)) {
-          skippedCount++;
-          continue;
-        }
-        
-        // Clean up template data
-        const cleanTemplate = { ...template };
-        delete cleanTemplate.id;
-        delete cleanTemplate.createdAt;
-        delete cleanTemplate.updatedAt;
-        
-        templatesToImport.push(cleanTemplate);
-        importedCount++;
-      }
-      
-      if (templatesToImport.length > 0) {
-        await this.batchCreate(uid, templatesToImport);
-      }
-      
-      console.log(`✅ Import completed: ${importedCount} imported, ${skippedCount} skipped`);
-      return { importedCount, skippedCount, total: importData.templates.length };
+      const result = await __templatesRepo.importTemplates(uid, importData, options);
+      console.log(`✅ Import completed: ${result.importedCount} imported, ${result.skippedCount} skipped`);
+      return result;
     } catch (error) {
       console.error('❌ Error importing templates:', error);
       throw error;
@@ -580,19 +297,7 @@ export const taskInstances = {
   // Get single task instance by ID
   async get(instanceId) {
     try {
-      const userId = getCurrentUserId();
-      const doc = await db
-        .collection('users')
-        .doc(userId)
-        .collection('task_instances')
-        .doc(instanceId)
-        .get();
-      
-      if (doc.exists) {
-        return { id: doc.id, ...doc.data() };
-      } else {
-        throw new Error(`Task instance not found: ${instanceId}`);
-      }
+      return await __instancesRepo.get(instanceId);
     } catch (error) {
       console.error('❌ Error getting task instance:', error);
       throw error;
@@ -602,41 +307,7 @@ export const taskInstances = {
   // Get task instances for specific date with filtering
   async getForDate(date, options = {}) {
     try {
-      const userId = getCurrentUserId();
-      const {
-        status = null,
-        templateId = null,
-        orderBy = 'createdAt',
-        orderDirection = 'asc'
-      } = options;
-      
-      let query = db
-        .collection('users')
-        .doc(userId)
-        .collection('task_instances')
-        .where('date', '==', date);
-      
-      // Apply filters
-      if (status) {
-        query = query.where('status', '==', status);
-      }
-      
-      if (templateId) {
-        query = query.where('templateId', '==', templateId);
-      }
-      
-      // Apply ordering
-      query = query.orderBy(orderBy, orderDirection);
-      
-      const snapshot = await query.get();
-      
-      const instances = [];
-      snapshot.forEach(doc => {
-        instances.push({ id: doc.id, ...doc.data() });
-      });
-      
-      console.log(`✅ Retrieved ${instances.length} task instances for ${date}`);
-      return instances;
+      return await __instancesRepo.getForDate(date, options);
     } catch (error) {
       console.error('❌ Error getting task instances for date:', error);
       throw error;
@@ -646,6 +317,8 @@ export const taskInstances = {
   // Get task instances for date range
   async getForDateRange(startDate, endDate, options = {}) {
     try {
+      // Delegated to TaskInstancesRepo (legacy code retained below)
+      return await __instancesRepo.getForDateRange(startDate, endDate, options);
       const userId = getCurrentUserId();
       const {
         status = null,
@@ -702,6 +375,8 @@ export const taskInstances = {
   // Get instances by template ID across all dates
   async getByTemplateId(templateId, options = {}) {
     try {
+      // Delegated to TaskInstancesRepo (legacy code retained below)
+      return await __instancesRepo.getByTemplateId(templateId, options);
       const userId = getCurrentUserId();
       const {
         startDate = null,
@@ -758,48 +433,10 @@ export const taskInstances = {
   // Create task instance with validation
   async create(instanceData) {
     try {
-      const userId = getCurrentUserId();
-      
-      // Clean and validate instance data
       const cleanData = dataUtils.cleanObjectData(instanceData);
-      
-      const instance = {
-        templateId: cleanData.templateId,
-        date: cleanData.date,
-        status: cleanData.status || 'pending',
-        
-        // Optional fields for modifications
-        modifiedStartTime: cleanData.modifiedStartTime || null,
-        modifiedDuration: cleanData.modifiedDuration || null,
-        modifiedPriority: cleanData.modifiedPriority || null,
-        
-        // Status-specific fields
-        completedAt: cleanData.completedAt || null,
-        actualDuration: cleanData.actualDuration || null,
-        skippedReason: cleanData.skippedReason || null,
-        postponedToDate: cleanData.postponedToDate || null,
-        
-        // Modification tracking
-        modificationReason: cleanData.modificationReason || null,
-        modifiedAt: cleanData.modifiedAt || null,
-        
-        // Notes and metadata
-        notes: cleanData.notes || null,
-        
-        // Timestamps
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      
-      const docRef = await db
-        .collection('users')
-        .doc(userId)
-        .collection('task_instances')
-        .add(instance);
-      
-      const createdInstance = { id: docRef.id, ...instance };
-      console.log('✅ Task instance created:', docRef.id);
-      return createdInstance;
+      const created = await __instancesRepo.create(cleanData);
+      console.log('✅ Task instance created:', created.id);
+      return created;
     } catch (error) {
       console.error('❌ Error creating task instance:', error);
       throw error;
@@ -809,31 +446,10 @@ export const taskInstances = {
   // Update task instance with modification tracking
   async update(instanceId, updates) {
     try {
-      const userId = getCurrentUserId();
-      
-      // Clean updates and add modification tracking
       const cleanUpdates = dataUtils.cleanObjectData(updates);
-      delete cleanUpdates.id;
-      delete cleanUpdates.createdAt;
-      
-      const updateData = {
-        ...cleanUpdates,
-        modifiedAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('task_instances')
-        .doc(instanceId)
-        .update(updateData);
-      
-      // Get the updated instance to return
-      const updatedInstance = await this.get(instanceId);
-      
+      const updated = await __instancesRepo.update(instanceId, cleanUpdates);
       console.log('✅ Task instance updated:', instanceId);
-      return updatedInstance;
+      return updated;
     } catch (error) {
       console.error('❌ Error updating task instance:', error);
       throw error;
@@ -843,15 +459,7 @@ export const taskInstances = {
   // Delete task instance
   async delete(instanceId) {
     try {
-      const userId = getCurrentUserId();
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('task_instances')
-        .doc(instanceId)
-        .delete();
-      
+      await __instancesRepo.delete(instanceId);
       console.log('✅ Task instance deleted:', instanceId);
     } catch (error) {
       console.error('❌ Error deleting task instance:', error);
@@ -862,29 +470,9 @@ export const taskInstances = {
   // Batch operations for multiple instances
   async batchUpdate(instanceIds, updates) {
     try {
-      const userId = getCurrentUserId();
-      const batch = db.batch();
-      
-      const updateData = {
-        ...updates,
-        modifiedAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      
-      instanceIds.forEach(instanceId => {
-        const instanceRef = db
-          .collection('users')
-          .doc(userId)
-          .collection('task_instances')
-          .doc(instanceId);
-        
-        batch.update(instanceRef, updateData);
-      });
-      
-      await batch.commit();
-      
+      const result = await __instancesRepo.batchUpdate(instanceIds, updates);
       console.log(`✅ Batch updated ${instanceIds.length} instances`);
-      return { updatedCount: instanceIds.length, updates: updateData };
+      return result;
     } catch (error) {
       console.error('❌ Error in batch update:', error);
       throw error;
@@ -894,41 +482,10 @@ export const taskInstances = {
   // Batch create instances
   async batchCreate(instancesData) {
     try {
-      const userId = getCurrentUserId();
-      const batch = db.batch();
-      const createdInstances = [];
-      
-      instancesData.forEach(instanceData => {
-        const instanceRef = db
-          .collection('users')
-          .doc(userId)
-          .collection('task_instances')
-          .doc(); // Auto-generate ID
-        
-        const cleanData = dataUtils.cleanObjectData(instanceData);
-        delete cleanData.id;
-        
-        const instance = {
-          templateId: cleanData.templateId,
-          date: cleanData.date,
-          status: cleanData.status || 'pending',
-          modifiedStartTime: cleanData.modifiedStartTime || null,
-          modifiedDuration: cleanData.modifiedDuration || null,
-          completedAt: cleanData.completedAt || null,
-          skippedReason: cleanData.skippedReason || null,
-          notes: cleanData.notes || null,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        };
-        
-        batch.set(instanceRef, instance);
-        createdInstances.push({ id: instanceRef.id, ...instance });
-      });
-      
-      await batch.commit();
-      
-      console.log(`✅ Batch created ${createdInstances.length} instances`);
-      return createdInstances;
+      const clean = instancesData.map(d => dataUtils.cleanObjectData(d));
+      const created = await __instancesRepo.batchCreate(clean);
+      console.log(`✅ Batch created ${created.length} instances`);
+      return created;
     } catch (error) {
       console.error('❌ Error in batch create:', error);
       throw error;
@@ -938,23 +495,9 @@ export const taskInstances = {
   // Batch delete instances
   async batchDelete(instanceIds) {
     try {
-      const userId = getCurrentUserId();
-      const batch = db.batch();
-      
-      instanceIds.forEach(instanceId => {
-        const instanceRef = db
-          .collection('users')
-          .doc(userId)
-          .collection('task_instances')
-          .doc(instanceId);
-        
-        batch.delete(instanceRef);
-      });
-      
-      await batch.commit();
-      
+      const result = await __instancesRepo.batchDelete(instanceIds);
       console.log(`✅ Batch deleted ${instanceIds.length} instances`);
-      return { deletedCount: instanceIds.length };
+      return result;
     } catch (error) {
       console.error('❌ Error in batch delete:', error);
       throw error;
@@ -964,42 +507,9 @@ export const taskInstances = {
   // Cleanup old instances (data retention management)
   async cleanupOldInstances(retentionDays = 365) {
     try {
-      const userId = getCurrentUserId();
-      const cutoffDate = dataUtils.addDaysToDate(new Date(), -retentionDays);
-      
-      console.log(`🧹 Starting cleanup of instances older than ${cutoffDate}`);
-      
-      // Query for old instances
-      const snapshot = await db
-        .collection('users')
-        .doc(userId)
-        .collection('task_instances')
-        .where('date', '<', cutoffDate)
-        .get();
-      
-      if (snapshot.empty) {
-        console.log('✅ No old instances to cleanup');
-        return { deletedCount: 0 };
-      }
-      
-      // Delete in batches to avoid hitting Firestore limits
-      const batchSize = 500;
-      const instanceIds = [];
-      
-      snapshot.forEach(doc => {
-        instanceIds.push(doc.id);
-      });
-      
-      let totalDeleted = 0;
-      
-      for (let i = 0; i < instanceIds.length; i += batchSize) {
-        const batchIds = instanceIds.slice(i, i + batchSize);
-        const result = await this.batchDelete(batchIds);
-        totalDeleted += result.deletedCount;
-      }
-      
-      console.log(`✅ Cleanup completed: ${totalDeleted} old instances deleted`);
-      return { deletedCount: totalDeleted, cutoffDate };
+      const result = await __instancesRepo.cleanupOldInstances(retentionDays);
+      console.log(`✅ Cleanup completed: ${result.deletedCount} old instances deleted`);
+      return result;
     } catch (error) {
       console.error('❌ Error in cleanup old instances:', error);
       throw error;
@@ -1141,29 +651,9 @@ export const taskInstances = {
   // Export instances for backup/migration
   async exportInstances(startDate, endDate, options = {}) {
     try {
-      const { includeCompleted = true, includeSkipped = false } = options;
-      
-      let instances = await this.getForDateRange(startDate, endDate);
-      
-      // Apply status filters
-      if (!includeCompleted) {
-        instances = instances.filter(i => i.status !== 'completed');
-      }
-      
-      if (!includeSkipped) {
-        instances = instances.filter(i => i.status !== 'skipped');
-      }
-      
-      const exportData = {
-        exportedAt: new Date().toISOString(),
-        dateRange: { startDate, endDate },
-        instanceCount: instances.length,
-        filters: { includeCompleted, includeSkipped },
-        instances
-      };
-      
-      console.log(`✅ Exported ${instances.length} instances for range ${startDate} to ${endDate}`);
-      return exportData;
+      const data = await __instancesRepo.exportInstances(startDate, endDate, options);
+      console.log(`✅ Exported ${data.instanceCount} instances for range ${startDate} to ${endDate}`);
+      return data;
     } catch (error) {
       console.error('❌ Error exporting instances:', error);
       throw error;
@@ -1173,53 +663,9 @@ export const taskInstances = {
   // Import instances from backup
   async importInstances(importData, options = {}) {
     try {
-      const { overwriteExisting = false } = options;
-      
-      if (!importData.instances || !Array.isArray(importData.instances)) {
-        throw new Error('Invalid import data: instances array is required');
-      }
-      
-      let importedCount = 0;
-      let skippedCount = 0;
-      
-      // Get existing instances for duplicate checking if needed
-      const existingInstances = overwriteExisting ? [] : await this.getForDateRange(
-        importData.dateRange.startDate, 
-        importData.dateRange.endDate
-      );
-      
-      const existingMap = new Map();
-      existingInstances.forEach(instance => {
-        const key = `${instance.templateId}-${instance.date}`;
-        existingMap.set(key, instance);
-      });
-      
-      const instancesToImport = [];
-      
-      for (const instance of importData.instances) {
-        const key = `${instance.templateId}-${instance.date}`;
-        
-        if (!overwriteExisting && existingMap.has(key)) {
-          skippedCount++;
-          continue;
-        }
-        
-        // Clean up instance data
-        const cleanInstance = { ...instance };
-        delete cleanInstance.id;
-        delete cleanInstance.createdAt;
-        delete cleanInstance.updatedAt;
-        
-        instancesToImport.push(cleanInstance);
-        importedCount++;
-      }
-      
-      if (instancesToImport.length > 0) {
-        await this.batchCreate(instancesToImport);
-      }
-      
-      console.log(`✅ Import completed: ${importedCount} imported, ${skippedCount} skipped`);
-      return { importedCount, skippedCount, total: importData.instances.length };
+      const result = await __instancesRepo.importInstances(importData, options);
+      console.log(`✅ Import completed: ${result.importedCount} imported, ${result.skippedCount} skipped`);
+      return result;
     } catch (error) {
       console.error('❌ Error importing instances:', error);
       throw error;
@@ -1235,18 +681,7 @@ export const dailySchedules = {
   async getForDate(date) {
     try {
       const userId = getCurrentUserId();
-      const doc = await db
-        .collection('users')
-        .doc(userId)
-        .collection('daily_schedules')
-        .doc(date)
-        .get();
-      
-      if (doc.exists) {
-        return { date, ...doc.data() };
-      } else {
-        return null; // No override for this date
-      }
+      return await __schedulesRepo.getForDate(userId, date);
     } catch (error) {
       console.error('❌ Error getting daily schedule:', error);
       throw error;
@@ -1257,22 +692,9 @@ export const dailySchedules = {
   async save(date, scheduleData) {
     try {
       const userId = getCurrentUserId();
-      
-      const schedule = {
-        wakeTime: scheduleData.wakeTime,
-        sleepTime: scheduleData.sleepTime,
-        lastUpdated: new Date().toISOString()
-      };
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('daily_schedules')
-        .doc(date)
-        .set(schedule);
-      
+      const result = await __schedulesRepo.save(userId, date, scheduleData);
       console.log('✅ Daily schedule saved for:', date);
-      return { date, ...schedule };
+      return result;
     } catch (error) {
       console.error('❌ Error saving daily schedule:', error);
       throw error;
@@ -1283,14 +705,7 @@ export const dailySchedules = {
   async delete(date) {
     try {
       const userId = getCurrentUserId();
-      
-      await db
-        .collection('users')
-        .doc(userId)
-        .collection('daily_schedules')
-        .doc(date)
-        .delete();
-      
+      await __schedulesRepo.delete(userId, date);
       console.log('✅ Daily schedule override deleted for:', date);
     } catch (error) {
       console.error('❌ Error deleting daily schedule:', error);
@@ -1400,51 +815,25 @@ export const dataUtils = {
     return cleaned;
   },
 
-  // Check if operation should be retried (for offline support)
-  shouldRetryOperation(error, attempt = 1, maxAttempts = 3) {
-    if (attempt >= maxAttempts) return false;
-
-    // Retry on network errors or temporary Firebase issues
-    const retryableErrors = [
-      'network-request-failed',
-      'temporarily-unavailable', 
-      'deadline-exceeded',
-      'unavailable'
-    ];
-
-    const errorCode = error.code || error.message;
-    return retryableErrors.some(code => errorCode.includes(code));
-  },
-
-  // Execute operation with retry logic
-  async withRetry(operation, maxAttempts = 3, delayMs = 1000) {
-    let lastError = null;
-    
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      try {
-        return await operation();
-      } catch (error) {
-        lastError = error;
-        
-        if (!this.shouldRetryOperation(error, attempt, maxAttempts)) {
-          throw error;
-        }
-        
-        // Wait before retrying with exponential backoff
-        const delay = delayMs * Math.pow(2, attempt - 1);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        
-        console.warn(`Retrying operation (attempt ${attempt + 1}/${maxAttempts}) after ${delay}ms delay`);
-      }
-    }
-    
-    throw lastError;
-  },
-
-  // Convert Firestore timestamp to ISO string
+  /**
+   * Convert Firestore timestamp to ISO string
+   * @deprecated Use Mapping.timestampToISO from `public/js/data/shared/Mapping.js`
+   */
   timestampToISO(timestamp) {
-    if (!timestamp) return null;
-    return timestamp.toDate ? timestamp.toDate().toISOString() : timestamp;
+    return __sharedTimestampToISO(timestamp);
+  },
+
+  // Check if operation should be retried (deprecated: use shared Retry)
+  shouldRetryOperation(error, attempt = 1, maxAttempts = 3) {
+    return __sharedShouldRetry(error, attempt, maxAttempts);
+  },
+
+  /**
+   * Execute operation with retry logic
+   * @deprecated Use Retry.withRetry from `public/js/data/shared/Retry.js`
+   */
+  async withRetry(operation, maxAttempts = 3, delayMs = 1000) {
+    return __sharedWithRetry(operation, maxAttempts, delayMs);
   },
 
   // Check if running in offline mode

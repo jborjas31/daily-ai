@@ -13,6 +13,8 @@
  */
 
 import { SafeEventListener } from '../utils/MemoryLeakPrevention.js';
+import { SimpleErrorHandler } from '../utils/SimpleErrorHandler.js';
+import { TIME_WINDOWS as TL_TIME_WINDOWS } from '../constants/timeWindows.js';
 import { taskDisplayLogic } from '../logic/TaskDisplayLogic.js';
 import { TimelineDragDrop } from '../features/TimelineDragDrop.js';
 import { TimelineContextMenu } from '../features/TimelineContextMenu.js';
@@ -616,6 +618,8 @@ export class TimelineGrid {
     completeBtn.className = 'task-action-btn complete-btn';
     completeBtn.title = 'Mark complete';
     completeBtn.textContent = '✓';
+    completeBtn.dataset.action = 'toggle-task-completion';
+    completeBtn.dataset.taskId = task.id;
     actions.appendChild(completeBtn);
     
     // Edit button
@@ -623,7 +627,36 @@ export class TimelineGrid {
     editBtn.className = 'task-action-btn edit-btn';
     editBtn.title = 'Edit task';
     editBtn.textContent = '✏️';
+    editBtn.dataset.action = 'edit-task';
+    editBtn.dataset.taskId = task.id;
     actions.appendChild(editBtn);
+
+    // Skip button
+    const skipBtn = document.createElement('button');
+    skipBtn.className = 'task-action-btn skip-btn';
+    skipBtn.title = 'Skip today';
+    skipBtn.textContent = '⏭️';
+    skipBtn.dataset.action = 'skip-task';
+    skipBtn.dataset.taskId = task.id;
+    actions.appendChild(skipBtn);
+
+    // Postpone button
+    const postponeBtn = document.createElement('button');
+    postponeBtn.className = 'task-action-btn postpone-btn';
+    postponeBtn.title = 'Postpone';
+    postponeBtn.textContent = '⏰';
+    postponeBtn.dataset.action = 'postpone-task';
+    postponeBtn.dataset.taskId = task.id;
+    actions.appendChild(postponeBtn);
+
+    // Soft delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'task-action-btn delete-btn';
+    deleteBtn.title = 'Delete';
+    deleteBtn.textContent = '🗑️';
+    deleteBtn.dataset.action = 'soft-delete-task';
+    deleteBtn.dataset.taskId = task.id;
+    actions.appendChild(deleteBtn);
     
     return actions;
   }
@@ -907,12 +940,46 @@ export class TimelineGrid {
     
     const hour = event.target.dataset.hour;
     const timeString = `${hour.padStart(2, '0')}:00`;
+    const minutes = parseInt(hour, 10) * 60;
+    const timeWindow = this._getTimeWindowForMinutes(minutes);
     
-    this.emitEvent('create-task', {
+    const detail = {
       scheduledTime: timeString,
-      hour: parseInt(hour),
+      hour: parseInt(hour, 10),
+      defaultTime: timeString,
       clickPosition: { x: event.clientX, y: event.clientY }
-    });
+    };
+    if (timeWindow) detail.timeWindow = timeWindow;
+
+    // Emit local event for timeline features
+    this.emitEvent('create-task', detail);
+
+    // Also dispatch global addTask event for app-level handler
+    try {
+      const evt = new CustomEvent('addTask', { detail });
+      document.dispatchEvent(evt);
+    } catch (_) {
+      // no-op
+    }
+  }
+
+  /**
+   * Determine time window key for given minutes since midnight
+   * Returns 'morning' | 'afternoon' | 'evening' | null
+   */
+  _getTimeWindowForMinutes(mins) {
+    try {
+      const windows = TL_TIME_WINDOWS;
+      const candidates = ['morning', 'afternoon', 'evening'];
+      for (const key of candidates) {
+        const w = windows[key];
+        if (!w) continue;
+        if (mins >= (w.startMin ?? 0) && mins < (w.endMin ?? 1440)) return key;
+      }
+      return null; // outside defined windows (late night/early morning)
+    } catch (_) {
+      return null;
+    }
   }
 
   /**
@@ -942,6 +1009,7 @@ export class TimelineGrid {
     const taskBlock = event.target.closest('.task-block');
     const taskId = taskBlock.dataset.taskId;
     
+    // Emit for container; container toggles and shows toast via TaskActions
     this.emitEvent('task-complete', { taskId });
   }
 

@@ -19,6 +19,8 @@ import { KeyboardShortcuts } from '../features/KeyboardShortcuts.js';
 import { AutosaveDraft } from '../features/AutosaveDraft.js';
 import { TaskTemplateFormService } from '../logic/TaskTemplateFormService.js';
 import { TaskTemplateValidation } from '../logic/TaskTemplateValidation.js';
+import { SimpleValidation } from '../utils/SimpleValidation.js';
+import { ConfirmDialog } from './ConfirmDialog.js';
 
 export class TaskModalContainer {
   constructor() {
@@ -42,6 +44,7 @@ export class TaskModalContainer {
     this._isDirty = false;
     this._saving = false;
     this._boundSectionHandler = null;
+    this._boundKeyHandler = null;
     // Frame batching
     this._rafId = null;
     this._needs = { reconcile: false, validate: false, footer: false };
@@ -78,6 +81,13 @@ export class TaskModalContainer {
       }
     } catch (e) {
       console.warn('[TaskModalContainer] autosave restore failed', e);
+    }
+    // Apply intelligent defaults based on initialData (e.g., defaultTime/timeWindow)
+    try {
+      this._formModel = TaskTemplateFormService.applyDefaults(this._formModel, initialData);
+      console.log('[TaskModalContainer] defaults applied (create)', this._formModel);
+    } catch (e) {
+      console.warn('[TaskModalContainer] applyDefaults failed', e);
     }
     this._isDirty = false;
     this._dirtyGuard = new DirtyStateGuard({
@@ -150,16 +160,14 @@ export class TaskModalContainer {
     this._isOpen = false;
     this._dispatch('close', {});
     this._removeShell();
-    // Restore focus
-    try {
-      if (this._openerEl && typeof this._openerEl.focus === 'function') {
-        this._openerEl.focus();
-      } else if (this._lastFocusedEl && typeof this._lastFocusedEl.focus === 'function') {
-        this._lastFocusedEl.focus();
-      }
-    } catch (e) {
-      // noop
-    }
+    // Restore focus (next frame) to the invoker element
+    const focusTarget = this._openerEl?.isConnected ? this._openerEl : (this._lastFocusedEl?.isConnected ? this._lastFocusedEl : null);
+    const raf = window.requestAnimationFrame || window.setTimeout;
+    raf(() => {
+      try {
+        if (focusTarget && typeof focusTarget.focus === 'function') focusTarget.focus();
+      } catch (_) {}
+    }, 0);
     this._openerEl = null;
     this._lastFocusedEl = null;
   }
@@ -197,7 +205,15 @@ export class TaskModalContainer {
    */
   requestSubmit() {
     console.log('[TaskModalContainer] dispatch submit-request');
+    // Fire event for any external listeners
     this._dispatch('submit-request', {});
+    // Also invoke locally to avoid relying solely on global events
+    try {
+      const saveBtn = this._footerEl?.querySelector('[data-role="save"]') || null;
+      this._handleSave(saveBtn);
+    } catch (e) {
+      console.warn('[TaskModalContainer] local submit failed', e);
+    }
   }
 
   /**
@@ -311,14 +327,32 @@ export class TaskModalContainer {
       if (e.target === overlay) this.close();
     });
 
-    // Keyboard: Esc to close
-    const keyHandler = (e) => {
+    // Keyboard: Esc to close; Enter to submit when valid
+    this._boundKeyHandler = (e) => {
+      if (!this._dialogEl) return;
+      // Close on Escape
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         this.close();
+        return;
+      }
+      // Submit on Enter when primary is enabled and form valid
+      if (e.key === 'Enter') {
+        const target = e.target;
+        const inTextarea = target && (target.tagName === 'TEXTAREA' || target.isContentEditable);
+        if (inTextarea) return; // Don't submit from multiline editors
+
+        const saveBtn = this._footerEl?.querySelector('[data-role="save"]') || null;
+        const canSubmit = !!(saveBtn && !saveBtn.disabled && (!this._validation || this._validation.isValid));
+        if (canSubmit) {
+          e.preventDefault();
+          e.stopPropagation();
+          this._handleSave(saveBtn);
+        }
       }
     };
-    document.addEventListener('keydown', keyHandler, { once: true });
+    document.addEventListener('keydown', this._boundKeyHandler, true);
 
     // Listen for section-change events to mark dirty and merge patches
     this._boundSectionHandler = (e) => {
@@ -424,6 +458,10 @@ export class TaskModalContainer {
       try { this._focusTrap.deactivate(); } catch (_) {}
       this._focusTrap = null;
     }
+    if (this._boundKeyHandler) {
+      document.removeEventListener('keydown', this._boundKeyHandler, true);
+      this._boundKeyHandler = null;
+    }
     if (this._kb && typeof this._kb.deactivate === 'function') {
       try { this._kb.deactivate(); } catch (_) {}
       this._kb = null;
@@ -463,6 +501,16 @@ export class TaskModalContainer {
         return;
       }
 
+      // If editing a recurring template, prompt for scope (Only this / This and future / All)
+      if (this._mode === 'edit' && this._isRecurringTemplate()) {
+        const scope = await this._promptRecurrenceScope();
+        if (!scope) {
+          // User cancelled scope selection
+          return;
+        }
+        this._editScope = scope; // Store for step 5.2 handling
+      }
+
       this._saving = true;
       const original = saveBtn?.textContent;
       if (saveBtn) {
@@ -472,7 +520,30 @@ export class TaskModalContainer {
 
       let result;
       if (this._mode === 'edit' && this._formModel?.id) {
-        result = await state.updateTaskTemplate(this._formModel.id, this._formModel);
+        // Handle recurrence scope for edits
+        if (this._editScope === 'future') {
+          const editDate = state.getCurrentDate?.() || new Date().toISOString().split('T')[0];
+          const updates = TaskTemplateFormService.toTemplate(this._formModel);
+          result = await state.splitTemplateFromDate(this._formModel.id, editDate, updates);
+        } else if (this._editScope === 'only') {
+          const editDate = state.getCurrentDate?.() || new Date().toISOString().split('T')[0];
+          const payload = TaskTemplateFormService.toTemplate(this._formModel);
+          const instUpdates = {
+            taskName: payload.taskName,
+            description: payload.description,
+            durationMinutes: payload.durationMinutes,
+            minDurationMinutes: payload.minDurationMinutes,
+            priority: payload.priority,
+            isMandatory: payload.isMandatory,
+            schedulingType: payload.schedulingType,
+            defaultTime: payload.defaultTime,
+            timeWindow: payload.timeWindow,
+            dependsOn: payload.dependsOn
+          };
+          result = await state.overrideTaskInstanceForDate(this._formModel.id, editDate, instUpdates);
+        } else {
+          result = await state.updateTaskTemplate(this._formModel.id, this._formModel);
+        }
       } else {
         result = await state.createTaskTemplate(this._formModel);
       }
@@ -497,9 +568,40 @@ export class TaskModalContainer {
     }
   }
 
+  _isRecurringTemplate() {
+    const freq = this._formModel?.recurrenceRule?.frequency || 'none';
+    return freq && freq !== 'none';
+  }
+
+  async _promptRecurrenceScope() {
+    try {
+      const message = [
+        'Apply changes to which scope?\n',
+        '1) Only this occurrence',
+        '2) This and future occurrences',
+        '3) All occurrences'
+      ].join('\n');
+      const input = window.prompt(message, '3');
+      if (input === null) return null; // cancel
+      const val = String(input).trim();
+      if (val === '1') return 'only';
+      if (val === '2') return 'future';
+      return 'all';
+    } catch (_) {
+      return 'all';
+    }
+  }
+
   async _handleDelete(deleteBtn) {
     if (!this._formModel?.id) return;
-    const ok = window.confirm('Delete this template? This cannot be undone.');
+    const ok = await ConfirmDialog.show({
+      title: 'Delete this task?',
+      message: 'This removes it from active views. You can restore later.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      dangerous: true,
+      defaultFocus: 'cancel'
+    });
     if (!ok) return;
     try {
       deleteBtn.disabled = true;
@@ -532,7 +634,20 @@ export class TaskModalContainer {
   _updateValidation() {
     if (!this._formModel) return;
     try {
-      this._validation = TaskTemplateValidation.validateForm(this._formModel);
+      const cross = TaskTemplateValidation.validateForm(this._formModel);
+      const simple = this._runSimpleFieldValidation(this._formModel);
+      const errorsByField = new Map(cross.errorsByField);
+      simple.errorsByField.forEach((msgs, key) => {
+        const list = errorsByField.get(key) || [];
+        errorsByField.set(key, list.concat(msgs));
+      });
+      const warningsByField = new Map(cross.warningsByField);
+      this._validation = {
+        isValid: errorsByField.size === 0,
+        errorsByField,
+        warningsByField,
+        raw: cross.raw
+      };
       this._applyValidationToSections();
     } catch (e) {
       console.warn('[TaskModalContainer] validation failed', e);
@@ -541,25 +656,68 @@ export class TaskModalContainer {
     this._renderFooterActions();
   }
 
+  _runSimpleFieldValidation(model) {
+    const errorsByField = new Map();
+    const add = (key, msg) => {
+      if (!msg) return;
+      const list = errorsByField.get(key) || [];
+      list.push(msg);
+      errorsByField.set(key, list);
+    };
+    try {
+      const nameRes = SimpleValidation.validateTaskName(model.taskName);
+      if (!nameRes.valid) add('taskName', nameRes.message);
+
+      if (model.durationMinutes != null) {
+        const durRes = SimpleValidation.validateDuration(model.durationMinutes);
+        if (!durRes.valid) add('durationMinutes', durRes.message);
+      }
+
+      if (model.priority != null) {
+        const prRes = SimpleValidation.validatePriority(model.priority);
+        if (!prRes.valid) add('priority', prRes.message);
+      }
+
+      if (model.schedulingType === 'fixed') {
+        const timeRes = SimpleValidation.validateTime(model.defaultTime);
+        if (!timeRes.valid) add('defaultTime', timeRes.message);
+      }
+    } catch (_) {}
+    return { errorsByField };
+  }
+
   _applyValidationToSections() {
     if (!this._validation) return;
     const get = (key) => this._validation.errorsByField.get(key) || [];
     // Basics
     this._setError('tmv2-task-name-error', get('taskName'));
+    this._setAria('#tmv2-task-name', 'tmv2-task-name-error', get('taskName').length > 0);
     this._setError('tmv2-task-desc-error', get('description'));
+    this._setAria('#tmv2-task-desc', 'tmv2-task-desc-error', get('description').length > 0);
     this._setError('tmv2-task-category-error', get('category'));
+    this._setAria('#tmv2-task-category', 'tmv2-task-category-error', get('category').length > 0);
     this._setError('tmv2-priority-error', get('priority'));
+    this._setAria('#tmv2-priority', 'tmv2-priority-error', get('priority').length > 0);
     // Scheduling
     this._setError('tmv2-default-time-error', get('defaultTime'));
+    this._setAria('#tmv2-default-time', 'tmv2-default-time-error', get('defaultTime').length > 0);
     this._setError('tmv2-time-window-error', get('timeWindow'));
+    this._setAria('#tmv2-time-window', 'tmv2-time-window-error', get('timeWindow').length > 0);
     // Recurrence
     this._setError('tmv2-recur-frequency-error', get('recurrence.frequency'));
+    this._setAria('#tmv2-recur-frequency', 'tmv2-recur-frequency-error', get('recurrence.frequency').length > 0);
     this._setError('tmv2-recur-interval-error', get('recurrence.interval'));
+    this._setAria('#tmv2-recur-interval', 'tmv2-recur-interval-error', get('recurrence.interval').length > 0);
     this._setError('tmv2-recur-days-error', get('recurrence.daysOfWeek'));
+    // Treat weekly days as a group
+    this._setAria('#tmv2-recur-weekly', 'tmv2-recur-days-error', get('recurrence.daysOfWeek').length > 0, { role: 'group' });
     this._setError('tmv2-recur-end-date-error', get('recurrence.endDate'));
+    this._setAria('#tmv2-recur-end-date', 'tmv2-recur-end-date-error', get('recurrence.endDate').length > 0);
     this._setError('tmv2-recur-end-after-error', get('recurrence.endAfterOccurrences'));
+    this._setAria('#tmv2-recur-end-after', 'tmv2-recur-end-after-error', get('recurrence.endAfterOccurrences').length > 0);
     // Dependencies
     this._setError('tmv2-dep-error', get('dependsOn'));
+    this._setAria('#tmv2-dep-select', 'tmv2-dep-error', get('dependsOn').length > 0);
   }
 
   _setError(elementId, messages) {
@@ -568,6 +726,17 @@ export class TaskModalContainer {
     const msg = (messages && messages.length) ? messages[0] : '';
     el.textContent = msg;
     el.style.display = msg ? 'block' : 'none';
+  }
+
+  _setAria(selector, errorId, hasError, opts = {}) {
+    const el = this._dialogEl?.querySelector(selector);
+    if (!el) return;
+    try {
+      if (opts.role) el.setAttribute('role', opts.role);
+      if (errorId) el.setAttribute('aria-describedby', errorId);
+      if (hasError) el.setAttribute('aria-invalid', 'true');
+      else el.removeAttribute('aria-invalid');
+    } catch (_) {}
   }
 
   _focusFirstInvalid() {

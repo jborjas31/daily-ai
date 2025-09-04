@@ -28,8 +28,20 @@ You are an expert web developer. Your task is to create a complete Progressive W
 * **No Time Zones:** Do not implement timezone handling. Use local system time only.
 * **Personal Use:** This app is for single-user personal use only, not for publishing.
 
-**🎊 PROJECT STATUS: PHASE 3 FULLY COMPLETED ✅ | PHASE 4 READY** 
-**Complete timeline interface with advanced features - responsive timeline, performance monitoring, drag-and-drop interactions, and comprehensive testing framework operational!**
+**🎊 PROJECT STATUS: PHASE 3 FULLY COMPLETED ✅ | PHASE 4 READY | PWA BASICS LIVE**
+**Complete timeline interface with advanced features - responsive timeline, performance monitoring, drag-and-drop interactions, and comprehensive testing framework operational. Basic PWA (service worker + offline page + manifest) implemented; app icons pending.**
+
+---
+
+## Codebase Snapshot (Current Implementation)
+
+- App bootstrap: `public/index.html` registers `/sw.js` and loads `js/utils/AppInitializer.js` (browser check via `ModernBrowserChecker`) which then imports `js/app.js`.
+- Firebase: `js/firebase.js` uses v9 compat SDKs and enables Firestore offline persistence.
+- State: Centralized store/event bus in `js/state/Store.js` with `BroadcastChannel` sync; high‑level facade/actions in `js/state.js`.
+- UI: `js/ui.js` renders Today/Library/Settings, with `utils/ResponsiveNavigation.js` handling mobile/desktop nav, live clock, and view switches.
+- Logic: `js/taskLogic.js` wires `SchedulingEngine`, `RecurrenceEngine`, `DependencyResolver`, `TaskTemplateManager`, `TaskInstanceManager`.
+- Offline‑first: `js/dataOffline.js` bridges to `utils/OfflineDataLayer.js` (IndexedDB cache, offline queue, auto sync). Online calls defer to `js/data.js` when online.
+- PWA: `public/manifest.json` present; `public/sw.js` caches core assets and falls back to `offline.html` for navigations. Icons are not yet included; `public/icons/` is currently empty.
 
 **Project Structure**
 
@@ -75,7 +87,7 @@ daily_ai/
 │   │   ├── components.css           # Component styles
 │   │   ├── modern-features.css      # Modern CSS features
 │   │   └── responsive-navigation.css # Navigation styles
-│   ├── js/                          # JavaScript modules
+│   ├── js/                          # JavaScript modules (ES modules)
 │   │   ├── app.js                   # Main application entry point
 │   │   ├── firebase.js              # Firebase integration
 │   │   ├── ui.js                    # UI management
@@ -87,8 +99,13 @@ daily_ai/
 │   │   ├── components/              # UI components
 │   │   │   ├── TaskModalContainer.js # Task Template modal (refactored, V2)
 │   │   │   ├── TaskList.js          # ✅ NEW: Professional task management interface
-│   │   │   ├── Timeline.js          # Timeline display component
-│   │   │   └── TaskBlock.js         # Individual task block component
+│   │   │   ├── TimelineContainer.js  # Timeline container
+│   │   │   ├── TimelineHeader.js     # Timeline header
+│   │   │   ├── TimelineGrid.js       # Timeline grid and indicator
+│   │   │   ├── TaskBlock.js          # Individual task block component
+│   │   │   ├── TaskCard.js           # Card/list presentation
+│   │   │   ├── TaskListToolbar.js    # Library toolbar and filters
+│   │   │   └── TaskGrid.js           # Grid layouts
 │   │   ├── utils/                   # Utility functions
 │   │   │   ├── OfflineStorage.js    # ✅ NEW: IndexedDB offline storage
 │   │   │   ├── OfflineQueue.js      # ✅ NEW: Operation queue with retry logic
@@ -109,7 +126,8 @@ daily_ai/
 │   │   ├── storage/                 # Storage management
 │   │   ├── scheduling/              # Scheduling engine
 │   │   └── validation/              # Input validation
-│   └── icons/                       # PWA icons and graphics
+│   ├── sw.js                        # Service Worker (basic cache + offline)
+│   └── icons/                       # PWA icons and graphics (pending)
 └── tests/                           # Test files
 ```
 
@@ -597,24 +615,38 @@ Build the application in the following logical order.
 8. Add adaptive Today button functionality (navigate + scroll) with touch/click optimization
 
 **Phase 4: Responsive Task Management** 🚀 CURRENT PHASE
-1. Build responsive Add/Edit task modal with device-adaptive design:
-   - Mobile: Full-screen modal, vertical stacking, large form fields, touch-optimized inputs
-   - Tablet: Centered modal with appropriate sizing and spacing
-   - Desktop: Compact modal, side-by-side layouts, keyboard navigation support
-2. Implement task creation default values and intelligent pre-population
-3. Add data validation with specific error messages for all form fields
-4. Implement responsive task creation, editing, and soft deletion with adaptive confirmation dialogs
-5. Add task duplication/copying functionality with "Copy Task" button
-6. Add adaptive timeline task creation:
-   - Mobile: Tap empty spaces (44px touch targets), haptic feedback
-   - Desktop: Click with hover states and "+" icon indicators
-7. Add responsive task completion toggle with device-appropriate feedback
-8. Implement recurring task logic and editing options with responsive UI
-9. Add skip and postpone functionality with touch/click optimization
-10. Add adaptive confirmation prompts for destructive actions
-11. Implement device-specific visual feedback:
-   - Mobile: Touch feedback, long-press alternatives for hover states
-   - Desktop: Hover states, cursor changes, immediate visual feedback
+
+- Outcomes (what “done” looks like):
+  1) Task Modal UX: One adaptive modal (mobile full‑screen, desktop centered) with full keyboard support (Tab/Shift+Tab/Enter/Esc), proper ARIA/labels, and clean focus management.
+  2) Smart Defaults: New tasks pre‑fill from context (timeline click → time/window) and TemplateDefaultsService (priority, duration, window).
+  3) Clear Validation: Inline messages match specs (name empty, duration 1–480, priority 1–5, start<=end). Buttons disable during submit; no double‑submit.
+  4) Core Actions: Create, Edit, Duplicate, Soft Delete, Complete, Skip, Postpone — visible in list and timeline, with immediate UI updates and toasts.
+  5) Recurrence Edits: “Only this / This and future / All” flows implemented; apply Split‑and‑Create for “this and future” to preserve history.
+  6) Confirmations & Feedback: Short, device‑appropriate confirm dialogs for destructive actions; consistent toasts for results.
+  7) A11y & Keyboard: Modal is fully operable with keyboard; controls have accessible names; no focus traps or scroll issues on mobile.
+
+- Bite‑Sized Steps (build on existing code, no re‑writes):
+  1) Responsive Modal Polish
+     - Wire TaskModalContainer to adjust layout at breakpoints; ensure focus trap and Esc to close; verify ARIA roles and labels.
+     - Acceptance: Can create/edit a task with keyboard only; modal is readable on mobile; focus returns to invoker.
+  2) Intelligent Pre‑Fill
+     - Pass timeline click/tap context (time/window) into TaskTemplateFormService; ensure TemplateDefaultsService sets sensible defaults.
+     - Acceptance: New task modal reflects clicked slot/window and has no empty required fields.
+  3) Validation & Error UX
+     - Ensure SimpleValidation + TaskTemplateValidation show exact messages; disable buttons during save; use SimpleErrorHandler only for network/unknown errors.
+     - Acceptance: All listed error cases display precise messages; no double submit.
+  4) Core Actions Wiring
+     - Hook list/timeline buttons to TaskActions for complete/skip/postpone/duplicate/delete; keep copy explicit; ensure state listeners update UI immediately.
+     - Acceptance: Actions reflect instantly; toasts confirm results; works offline with queue.
+  5) Recurrence Edit Options
+     - Implement “Only this / This and future / All” in the edit flow; apply Split‑and‑Create for “this and future.”
+     - Acceptance: After edit, lists/schedule reflect chosen scope; no duplicated/orphaned templates.
+  6) Confirmations & Feedback
+     - Use a small, consistent confirm UI for destructive actions; avoid heavy animations on mobile.
+     - Acceptance: All destructive actions confirm; messages short and clear.
+
+- De‑scoped from Phase 4 (to avoid scope creep):
+  - Haptics/long‑press; advanced drag‑and‑drop polish; import/export UI (already implemented but hidden) — address later as optional polish.
 
 **Phase 5: Task Library & Search**
 1. Create Task Library page with enhanced categorized task lists
@@ -756,7 +788,103 @@ firebase deploy
 ```
 
 **Local Development:**
-- Open `public/index.html` in browser
-- Or use Firebase emulators: `firebase serve`
+- Open `public/index.html` in a browser for a quick UI check.
+- For service worker/offline testing, use a local server (e.g., `firebase serve`) or HTTPS; service workers do not register on `file://`.
 
 **Repository:** Auto-deployed via GitHub Actions on push to main branch.
+
+---
+
+## Known Issues and Follow-ups
+
+- Manifest icons are not yet included. Add icons under `public/icons/` and reference them in `manifest.json` and `index.html`.
+- `public/sw.js` maintains a static cache list; keep it in sync or migrate to a generated precache in a future pass.
+- `js/dataOffline.js` uses `require('./firebase.js')` inside an ES module (`dataUtils.getCurrentUserId`). Replace with `import { auth } from './firebase.js'` to avoid `require` being undefined in strict ESM contexts.
+- Advanced PWA features (install prompt, update flow, background sync) are planned but not yet implemented.
+# Daily AI — Personal Daily Task Manager (PWA)
+
+Daily AI is a personal, time‑based daily task manager with an intelligent scheduling engine. It runs as a lightweight Progressive Web App, works offline, and syncs when you’re back online. Built with plain HTML/CSS/JS and Firebase.
+
+## Features
+
+- Today view: timeline with real‑time indicator and list toggle
+- Task Library: search, filters, priority, dependencies, soft delete
+- Simple Settings: sleep duration, wake/sleep times
+- Authentication: single‑user email/password (Firebase Auth)
+- Offline‑first: IndexedDB cache, queued changes, auto‑sync, multi‑tab sync
+- Responsive UI: phone, tablet, laptop, desktop
+- PWA basics: service worker, offline page, manifest (icons pending)
+
+## Architecture
+
+- Frontend: HTML/CSS/JS (no framework). Modules under `public/js/`
+- Firebase: Auth + Firestore (offline persistence enabled)
+- State: single store in `js/state/Store.js` with `BroadcastChannel` sync
+- Scheduling: `js/taskLogic.js` + `js/logic/*` (recurrence, dependencies)
+- Offline layer: `js/utils/OfflineDataLayer.js` via `js/dataOffline.js`
+- Error handling: `js/utils/SimpleErrorHandler.js` (toasts + friendly messages)
+
+## Getting Started
+
+Prerequisites
+- Modern browser: Chrome 100+, Firefox 100+, Safari 15.4+, Edge 100+
+- Firebase project (Auth + Firestore). See `docs/specs/FIREBASE_SETUP_GUIDE.md`.
+- Optional: `firebase-tools` for local serve/deploy.
+
+Setup
+1) Configure Firebase Security Rules and Indexes.
+2) Enable Email/Password Auth in Firebase Console.
+3) Update `public/js/firebase-config.js` if using your own project.
+
+Run Locally
+- Quick UI check: open `public/index.html` directly.
+- To test service worker/offline, use a local server (e.g. `firebase serve`).
+
+Deploy
+```bash
+firebase deploy
+```
+
+## PWA Notes
+
+- Service Worker: `public/sw.js` caches core assets and serves `offline.html` for navigations when offline (cache‑first for static assets).
+- Manifest: `public/manifest.json` is included. App icons are not yet defined.
+- Icons: add PNG/SVG icons under `public/icons/` and reference them in `manifest.json` and (optionally) `index.html`.
+
+## Project Structure (key files)
+
+```
+public/
+  index.html                 # App shell, SW registration, module bootstrap
+  manifest.json              # PWA manifest (icons pending)
+  offline.html               # Offline fallback page
+  sw.js                      # Basic service worker (cache + offline)
+  css/                       # Styles (design system, components, timeline)
+  js/
+    app.js                   # App init (UI, offline, Firebase, auth state)
+    ui.js                    # Views (Today/Library/Settings) + rendering
+    state.js                 # State facade + actions
+    state/Store.js           # Single source of truth + event bus
+    taskLogic.js             # Scheduling engine and managers
+    logic/                   # Recurrence, dependency, scheduling logic
+    firebase.js              # Firebase init + safe wrappers
+    utils/                   # Offline layer, navigation, errors, etc.
+    components/              # Timeline, TaskList, TaskModal, etc.
+```
+
+## Known Limitations / TODO
+
+- Icons missing: add and wire to `manifest.json` and `index.html`.
+- Static cache list in `sw.js`: keep updated or migrate to a generated precache.
+- ESM cleanup: `js/dataOffline.js` uses `require('./firebase.js')` in one utility; replace with an ESM import (`import { auth } from './firebase.js'`).
+- Advanced PWA features (install prompt, update flow, background sync) are not yet implemented.
+
+## Troubleshooting
+
+- “Browser not supported” splash: update your browser to the versions above.
+- Service worker not registering: SW requires localhost/HTTPS (not `file://`).
+- Firestore permission errors: ensure rules and indexes are deployed; confirm user is authenticated.
+
+## Documentation
+
+Detailed specs and walkthroughs live in `docs/` (design system, error handling, multi‑tab sync, browser compatibility, and more).

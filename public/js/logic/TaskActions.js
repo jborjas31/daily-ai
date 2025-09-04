@@ -47,3 +47,35 @@ export const toggleTaskCompletion = async (taskId) => {
     SimpleErrorHandler.showError('Failed to update task status. Please try again.', error);
   }
 };
+
+export const skipTask = async (taskId) => {
+  try {
+    const currentDate = state.getCurrentDate();
+    await taskInstanceManager.skipByTemplateAndDate(taskId, currentDate, 'Skipped by user');
+    SimpleErrorHandler.showSuccess('Task skipped for today.');
+  } catch (error) {
+    console.error('Error skipping task:', error);
+    SimpleErrorHandler.showError('Failed to skip task. Please try again.', error);
+  }
+};
+
+export const postponeTask = async (taskId, minutes = 30) => {
+  try {
+    const currentDate = state.getCurrentDate();
+    await taskInstanceManager.postponeByTemplateAndDate(taskId, currentDate, minutes);
+    SimpleErrorHandler.showSuccess(`Task postponed by ${minutes} minutes.`);
+  } catch (error) {
+    console.error('Error postponing task:', error);
+    SimpleErrorHandler.showError('Failed to postpone task. Please try again.', error);
+  }
+};
+
+export const softDeleteTask = async (taskId) => {
+  try {
+    await taskTemplateManager.delete(taskId);
+    SimpleErrorHandler.showSuccess('Task deleted.');
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    SimpleErrorHandler.showError('Failed to delete task. Please try again.', error);
+  }
+};
