@@ -1,215 +1,1053 @@
-18:35:39.524 AppInitializer.js:7 🚀 Starting Daily AI initialization...
-18:35:39.525 ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
-18:35:39.525 ModernBrowserChecker.js:153   Features supported: true
-18:35:39.525 ModernBrowserChecker.js:157   Browser: chrome
-18:35:39.525 ModernBrowserChecker.js:158   Version: 139
-18:35:39.525 ModernBrowserChecker.js:159   Version supported: true
-18:35:39.525 AppInitializer.js:19 ✅ Browser compatibility check passed
-18:35:39.645 sw.js:87 SW: Service Worker loaded
-18:35:39.646 sw.js:32 SW: Installing service worker
-18:35:39.646 (index):270 SW registered: ServiceWorkerRegistration {installing: ServiceWorker, waiting: null, active: null, navigationPreload: NavigationPreloadManager, scope: 'https://daily-ai-3b51f.web.app/', …}
-18:35:39.646 sw.js:36 SW: Caching static assets
-18:35:40.166 sw.js:48 SW: Activating service worker
-18:35:40.211 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
-18:35:40.212 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
-18:35:40.212 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
-18:35:40.212 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
-18:35:40.212 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
-18:35:40.212 MemoryLeakPrevention.js:514 ✅ Memory Leak Prevention utility loaded
-18:35:40.212 OfflineStorage.js:827 ✅ OfflineStorage system initialized
-18:35:40.212 OfflineQueue.js:513 ✅ OfflineQueue system initialized
-18:35:40.212 ConflictResolution.js:675 ✅ ConflictResolution system initialized
-18:35:40.213 OfflineDetection.js:706 ✅ OfflineDetection system initialized
-18:35:40.213 DataMaintenance.js:850 ✅ DataMaintenance system initialized
-18:35:40.213 TaskValidation.js:802 ✅ Task Validation System initialized
-18:35:40.213 OfflineDataLayer.js:1296 ✅ Offline Data Layer initialized
-18:35:40.214 dataOffline.js:375 ✅ Offline-enabled data bridge initialized
-18:35:40.214 userSettings.js:458 ✅ User Settings management module loaded
-18:35:40.214 TaskInstanceManager.js:621 ✅ Streamlined TaskInstanceManager class loaded
-18:35:40.214 TemplateDefaultsService.js:343 ✅ TemplateDefaultsService loaded
-18:35:40.214 TemplateOperationsService.js:564 ✅ TemplateOperationsService loaded
-18:35:40.214 TaskTemplateManager.js:406 ✅ Streamlined TaskTemplateManager class loaded
-18:35:40.214 taskLogic.js:113 ✅ Task logic and scheduling engine initialized
-18:35:40.215 state.js:1267 ✅ Multi-tab synchronization initialized
-18:35:40.215 state.js:1270 ✅ Enhanced state management initialized with comprehensive template and instance support
-18:35:40.215 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskList
-18:35:40.215 TaskList.js:1341 ✅ Task list component initialized
-18:35:40.215 PerformanceMonitor.js:56 ✅ Performance Monitor initialized
-18:35:40.215 PerformanceMonitor.js:502 ✅ Performance Monitor utility loaded
-18:35:40.215 ui.js:961 ✅ UI management system initialized
-18:35:40.216 app.js:393 ✅ Daily AI application module loaded
-18:35:40.216 app.js:394 🧪 Testing objects exposed globally for console access
-18:35:40.216 app.js:59 🚀 Initializing Daily AI...
-18:35:40.216 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
-18:35:40.216 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
-18:35:40.216 OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
-18:35:40.219 OfflineStorage.js:134 ✅ OfflineStorage: Database stores created
-18:35:40.221 OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
-18:35:40.221 OfflineQueue.js:193 🔄 OfflineQueue: Processing started
-18:35:40.221 OfflineQueue.js:91 ✅ OfflineQueue: Queue system initialized
-18:35:40.222 OfflineDetection.js:72 ✅ OfflineDetection: System initialized
-18:35:40.222 DataMaintenance.js:56 ✅ DataMaintenance: System initialized
-18:35:40.222 OfflineDataLayer.js:85 🔧 OfflineDataLayer: Performing initial maintenance...
-18:35:40.224 OfflineDataLayer.js:100 ✅ OfflineDataLayer: Initial maintenance complete
-18:35:40.224 OfflineDataLayer.js:54 ✅ OfflineDataLayer: Initialization complete
-18:35:40.224 app.js:66 ✅ Offline system initialized
-18:35:40.224 ui.js:69 ✅ UI system initialized
-18:35:40.224 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
-18:35:40.224 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
-18:35:40.224 app.js:73 ✅ Network monitoring initialized
-18:35:40.225 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
-18:35:40.225 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1757025340225_hlkx1ld7u
-18:35:40.225 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1757025340225_hlkx1ld7u
-18:35:40.225 SimpleTabSync.js:19 Tab tab_1757025340225_hlkx1ld7u initialized
-18:35:40.225 app.js:77 ✅ Tab synchronization initialized
-18:35:40.298 firebase.js:19 ✅ Firebase initialized
-18:35:40.298 app.js:81 ✅ Firebase initialized
-18:35:40.298 app.js:136 🔒 User not authenticated, showing login
-18:35:40.299 AppInitializer.js:27 ✅ App initialized successfully
-18:35:40.299 (index):288 ✅ Daily AI loaded successfully
-18:35:40.411 (index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" class=​"input" required placeholder=​"Enter your password">​
-18:35:51.397 app.js:92 ✅ User authenticated: yearmonthday365@gmail.com
-18:35:51.397 app.js:101 🔧 Step 1: Initializing user settings...
-18:35:51.398 userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
-18:35:51.698 userSettings.js:119 📄 User settings loaded from Firestore
-18:35:51.698 userSettings.js:89 ✅ Loaded existing user settings
-18:35:51.699 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-18:35:51.699 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-18:35:51.710 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-18:35:51.710 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-18:35:51.710 actions.user.js:39 ✅ User data initialized with comprehensive settings
-18:35:51.710 app.js:103 ✅ Step 1 complete: User settings initialized
-18:35:51.710 app.js:105 🔧 Step 2: Loading task templates...
-18:35:51.711 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
-18:35:51.963 data.js:87 ✅ Retrieved 0 task templates
-18:35:51.963 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-18:35:51.964 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-18:35:51.964 actions.templates.js:155 ✅ Task templates loaded (0 templates)
-18:35:51.964 app.js:107 ✅ Step 2 complete: Task templates loaded
-18:35:51.964 app.js:111 🔧 Step 3: Loading task instances for today: 2025-09-04
-18:35:52.071 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-18:35:52.071 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-18:35:52.071 actions.instances.js:224 ✅ Task instances loaded for 2025-09-04 (0 instances)
-18:35:52.071 app.js:113 ✅ Step 3 complete: Task instances loaded
-18:35:52.071 app.js:115 🔧 Step 4: Loading daily schedule for today: 2025-09-04
-18:35:52.071 data.js:21 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
-18:35:52.176 actions.app.js:74 ✅ Daily schedule loaded for 2025-09-04
-18:35:52.176 app.js:117 ✅ Step 4 complete: Daily schedule loaded
-18:35:52.177 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-18:35:52.177 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-18:35:52.198 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: ResponsiveNavigation
-18:35:52.198 ResponsiveNavigation.js:23 🧭 Initializing responsive navigation...
-18:35:52.198 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu toggle button
-18:35:52.198 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu click outside
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu escape key
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-today-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-library-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-settings-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-today-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-library-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-settings-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-today-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-library-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-settings-btn
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button fab
-18:35:52.199 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button desktop-add-task-btn
-18:35:52.199 ResponsiveNavigation.js:205 🧭 Switching to view: today
-18:35:52.200 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
-18:35:52.200 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
-18:35:52.201 ResponsiveNavigation.js:250 ✅ View switched to: today
-18:35:52.201 MemoryLeakPrevention.js:51 📅 Registered interval: Navigation live clock updates (30000ms)
-18:35:52.201 ResponsiveNavigation.js:297 🕐 Live clock started (updates every 30 seconds)
-18:35:52.201 MemoryLeakPrevention.js:98 👂 Registered event listener: Window resize for responsive navigation
-18:35:52.201 ResponsiveNavigation.js:41 ✅ Responsive navigation initialized
-18:35:55.134 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
-18:35:55.138 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
-18:35:55.138 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
-18:35:56.193 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'T'}
-18:35:56.194 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
-18:35:56.305 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Te'}
-18:35:56.381 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Tes'}
-18:35:56.430 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test'}
-18:35:56.518 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test '}
-18:35:56.980 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test T'}
-18:35:57.118 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Ta'}
-18:35:57.193 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Tas'}
-18:35:57.280 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task'}
-18:35:57.380 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task '}
-18:35:57.593 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task N'}
-18:35:57.718 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Na'}
-18:35:57.780 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Nam'}
-18:35:57.881 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Name'}
-18:35:58.793 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'T'}
-18:35:58.930 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Te'}
-18:35:58.993 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Tes'}
-18:35:59.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test'}
-18:35:59.131 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
-18:35:59.293 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test T'}
-18:35:59.455 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Ta'}
-18:35:59.493 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Tas'}
-18:35:59.605 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task'}
-18:35:59.693 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task '}
-18:36:00.080 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task D'}
-18:36:00.255 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task De'}
-18:36:00.318 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Des'}
-18:36:00.480 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Desc'}
-18:36:00.643 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descr'}
-18:36:00.730 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descri'}
-18:36:00.805 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrip'}
-18:36:00.955 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descript'}
-18:36:01.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descripti'}
-18:36:01.105 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descriptio'}
-18:36:01.143 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Description'}
-18:36:02.943 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'T'}
-18:36:03.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Te'}
-18:36:03.117 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Tes'}
-18:36:03.193 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test'}
-18:36:03.305 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test '}
-18:36:03.568 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test C'}
-18:36:03.730 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Ca'}
-18:36:03.868 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cat'}
-18:36:04.055 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cate'}
-18:36:04.144 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categ'}
-18:36:04.268 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Catego'}
-18:36:04.355 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categor'}
-18:36:04.443 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Category'}
-18:36:06.954 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {timeWindow: 'evening'}
-18:36:11.843 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
-18:36:11.844 TaskModalContainer.js:560 [TaskModalContainer] save failed TypeError: state.createTaskTemplate is not a function
-    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
-    at _boundSubmitHandler (TaskModalContainer.js:367:12)
-    at TaskModalContainer._dispatch (TaskModalContainer.js:239:25)
-    at TaskModalContainer.requestSubmit (TaskModalContainer.js:209:10)
-    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
-_handleSave @ TaskModalContainer.js:560
-_boundSubmitHandler @ TaskModalContainer.js:367
-_dispatch @ TaskModalContainer.js:239
-requestSubmit @ TaskModalContainer.js:209
-(anonymous) @ ActionsFooter.js:60
-18:36:11.844 SimpleErrorHandler.js:11 Error details: TypeError: state.createTaskTemplate is not a function
-    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
-    at _boundSubmitHandler (TaskModalContainer.js:367:12)
-    at TaskModalContainer._dispatch (TaskModalContainer.js:239:25)
-    at TaskModalContainer.requestSubmit (TaskModalContainer.js:209:10)
-    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
+18:40:00.667 AppInitializer.js:7 🚀 Starting Daily AI initialization...
+18:40:00.668 ModernBrowserChecker.js:152 🌐 Browser Compatibility Check:
+18:40:00.668 ModernBrowserChecker.js:153   Features supported: true
+18:40:00.668 ModernBrowserChecker.js:157   Browser: chrome
+18:40:00.668 ModernBrowserChecker.js:158   Version: 139
+18:40:00.668 ModernBrowserChecker.js:159   Version supported: true
+18:40:00.668 AppInitializer.js:19 ✅ Browser compatibility check passed
+18:40:00.933 sw.js:87 SW: Service Worker loaded
+18:40:00.934 sw.js:32 SW: Installing service worker
+18:40:00.934 (index):270 SW registered: ServiceWorkerRegistration {installing: ServiceWorker, waiting: null, active: null, navigationPreload: NavigationPreloadManager, scope: 'https://daily-ai-3b51f.web.app/', …}
+18:40:00.934 sw.js:36 SW: Caching static assets
+18:40:01.210 MemoryLeakPrevention.js:98 👂 Registered event listener: Page visibility monitoring
+18:40:01.211 MemoryLeakPrevention.js:98 👂 Registered event listener: Before unload cleanup
+18:40:01.211 MemoryLeakPrevention.js:27 ✅ Memory Manager initialized
+18:40:01.211 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
+18:40:01.211 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+18:40:01.211 MemoryLeakPrevention.js:514 ✅ Memory Leak Prevention utility loaded
+18:40:01.212 OfflineStorage.js:827 ✅ OfflineStorage system initialized
+18:40:01.212 OfflineQueue.js:513 ✅ OfflineQueue system initialized
+18:40:01.212 ConflictResolution.js:675 ✅ ConflictResolution system initialized
+18:40:01.212 OfflineDetection.js:706 ✅ OfflineDetection system initialized
+18:40:01.212 DataMaintenance.js:850 ✅ DataMaintenance system initialized
+18:40:01.212 TaskValidation.js:802 ✅ Task Validation System initialized
+18:40:01.212 OfflineDataLayer.js:1296 ✅ Offline Data Layer initialized
+18:40:01.212 dataOffline.js:375 ✅ Offline-enabled data bridge initialized
+18:40:01.212 userSettings.js:458 ✅ User Settings management module loaded
+18:40:01.212 TaskInstanceManager.js:621 ✅ Streamlined TaskInstanceManager class loaded
+18:40:01.212 TemplateDefaultsService.js:343 ✅ TemplateDefaultsService loaded
+18:40:01.213 TemplateOperationsService.js:564 ✅ TemplateOperationsService loaded
+18:40:01.213 TaskTemplateManager.js:406 ✅ Streamlined TaskTemplateManager class loaded
+18:40:01.213 taskLogic.js:113 ✅ Task logic and scheduling engine initialized
+18:40:01.213 state.js:1267 ✅ Multi-tab synchronization initialized
+18:40:01.213 state.js:1270 ✅ Enhanced state management initialized with comprehensive template and instance support
+18:40:01.213 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TaskList
+18:40:01.213 TaskList.js:1341 ✅ Task list component initialized
+18:40:01.214 PerformanceMonitor.js:56 ✅ Performance Monitor initialized
+18:40:01.214 PerformanceMonitor.js:502 ✅ Performance Monitor utility loaded
+18:40:01.214 ui.js:961 ✅ UI management system initialized
+18:40:01.214 app.js:393 ✅ Daily AI application module loaded
+18:40:01.214 app.js:394 🧪 Testing objects exposed globally for console access
+18:40:01.214 app.js:59 🚀 Initializing Daily AI...
+18:40:01.214 MemoryLeakPrevention.js:478 🛡️ Memory Leak Prevention System initialized
+18:40:01.214 MemoryLeakPrevention.js:51 📅 Registered interval: Memory monitoring (300000ms)
+18:40:01.214 OfflineDataLayer.js:33 🔧 OfflineDataLayer: Initializing...
+18:40:01.216 OfflineStorage.js:134 ✅ OfflineStorage: Database stores created
+18:40:01.218 OfflineStorage.js:65 ✅ OfflineStorage: IndexedDB initialized
+18:40:01.218 OfflineQueue.js:193 🔄 OfflineQueue: Processing started
+18:40:01.218 OfflineQueue.js:91 ✅ OfflineQueue: Queue system initialized
+18:40:01.219 OfflineDetection.js:72 ✅ OfflineDetection: System initialized
+18:40:01.219 DataMaintenance.js:56 ✅ DataMaintenance: System initialized
+18:40:01.219 OfflineDataLayer.js:85 🔧 OfflineDataLayer: Performing initial maintenance...
+18:40:01.221 OfflineDataLayer.js:100 ✅ OfflineDataLayer: Initial maintenance complete
+18:40:01.221 OfflineDataLayer.js:54 ✅ OfflineDataLayer: Initialization complete
+18:40:01.221 app.js:66 ✅ Offline system initialized
+18:40:01.221 ui.js:69 ✅ UI system initialized
+18:40:01.221 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker online listener
+18:40:01.221 MemoryLeakPrevention.js:98 👂 Registered event listener: Network checker offline listener
+18:40:01.221 app.js:73 ✅ Network monitoring initialized
+18:40:01.221 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: SimpleTabSync
+18:40:01.222 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync channel listener for tab_1757025601221_qy3u3dmiz
+18:40:01.222 MemoryLeakPrevention.js:98 👂 Registered event listener: Tab sync visibility listener for tab_1757025601221_qy3u3dmiz
+18:40:01.222 SimpleTabSync.js:19 Tab tab_1757025601221_qy3u3dmiz initialized
+18:40:01.222 app.js:77 ✅ Tab synchronization initialized
+18:40:01.237 firebase.js:19 ✅ Firebase initialized
+18:40:01.237 app.js:81 ✅ Firebase initialized
+18:40:01.238 app.js:136 🔒 User not authenticated, showing login
+18:40:01.238 AppInitializer.js:27 ✅ App initialized successfully
+18:40:01.238 (index):288 ✅ Daily AI loaded successfully
+18:40:01.344 (index):1 [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"password" class=​"input" required placeholder=​"Enter your password">​
+18:40:01.352 sw.js:48 SW: Activating service worker
+18:40:09.537 app.js:92 ✅ User authenticated: yearmonthday365@gmail.com
+18:40:09.538 app.js:101 🔧 Step 1: Initializing user settings...
+18:40:09.538 userSettings.js:83 🔧 Initializing user settings for: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:40:09.822 userSettings.js:119 📄 User settings loaded from Firestore
+18:40:09.822 userSettings.js:89 ✅ Loaded existing user settings
+18:40:09.823 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:09.823 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:09.833 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:09.833 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:09.833 actions.user.js:39 ✅ User data initialized with comprehensive settings
+18:40:09.834 app.js:103 ✅ Step 1 complete: User settings initialized
+18:40:09.834 app.js:105 🔧 Step 2: Loading task templates...
+18:40:09.834 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:40:10.073 data.js:87 ✅ Retrieved 0 task templates
+18:40:10.073 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:10.073 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:10.074 actions.templates.js:155 ✅ Task templates loaded (0 templates)
+18:40:10.074 app.js:107 ✅ Step 2 complete: Task templates loaded
+18:40:10.074 app.js:111 🔧 Step 3: Loading task instances for today: 2025-09-04
+18:40:10.177 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:10.177 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:10.177 actions.instances.js:224 ✅ Task instances loaded for 2025-09-04 (0 instances)
+18:40:10.177 app.js:113 ✅ Step 3 complete: Task instances loaded
+18:40:10.177 app.js:115 🔧 Step 4: Loading daily schedule for today: 2025-09-04
+18:40:10.178 data.js:21 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:40:10.276 actions.app.js:74 ✅ Daily schedule loaded for 2025-09-04
+18:40:10.276 app.js:117 ✅ Step 4 complete: Daily schedule loaded
+18:40:10.276 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:10.276 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:10.298 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: ResponsiveNavigation
+18:40:10.298 ResponsiveNavigation.js:23 🧭 Initializing responsive navigation...
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu toggle button
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu click outside
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Mobile menu escape key
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-today-btn
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-library-btn
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button mobile-settings-btn
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-today-btn
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-library-btn
+18:40:10.298 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button desktop-settings-btn
+18:40:10.299 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-today-btn
+18:40:10.299 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-library-btn
+18:40:10.299 MemoryLeakPrevention.js:98 👂 Registered event listener: Navigation button bottom-settings-btn
+18:40:10.299 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button fab
+18:40:10.299 MemoryLeakPrevention.js:98 👂 Registered event listener: Add task button desktop-add-task-btn
+18:40:10.299 ResponsiveNavigation.js:205 🧭 Switching to view: today
+18:40:10.300 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:10.300 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:10.301 ResponsiveNavigation.js:250 ✅ View switched to: today
+18:40:10.301 MemoryLeakPrevention.js:51 📅 Registered interval: Navigation live clock updates (30000ms)
+18:40:10.301 ResponsiveNavigation.js:297 🕐 Live clock started (updates every 30 seconds)
+18:40:10.301 MemoryLeakPrevention.js:98 👂 Registered event listener: Window resize for responsive navigation
+18:40:10.302 ResponsiveNavigation.js:41 ✅ Responsive navigation initialized
+18:40:12.541 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
+18:40:12.546 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:40:12.547 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:40:14.044 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'T'}
+18:40:14.044 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
+18:40:14.156 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Te'}
+18:40:14.231 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Tes'}
+18:40:14.281 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test'}
+18:40:14.769 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test '}
+18:40:14.956 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test T'}
+18:40:15.119 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Ta'}
+18:40:15.169 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Tas'}
+18:40:15.231 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task'}
+18:40:15.319 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task '}
+18:40:15.506 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task N'}
+18:40:15.606 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Na'}
+18:40:15.669 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Nam'}
+18:40:15.743 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Name'}
+18:40:16.207 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'T'}
+18:40:16.306 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Te'}
+18:40:16.370 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Tes'}
+18:40:16.431 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test'}
+18:40:16.519 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
+18:40:16.919 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test D'}
+18:40:17.181 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
+18:40:17.206 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test T'}
+18:40:17.381 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Ta'}
+18:40:17.456 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Tas'}
+18:40:17.569 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Tas '}
+18:40:17.831 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Tas'}
+18:40:17.956 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task'}
+18:40:18.056 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task '}
+18:40:18.293 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task D'}
+18:40:18.456 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task De'}
+18:40:18.656 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Des'}
+18:40:18.731 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Desc'}
+18:40:18.931 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descf'}
+18:40:18.993 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descfi'}
+18:40:19.493 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descf'}
+18:40:19.619 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Desc'}
+18:40:19.718 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descr'}
+18:40:19.819 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descri'}
+18:40:19.869 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrip'}
+18:40:20.006 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descript'}
+18:40:20.068 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descripti'}
+18:40:20.131 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descriptio'}
+18:40:20.194 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Description'}
+18:40:21.658 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'T'}
+18:40:21.768 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Te'}
+18:40:21.819 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Tes'}
+18:40:21.894 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test'}
+18:40:21.969 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test '}
+18:40:22.568 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test T'}
+18:40:22.731 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Ta'}
+18:40:22.794 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Tas'}
+18:40:22.894 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Task'}
+18:40:23.456 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test '}
+18:40:23.819 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test C'}
+18:40:24.081 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Ca'}
+18:40:24.219 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cat'}
+18:40:24.606 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Cate'}
+18:40:24.768 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categ'}
+18:40:25.043 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Catego'}
+18:40:25.131 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Categor'}
+18:40:25.231 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Category'}
+18:40:26.354 MemoryLeakPrevention.js:190 📱 Page hidden - pausing non-essential operations
+18:40:26.355 ui.js:142 ⏸️ UI updates paused (tab hidden)
+18:40:34.927 MemoryLeakPrevention.js:193 📱 Page visible - resuming all operations
+18:40:34.927 ui.js:149 ▶️ UI updates resumed (tab visible)
+18:40:34.927 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:34.927 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:34.928 SimpleTabSync.js:64 Tab tab_1757025601221_qy3u3dmiz became active - refreshing data
+18:40:34.929 SimpleTabSync.js:83 Tab tab_1757025601221_qy3u3dmiz sent: refresh-check null
+18:40:37.240 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {timeWindow: 'evening'}
+18:40:39.631 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
+18:40:39.632 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:40:39.911 data.js:87 ✅ Retrieved 0 task templates
+18:40:40.355 data.js:137 ✅ Task template created: AVNjlkFGbHKrBUKxElmN
+18:40:40.356 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:40.356 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:40.356 TaskTemplateManager.js:86 ✅ Task template created: Test Task Name
+18:40:40.357 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:40:40.357 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:40:40.357 actions.templates.js:174 ✅ Task template created: Test Task Name
+18:40:40.358 ui.js:461 Task created: {id: 'AVNjlkFGbHKrBUKxElmN', taskName: 'Test Task Name', description: 'Test Task Description', priority: 3, isMandatory: false, …}
+18:40:40.358 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: false}
+18:40:40.358 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:40:55.568 TaskModalContainer.js:111 [TaskModalContainer] showEdit (skeleton) {template: {…}}
+18:40:55.571 TaskModalContainer.js:119 [TaskModalContainer] initial form model (edit) {taskName: 'Test Task Name', description: 'Test Task Description', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:40:59.416 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:41:01.178 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:41:01.179 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:41:01.180 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:41:01.180 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer window resize
+18:41:01.180 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer visibility change
+18:41:01.180 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer navigate day
+18:41:01.180 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer go to today
+18:41:01.180 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer time filter change
+18:41:01.180 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer create task
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task click
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task complete
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task edit
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task skip
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task postpone
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task delete
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task rename
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drag start
+18:41:01.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drop
+18:41:01.181 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:41:01.181 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:41:01.181 TimelineContainer.js:311 📅 Schedule loaded for 2025-09-04
+18:41:01.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:41:01.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:41:01.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:41:01.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:41:01.183 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:41:01.183 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:41:01.183 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:41:01.185 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.186 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragstart
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragover
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated drop
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu contextmenu
+18:41:01.187 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerdown
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerup
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointercancel
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerleave
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu global click
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu escape key
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit dblclick
+18:41:01.188 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit document click
+18:41:01.188 MemoryLeakPrevention.js:51 📅 Registered interval: Timeline real-time updates (30000ms)
+18:41:01.189 TimelineContainer.js:84 ✅ TimelineContainer initialized
+18:41:01.189 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:41:08.371 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
+18:41:08.373 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:41:08.373 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:41:08.373 app.js:332 🚀 Opening task creation modal... {scheduledTime: '19:00', hour: 19, defaultTime: '19:00', clickPosition: {…}, timeWindow: 'evening'}
+18:41:08.373 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
+18:41:08.377 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:41:08.377 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:41:22.868 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:41:26.505 TaskModalContainer.js:59 [TaskModalContainer] showCreate (skeleton) {initialData: {…}}
+18:41:26.507 TaskModalContainer.js:67 [TaskModalContainer] initial form model (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:41:26.508 TaskModalContainer.js:88 [TaskModalContainer] defaults applied (create) {taskName: '', description: '', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:41:30.205 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'T'}
+18:41:30.206 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
+18:41:30.393 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Te'}
+18:41:30.455 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Tes'}
+18:41:30.555 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test'}
+18:41:32.344 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: ''}
+18:41:32.344 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: false}
+18:41:34.743 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'T'}
+18:41:34.743 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: true}
+18:41:34.855 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Te'}
+18:41:34.930 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Tes'}
+18:41:35.005 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test'}
+18:41:35.055 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test '}
+18:41:35.255 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test T'}
+18:41:35.430 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Ta'}
+18:41:35.492 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Tas'}
+18:41:35.667 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task'}
+18:41:35.755 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task '}
+18:41:36.130 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task N'}
+18:41:36.255 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Na'}
+18:41:36.305 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Nam'}
+18:41:36.405 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Name'}
+18:41:36.455 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Name '}
+18:41:36.630 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {taskName: 'Test Task Name 2'}
+18:41:37.918 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'T'}
+18:41:38.117 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Te'}
+18:41:38.192 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Tes'}
+18:41:38.267 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test'}
+18:41:38.392 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test '}
+18:41:39.642 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test T'}
+18:41:39.855 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Ta'}
+18:41:39.917 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Tas'}
+18:41:39.980 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task'}
+18:41:40.080 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task '}
+18:41:40.330 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task D'}
+18:41:40.617 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task De'}
+18:41:40.817 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Des'}
+18:41:40.980 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Desc'}
+18:41:41.142 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descr'}
+18:41:41.167 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descri'}
+18:41:41.317 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrit'}
+18:41:41.380 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descriti'}
+18:41:41.730 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrit'}
+18:41:41.917 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descritp'}
+18:41:42.180 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrit'}
+18:41:42.330 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descri'}
+18:41:42.505 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descrip'}
+18:41:42.655 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descript'}
+18:41:42.692 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descripti'}
+18:41:42.768 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Descriptio'}
+18:41:42.805 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {description: 'Test Task Description'}
+18:41:44.268 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'T'}
+18:41:44.417 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Te'}
+18:41:44.480 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Tes'}
+18:41:44.542 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test'}
+18:41:44.667 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test '}
+18:41:45.305 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test D'}
+18:41:45.492 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test De'}
+18:41:45.530 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Des'}
+18:41:45.642 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Desc'}
+18:41:45.842 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Descr'}
+18:41:45.905 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Descri'}
+18:41:45.981 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Descrip'}
+18:41:46.080 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Descript'}
+18:41:46.117 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Descripti'}
+18:41:46.181 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Descriptio'}
+18:41:46.230 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Description'}
+18:41:46.355 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Description '}
+18:41:46.518 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {category: 'Test Description 2'}
+18:41:50.408 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {schedulingType: 'fixed'}
+18:41:54.667 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {defaultTime: '18:30'}
+18:42:05.805 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
+18:42:05.807 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:42:05.963 data.js:87 ✅ Retrieved 1 task templates
+18:42:06.251 data.js:137 ✅ Task template created: 1oVBBerh9zL0m1JjIPXZ
+18:42:06.251 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:42:06.251 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:42:06.253 MemoryLeakPrevention.js:123 ❌ Cleared interval: Timeline real-time updates
+18:42:06.253 TimelineContainer.js:789 🗑️ TimelineContainer destroyed
+18:42:06.253 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:42:06.253 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer window resize
+18:42:06.253 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer visibility change
+18:42:06.253 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer navigate day
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer go to today
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer time filter change
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer create task
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task click
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task complete
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task edit
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task skip
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task postpone
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task delete
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task rename
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drag start
+18:42:06.254 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drop
+18:42:06.254 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:42:06.254 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:42:06.255 TimelineContainer.js:311 📅 Schedule loaded for 2025-09-04
+18:42:06.255 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:42:06.255 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:42:06.255 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:42:06.255 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.255 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.255 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.256 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.258 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.259 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragstart
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragover
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated drop
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu contextmenu
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerdown
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerup
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointercancel
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerleave
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu global click
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu escape key
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit dblclick
+18:42:06.260 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit document click
+18:42:06.260 MemoryLeakPrevention.js:51 📅 Registered interval: Timeline real-time updates (30000ms)
+18:42:06.260 TimelineContainer.js:84 ✅ TimelineContainer initialized
+18:42:06.261 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:42:06.261 TaskTemplateManager.js:86 ✅ Task template created: Test Task Name 2
+18:42:06.261 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:42:06.261 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:42:06.262 MemoryLeakPrevention.js:123 ❌ Cleared interval: Timeline real-time updates
+18:42:06.262 TimelineContainer.js:789 🗑️ TimelineContainer destroyed
+18:42:06.262 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:42:06.262 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer window resize
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer visibility change
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer navigate day
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer go to today
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer time filter change
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer create task
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task click
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task complete
+18:42:06.263 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task edit
+18:42:06.264 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task skip
+18:42:06.264 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task postpone
+18:42:06.264 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task delete
+18:42:06.264 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task rename
+18:42:06.264 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drag start
+18:42:06.264 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drop
+18:42:06.264 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:42:06.264 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:42:06.265 TimelineContainer.js:311 📅 Schedule loaded for 2025-09-04
+18:42:06.265 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:42:06.265 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:42:06.265 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:42:06.265 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.266 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.266 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.266 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:42:06.269 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.269 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.269 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.269 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.269 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.269 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.270 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragstart
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragover
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated drop
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu contextmenu
+18:42:06.271 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerdown
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerup
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointercancel
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerleave
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu global click
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu escape key
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit dblclick
+18:42:06.272 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit document click
+18:42:06.272 MemoryLeakPrevention.js:51 📅 Registered interval: Timeline real-time updates (30000ms)
+18:42:06.272 TimelineContainer.js:84 ✅ TimelineContainer initialized
+18:42:06.272 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:42:06.272 actions.templates.js:174 ✅ Task template created: Test Task Name 2
+18:42:06.273 ui.js:461 Task created: {id: '1oVBBerh9zL0m1JjIPXZ', taskName: 'Test Task Name 2', description: 'Test Task Description', priority: 3, isMandatory: false, …}
+18:42:06.273 TaskModalContainer.js:199 [TaskModalContainer] emit dirty-change {isDirty: false}
+18:42:06.273 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:42:11.373 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:42:11.374 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:42:11.374 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:42:11.374 ResponsiveNavigation.js:205 🧭 Switching to view: library
+18:42:11.374 ResponsiveNavigation.js:250 ✅ View switched to: library
+18:42:15.465 TaskModalContainer.js:111 [TaskModalContainer] showEdit (skeleton) {template: {…}}
+18:42:15.467 TaskModalContainer.js:119 [TaskModalContainer] initial form model (edit) {taskName: 'Test Task Name', description: 'Test Task Description', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:42:20.700 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:42:40.290 data.js:21 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:42:40.290 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:42:40.406 data.js:87 ✅ Retrieved 2 task templates
+18:42:40.646 data.js:149 ✅ Task template updated: AVNjlkFGbHKrBUKxElmN
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:42:40.648 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:42:40.649 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:42:40.649 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:42:40.649 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:42:40.649 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:42:40.649 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:42:40.649 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:42:40.649 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:42:40.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:42:40.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:42:40.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:42:40.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:42:40.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:42:40.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:42:40.650 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:42:40.650 TaskTemplateManager.js:187 ✅ Task template updated: AVNjlkFGbHKrBUKxElmN
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:42:40.652 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:42:40.652 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:42:40.653 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:42:40.653 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:42:40.653 TaskTemplateManager.js:216 ✅ Task template deleted (deactivated): AVNjlkFGbHKrBUKxElmN
+18:42:47.901 TaskModalContainer.js:111 [TaskModalContainer] showEdit (skeleton) {template: {…}}
+18:42:47.903 TaskModalContainer.js:119 [TaskModalContainer] initial form model (edit) {taskName: 'Test Task Name 2', description: 'Test Task Description', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:42:52.380 TaskModalContainer.js:182 [TaskModalContainer] emit section-change {schedulingType: 'fixed'}
+18:42:54.846 TaskModalContainer.js:207 [TaskModalContainer] dispatch submit-request
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:42:54.849 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:42:54.850 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:42:54.850 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:42:54.851 TaskActions.js:19 Task updated: undefined
+18:42:54.851 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:43:02.144 TaskModalContainer.js:111 [TaskModalContainer] showEdit (skeleton) {template: {…}}
+18:43:02.146 TaskModalContainer.js:119 [TaskModalContainer] initial form model (edit) {taskName: 'Test Task Name 2', description: 'Test Task Description', category: '', durationMinutes: 30, minDurationMinutes: 15, …}
+18:43:02.931 TaskModalContainer.js:155 [TaskModalContainer] close (skeleton)
+18:43:06.449 ResponsiveNavigation.js:205 🧭 Switching to view: today
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:43:06.449 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:43:06.450 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:43:06.450 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:43:06.450 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:43:06.450 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:43:06.450 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:43:06.450 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:43:06.450 ui.js:866 ✅ Task Library view cleaned up
+18:43:06.450 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:43:06.450 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:43:06.451 MemoryLeakPrevention.js:123 ❌ Cleared interval: Timeline real-time updates
+18:43:06.451 TimelineContainer.js:789 🗑️ TimelineContainer destroyed
+18:43:06.451 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:43:06.451 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer window resize
+18:43:06.451 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer visibility change
+18:43:06.451 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer navigate day
+18:43:06.451 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer go to today
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer time filter change
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer create task
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task click
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task complete
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task edit
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task skip
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task postpone
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task delete
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task rename
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drag start
+18:43:06.452 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContainer task drop
+18:43:06.452 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:43:06.452 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:43:06.452 TimelineContainer.js:311 📅 Schedule loaded for 2025-09-04
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:06.453 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:06.455 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.455 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.455 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.455 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.456 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragstart
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated dragover
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineDragDrop delegated drop
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu contextmenu
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerdown
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerup
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointercancel
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu pointerleave
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu global click
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineContextMenu escape key
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit dblclick
+18:43:06.457 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineInlineEdit document click
+18:43:06.457 MemoryLeakPrevention.js:51 📅 Registered interval: Timeline real-time updates (30000ms)
+18:43:06.457 TimelineContainer.js:84 ✅ TimelineContainer initialized
+18:43:06.458 MemoryLeakPrevention.js:108 🧩 Registered component for cleanup: TimelineContainer
+18:43:06.458 ResponsiveNavigation.js:205 🧭 Switching to view: today
+18:43:06.458 ResponsiveNavigation.js:250 ✅ View switched to: today
+18:43:06.458 ResponsiveNavigation.js:250 ✅ View switched to: today
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:13.387 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.390 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:13.391 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.322 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.325 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.326 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.326 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.326 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.326 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.326 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.674 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:43:15.674 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:43:15.675 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:43:15.675 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.675 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.675 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.675 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:15.677 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.677 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.677 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:15.678 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.177 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader previous day button
+18:43:16.177 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader next day button
+18:43:16.177 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader today button
+18:43:16.177 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:16.177 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:16.178 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:16.178 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineHeader filter button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.181 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:16.182 MemoryLeakPrevention.js:98 👂 Registered event listener: TimelineGrid create task button
+18:43:24.149 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:43:24.149 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:43:37.648 ResponsiveNavigation.js:205 🧭 Switching to view: library
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:43:37.650 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:43:37.651 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:43:37.651 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:43:37.651 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:43:37.651 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:43:37.651 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:43:37.651 ResponsiveNavigation.js:205 🧭 Switching to view: library
+18:43:37.651 ResponsiveNavigation.js:250 ✅ View switched to: library
+18:43:37.651 ResponsiveNavigation.js:250 ✅ View switched to: library
+18:43:45.839 data.js:21 🔍 getCurrentUserId - auth.currentUser: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:43:45.839 data.js:85 🔍 taskTemplates.getAll - Using userId: QsSzBcUUBDP4dkCATobvAxIxrWl1
+18:43:46.068 data.js:87 ✅ Retrieved 1 task templates
+18:43:46.460 data.js:149 ✅ Task template updated: 1oVBBerh9zL0m1JjIPXZ
+18:43:46.462 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:43:46.462 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:43:46.462 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:43:46.463 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:43:46.463 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:43:46.464 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:43:46.464 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:43:46.464 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:43:46.464 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:43:46.464 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:43:46.464 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:43:46.464 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:43:46.464 TaskTemplateManager.js:187 ✅ Task template updated: 1oVBBerh9zL0m1JjIPXZ
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:43:46.467 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:43:46.468 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #create-template-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #priority-filter change
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #time-window-filter change
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #scheduling-filter change
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #mandatory-filter change
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #status-filter change
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #clear-filters-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #apply-filters-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #select-all-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #deselect-all-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-activate-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-deactivate-btn click
+18:43:46.468 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-duplicate-btn click
+18:43:46.469 MemoryLeakPrevention.js:98 👂 Registered event listener: TaskList #bulk-delete-btn click
+18:43:46.469 ui.js:840 ✅ Task Library view rendered with TaskList component
+18:43:46.469 TaskTemplateManager.js:216 ✅ Task template deleted (deactivated): 1oVBBerh9zL0m1JjIPXZ
+18:43:49.191 data.js:102 ❌ Error getting task template: Error: Task template not found: undefined
+    at TaskTemplatesRepo.get (TaskTemplatesRepo.js:76:28)
+    at async Object.get (data.js:99:22)
+    at async Object.get (OfflineDataLayer.js:245:30)
+    at async TaskTemplateManager.get (TaskTemplateManager.js:109:24)
+    at async TaskTemplateManager.update (TaskTemplateManager.js:159:31)
+    at async TaskTemplateManager.delete (TaskTemplateManager.js:205:31)
+    at async softDeleteTask (TaskActions.js:75:5)
+get @ data.js:102
+await in get
+get @ OfflineDataLayer.js:245
+get @ dataOffline.js:68
+await in get
+get @ TaskTemplateManager.js:109
+update @ TaskTemplateManager.js:159
+delete @ TaskTemplateManager.js:205
+softDeleteTask @ TaskActions.js:75
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:49.191 OfflineDataLayer.js:257 ⚠️ OfflineDataLayer: Failed to get template online, trying offline
+get @ OfflineDataLayer.js:257
+await in get
+get @ dataOffline.js:68
+await in get
+get @ TaskTemplateManager.js:109
+update @ TaskTemplateManager.js:159
+delete @ TaskTemplateManager.js:205
+softDeleteTask @ TaskActions.js:75
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:49.191 TaskTemplateManager.js:116 ❌ Error retrieving task template: Error: Task template not found: undefined
+    at TaskTemplatesRepo.get (TaskTemplatesRepo.js:76:28)
+    at async Object.get (data.js:99:22)
+    at async Object.get (OfflineDataLayer.js:245:30)
+    at async TaskTemplateManager.get (TaskTemplateManager.js:109:24)
+    at async TaskTemplateManager.update (TaskTemplateManager.js:159:31)
+    at async TaskTemplateManager.delete (TaskTemplateManager.js:205:31)
+    at async softDeleteTask (TaskActions.js:75:5)
+get @ TaskTemplateManager.js:116
+await in get
+update @ TaskTemplateManager.js:159
+delete @ TaskTemplateManager.js:205
+softDeleteTask @ TaskActions.js:75
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:49.191 TaskTemplateManager.js:190 ❌ Error updating task template: Error: Task template not found: undefined
+    at TaskTemplatesRepo.get (TaskTemplatesRepo.js:76:28)
+    at async Object.get (data.js:99:22)
+    at async Object.get (OfflineDataLayer.js:245:30)
+    at async TaskTemplateManager.get (TaskTemplateManager.js:109:24)
+    at async TaskTemplateManager.update (TaskTemplateManager.js:159:31)
+    at async TaskTemplateManager.delete (TaskTemplateManager.js:205:31)
+    at async softDeleteTask (TaskActions.js:75:5)
+update @ TaskTemplateManager.js:190
+await in update
+delete @ TaskTemplateManager.js:205
+softDeleteTask @ TaskActions.js:75
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:49.191 TaskTemplateManager.js:219 ❌ Error deleting task template: Error: Task template not found: undefined
+    at TaskTemplatesRepo.get (TaskTemplatesRepo.js:76:28)
+    at async Object.get (data.js:99:22)
+    at async Object.get (OfflineDataLayer.js:245:30)
+    at async TaskTemplateManager.get (TaskTemplateManager.js:109:24)
+    at async TaskTemplateManager.update (TaskTemplateManager.js:159:31)
+    at async TaskTemplateManager.delete (TaskTemplateManager.js:205:31)
+    at async softDeleteTask (TaskActions.js:75:5)
+delete @ TaskTemplateManager.js:219
+await in delete
+softDeleteTask @ TaskActions.js:75
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:49.191 TaskActions.js:78 Error deleting task: Error: Task template not found: undefined
+    at TaskTemplatesRepo.get (TaskTemplatesRepo.js:76:28)
+    at async Object.get (data.js:99:22)
+    at async Object.get (OfflineDataLayer.js:245:30)
+    at async TaskTemplateManager.get (TaskTemplateManager.js:109:24)
+    at async TaskTemplateManager.update (TaskTemplateManager.js:159:31)
+    at async TaskTemplateManager.delete (TaskTemplateManager.js:205:31)
+    at async softDeleteTask (TaskActions.js:75:5)
+softDeleteTask @ TaskActions.js:78
+await in softDeleteTask
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:49.192 SimpleErrorHandler.js:11 Error details: Error: Task template not found: undefined
+    at TaskTemplatesRepo.get (TaskTemplatesRepo.js:76:28)
+    at async Object.get (data.js:99:22)
+    at async Object.get (OfflineDataLayer.js:245:30)
+    at async TaskTemplateManager.get (TaskTemplateManager.js:109:24)
+    at async TaskTemplateManager.update (TaskTemplateManager.js:159:31)
+    at async TaskTemplateManager.delete (TaskTemplateManager.js:205:31)
+    at async softDeleteTask (TaskActions.js:75:5)
 showError @ SimpleErrorHandler.js:11
-_handleSave @ TaskModalContainer.js:561
-_boundSubmitHandler @ TaskModalContainer.js:367
-_dispatch @ TaskModalContainer.js:239
-requestSubmit @ TaskModalContainer.js:209
-(anonymous) @ ActionsFooter.js:60
-18:36:11.845 TaskModalContainer.js:560 [TaskModalContainer] save failed TypeError: state.createTaskTemplate is not a function
-    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
-    at TaskModalContainer.requestSubmit (TaskModalContainer.js:213:12)
-    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
-_handleSave @ TaskModalContainer.js:560
-requestSubmit @ TaskModalContainer.js:213
-(anonymous) @ ActionsFooter.js:60
-18:36:11.845 SimpleErrorHandler.js:11 Error details: TypeError: state.createTaskTemplate is not a function
-    at TaskModalContainer._handleSave (TaskModalContainer.js:548:30)
-    at TaskModalContainer.requestSubmit (TaskModalContainer.js:213:12)
-    at HTMLButtonElement.<anonymous> (ActionsFooter.js:60:61)
-showError @ SimpleErrorHandler.js:11
-_handleSave @ TaskModalContainer.js:561
-requestSubmit @ TaskModalContainer.js:213
-(anonymous) @ ActionsFooter.js:60
+softDeleteTask @ TaskActions.js:79
+await in softDeleteTask
+(anonymous) @ app.js:201
+await in (anonymous)
+(anonymous) @ app.js:202
+18:43:52.978 ResponsiveNavigation.js:205 🧭 Switching to view: today
+18:43:52.978 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #create-template-btn click
+18:43:52.978 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #priority-filter change
+18:43:52.978 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #time-window-filter change
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #scheduling-filter change
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #mandatory-filter change
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #status-filter change
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #clear-filters-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #apply-filters-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #select-all-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #deselect-all-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-activate-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-deactivate-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-duplicate-btn click
+18:43:52.979 MemoryLeakPrevention.js:147 ❌ Removed event listener: TaskList #bulk-delete-btn click
+18:43:52.979 ui.js:866 ✅ Task Library view cleaned up
+18:43:52.979 SchedulingEngine.js:379 📍 Placed 0 anchor tasks
+18:43:52.979 SchedulingEngine.js:467 🔗 Resolved task dependencies with topological sort
+18:43:52.980 ResponsiveNavigation.js:205 🧭 Switching to view: today
+18:43:52.980 ResponsiveNavigation.js:250 ✅ View switched to: today
+18:43:52.980 ResponsiveNavigation.js:250 ✅ View switched to: today

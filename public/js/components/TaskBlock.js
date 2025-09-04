@@ -364,7 +364,7 @@ export class TaskBlock {
    * Handle task edit
    */
   handleEdit() {
-    this.emitEvent('task-edit', { task: this.task });
+    this.emitEvent('task-edit', { taskId: this.task.id });
     
     // Call edit function
     editTask(this.task.id);
@@ -444,7 +444,7 @@ export class TaskBlock {
   handleDelete() {
     const confirmed = confirm(`Are you sure you want to delete "${this.task.taskName}"?`);
     if (confirmed) {
-      this.emitEvent('task-delete', { task: this.task });
+      this.emitEvent('task-delete', { taskId: this.task.id });
     }
   }
 
@@ -452,7 +452,7 @@ export class TaskBlock {
    * Handle general click on task block
    */
   handleClick() {
-    this.emitEvent('task-click', { task: this.task });
+    this.emitEvent('task-click', { taskId: this.task.id });
     
     // Default action: edit task
     this.handleEdit();
